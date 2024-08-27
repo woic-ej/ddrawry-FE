@@ -1,5 +1,6 @@
 import { Meta, StoryObj } from "@storybook/react";
 import DefaultHeader from "./DefaultHeader";
+import HasLikeHeader from "./HasLikeHeader";
 
 function Header() {
   return (
@@ -11,6 +12,7 @@ function Header() {
       </div>
       <div className="flex flex-col gap-8">
         <h1 className="text-16 bg-white w-fit p-4">HasLikeHeader</h1>
+        <HasLikeHeader/>
       </div>
       <div className="flex flex-col gap-8">
         <h1 className="text-16 bg-white w-fit p-4">HasProfileHeader</h1>
