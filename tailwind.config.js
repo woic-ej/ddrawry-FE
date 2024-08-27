@@ -15,7 +15,7 @@ export default {
         Lime: "#E4FDC5",
         black: "#000000",
         LemonStroke: "#E0D35F",
-        Hightlight: "#E7C7E7",
+        Highlight: "#E7C7E7",
         Lemon: "#FFFACD",
         ButtonDisabled: "#E6E6E6",
         ButtonDisabledStroke: "#E1E1E1",
