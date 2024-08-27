@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 
-interface LikedProps {
+interface LikeIconProps {
   status?: number;
 }
 
-const Liked: React.FC<LikedProps> = ({ status = 0 }) => {
+const LikeIcon: React.FC<LikeIconProps> = ({ status = 0 }) => {
   const [fillColor, setFillColor] = useState<string>(status === 0 ? "none" : "#E7C7E7");
   const handleClick = (): void => {
     setFillColor((prevColor) => (prevColor === "none" ? "#E7C7E7" : "none"));
@@ -30,4 +30,4 @@ const Liked: React.FC<LikedProps> = ({ status = 0 }) => {
   );
 };
 
-export default Liked;
+export default LikeIcon;
