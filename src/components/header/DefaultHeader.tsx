@@ -1,7 +1,7 @@
 import React from "react";
 
 interface DefaultHeaderProps {
-  title: string;
+  title: "띠로리" | "일기 쓰기";
 }
 
 const DefaultHeader: React.FC<DefaultHeaderProps> = ({ title }) => {

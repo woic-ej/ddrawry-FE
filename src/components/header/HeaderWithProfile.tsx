@@ -2,7 +2,7 @@ import ProfileIcon from '@components/iconComponents/ProfileIcon';
 import React from 'react';
 
 interface HeaderWithProfileProps{
-  title: string;
+  title: "띠로리" | "좋아요한 일기들" | "일기 검색하기";
 }
 
 const HeaderWithProfile: React.FC<HeaderWithProfileProps> = ({title}) => {
