@@ -4,9 +4,10 @@ import React from "react";
 
 interface Props {
   imageUrl: string;
+  likeStatus: number;
 }
 
-const DiaryItem: React.FC<Props> = ({ imageUrl }) => {
+const DiaryItem: React.FC<Props> = ({ imageUrl, likeStatus }) => {
   return (
     <div className="w-[950px] h-[275px] bg-white flex items-center justify-between border-b-[3px] border-buttonDisabled">
       <div className="flex items-center gap-[46px]">
@@ -25,7 +26,7 @@ const DiaryItem: React.FC<Props> = ({ imageUrl }) => {
           <div className="text-[18px] text-Gray">2024년 9월 28일</div>
         </div>
       </div>
-      <LikeIcon />
+      <LikeIcon status={likeStatus} />
     </div>
   );
 };
