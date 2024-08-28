@@ -1,11 +1,11 @@
 import ProfileIcon from '@components/iconComponents/ProfileIcon';
 import React from 'react';
 
-interface HasProfileHeaderProps{
+interface HeaderWithProfileProps{
   title: string;
 }
 
-const HasProfileHeader: React.FC<HasProfileHeaderProps> = ({title}) => {
+const HeaderWithProfile: React.FC<HeaderWithProfileProps> = ({title}) => {
   return (
     <div
       className={`relative flex w-full p-0 h-[82px] justify-center items-center ${
@@ -20,4 +20,4 @@ const HasProfileHeader: React.FC<HasProfileHeaderProps> = ({title}) => {
   );
 };
 
-export default HasProfileHeader;
+export default HeaderWithProfile;
