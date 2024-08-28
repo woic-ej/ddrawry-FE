@@ -1,13 +1,16 @@
 import LikeIcon from "@components/iconComponents/LikeIcon";
 import DefaultDiaryLogo from "@components/default/DefaultDiaryLogo";
 import React from "react";
+import { getDate } from "@utils/getDate";
 
 interface Props {
-  imageUrl: string;
+  imageUrl?: string;
+  title: string;
+  date: Date;
   likeStatus: number;
 }
 
-const DiaryItem: React.FC<Props> = ({ imageUrl, likeStatus }) => {
+const DiaryItem: React.FC<Props> = ({ imageUrl, title, date, likeStatus }) => {
   return (
     <div className="w-[950px] h-[275px] bg-white flex items-center justify-between border-b-[3px] border-buttonDisabled">
       <div className="flex items-center gap-[46px]">
@@ -21,8 +24,8 @@ const DiaryItem: React.FC<Props> = ({ imageUrl, likeStatus }) => {
           <DefaultDiaryLogo />
         )}
         <div className="flex flex-col gap-[18px]">
-          <div className="body-font">신나는 산책을 했따</div>
-          <div className="smallCaption-font">2024년 9월 28일</div>
+          <div className="body-font">{title}</div>
+          <div className="smallCaption-font">{getDate(date)}</div>
         </div>
       </div>
       <LikeIcon status={likeStatus} />
