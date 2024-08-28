@@ -10,7 +10,7 @@ export default {
         Charcoal: "#36454F",
         PrimaryStroke: "#94AFCA",
         Primary: "#A7C7E7",
-        gray: "#767676",
+        Gray: "#767676",
         LimeStroke: "#B4D28F",
         Lime: "#E4FDC5",
         black: "#000000",
