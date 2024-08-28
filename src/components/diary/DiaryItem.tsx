@@ -20,10 +20,9 @@ const DiaryItem: React.FC<Props> = ({ imageUrl, likeStatus }) => {
         ) : (
           <DefaultDiaryLogo />
         )}
-
         <div className="flex flex-col gap-[18px]">
-          <div className="text-[28px] text-Charcoal">신나는 산책을 했따</div>
-          <div className="text-[18px] text-Gray">2024년 9월 28일</div>
+          <div className="body-font">신나는 산책을 했따</div>
+          <div className="smallCaption-font">2024년 9월 28일</div>
         </div>
       </div>
       <LikeIcon status={likeStatus} />

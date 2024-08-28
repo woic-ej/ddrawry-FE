@@ -20,6 +20,11 @@ export default {
         ButtonDisabled: "#E6E6E6",
         ButtonDisabledStroke: "#E1E1E1",
       },
+      fontSize: {
+        huge: "36px",
+        regular: "28px",
+        small: "18px",
+      },
     },
   },
   plugins: [],
