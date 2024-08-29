@@ -11,7 +11,7 @@ const DefaultHeader: React.FC<DefaultHeaderProps> = ({ title }) => {
         title === "일기 쓰기" ? "bg-Highlight" : "bg-Primary"
       }`}
     >
-      <p className="text-center font-[400] text-[36px] text-[#000000] leading-[48.96px]">{title}</p>
+      <p className="text-center font-[400] title-font leading-[48.96px]">{title}</p>
     </div>
   );
 };
