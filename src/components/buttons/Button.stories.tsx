@@ -1,9 +1,9 @@
 import { Meta, StoryObj } from "@storybook/react";
 import BigButton from "@components/buttons/BigButton";
 import SmallButton from "@components/buttons/SmallButton";
-import ModalButton from "./ModalButton";
-import KakaoButton from "./KakaoButton";
-import ToggleButton from "./ToggleButton";
+import ModalButton from "@components/buttons/ModalButton";
+import KakaoButton from "@components/buttons/KakaoButton";
+import ToggleButton from "@components/buttons/ToggleButton";
 
 function Button() {
   return (
