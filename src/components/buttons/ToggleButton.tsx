@@ -28,7 +28,7 @@ const ToggleButton: React.FC<ToggleButtonProps> = ({ leftTitle, rightTitle }) =>
   };
 
   return (
-    <div className="flex rounded-[10px] border border-ButtonDisabledStroke w-[270px] h-[60px] text-[28px] leading-[38.08px] font-[400]">
+    <div className="flex rounded-[10px] border border-ButtonDisabledStroke w-[270px] h-[60px] text-regular leading-[38.08px] font-[400]">
       <button
         onClick={() => {
           !isLeftActive && handleToggle();

@@ -21,7 +21,7 @@ const BigButton: React.FC<BigButtonProps> = ({ text, color, onClick }) => {
   };
   return (
     <button
-      className={`w-[429px] h-[82px] flex justify-center items-center rounded-[15px] border ${buttonClasses()} text-[28px] leading-[38.08px] font-[400]`}
+      className={`w-[429px] h-[82px] flex justify-center items-center rounded-[15px] border ${buttonClasses()} text-regular leading-[38.08px] font-[400]`}
       onClick={onClick}
     >
       {text}
