@@ -16,3 +16,21 @@
 body {
   font-family: "cookieRun";
 }
+
+@layer components {
+  .title-font {
+    @apply text-black text-huge;
+  }
+  .body-font {
+    @apply text-Charcoal text-regular;
+  }
+  .smallCaption-font {
+    @apply text-Gray text-small;
+  }
+  .regularCaption-font {
+    @apply text-Gray text-regular;
+  }
+  .hugeCaption-font {
+    @apply text-Gray text-huge;
+  }
+}
