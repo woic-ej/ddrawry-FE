@@ -1,7 +1,7 @@
 import LikeIcon from "@components/iconComponents/LikeIcon";
 import DefaultDiaryLogo from "@components/default/DefaultDiaryLogo";
 import React from "react";
-import { getDate } from "@utils/getDate";
+import { format } from "date-fns";
 
 interface Props {
   imageUrl?: string;
@@ -25,7 +25,7 @@ const DiaryItem: React.FC<Props> = ({ imageUrl, title, date, likeStatus }) => {
         )}
         <div className="flex flex-col gap-[18px]">
           <div className="body-font">{title}</div>
-          <div className="smallCaption-font">{getDate(date)}</div>
+          <div className="smallCaption-font">{format(date, "yyyy년 M월 d일")}</div>
         </div>
       </div>
       <LikeIcon status={likeStatus} />

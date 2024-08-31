@@ -1,12 +1,10 @@
 import { Meta, StoryObj } from "@storybook/react";
-import DateManipulationBar from "@pages/MainPage/components/DateManipulationBar";
-import Calender from "@pages/MainPage/components/calender/Calender";
+import CalenderView from "@pages/MainPage/components/calender/CalenderView";
 
 function CalenderComponents() {
   return (
     <div>
-      <DateManipulationBar date={new Date()} />
-      <Calender />
+      <CalenderView />
     </div>
   );
 }

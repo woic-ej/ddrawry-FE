@@ -1,8 +1,12 @@
 import React from "react";
 
-const LeftArrowIcon: React.FC = () => {
+interface Props {
+  onClick?: () => void;
+}
+
+const LeftArrowIcon: React.FC<Props> = ({ onClick }) => {
   return (
-    <button>
+    <button onClick={onClick}>
       <svg
         width="37"
         height="37"
