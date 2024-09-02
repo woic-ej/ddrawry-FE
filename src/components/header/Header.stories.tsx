@@ -1,8 +1,7 @@
 import { Meta, StoryObj } from "@storybook/react";
-import DefaultHeader from "./DefaultHeader";
-import HeaderWithLike from "./HeaderWithLike";
-import HeaderWithProfile from "./HeaderWithProfile";
-
+import DefaultHeader from "@components/header/DefaultHeader";
+import HeaderWithLike from "@components/header/HeaderWithLike";
+import HeaderWithProfile from "@components/header/HeaderWithProfile";
 
 function Header() {
   return (

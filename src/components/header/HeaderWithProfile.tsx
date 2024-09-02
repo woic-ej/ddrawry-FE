@@ -1,18 +1,18 @@
-import ProfileIcon from '@components/iconComponents/ProfileIcon';
-import React from 'react';
+import ProfileIcon from "@components/iconComponents/ProfileIcon";
+import React from "react";
 
-interface HeaderWithProfileProps{
-  title: string;
+interface HeaderWithProfileProps {
+  title: "띠로리" | "좋아요한 일기들" | "일기 검색하기";
 }
 
-const HeaderWithProfile: React.FC<HeaderWithProfileProps> = ({title}) => {
+const HeaderWithProfile: React.FC<HeaderWithProfileProps> = ({ title }) => {
   return (
     <div
       className={`relative flex w-full p-0 h-[82px] justify-center items-center ${
         title === "띠로리" ? "bg-Primary" : "bg-Lime"
       }`}
     >
-      <p className="text-center font-[400] text-[36px] text-[#000000] leading-[48.96px]">{title}</p>
+      <p className="text-center font-[400] title-font leading-[48.96px]">{title}</p>
       <div className="absolute right-4">
         <ProfileIcon />
       </div>

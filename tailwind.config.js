@@ -14,6 +14,7 @@ export default {
         LimeStroke: "#B4D28F",
         Lime: "#E4FDC5",
         black: "#000000",
+        Red: "#F46666",
         LemonStroke: "#E0D35F",
         Highlight: "#E7C7E7",
         Lemon: "#FFFACD",
