@@ -6,10 +6,10 @@ interface DarkModeProviderProps {
 
 interface DarkModeContentProps {
   isDarkMode: boolean;
-  toggleDarkMode: (value: boolean) => void;
+  toggleDarkMode: () => void;
 }
 
-export const DarkModeContext = createContext<DarkModeContentProps | undefined>(undefined);
+export const DarkModeContext = createContext<DarkModeContentProps | null>(null);
 
 export const DarkModeProvider: React.FC<DarkModeProviderProps> = ({ children }) => {
   const [isDarkMode, setIsDarkMode] = useState(false);
@@ -22,5 +22,3 @@ export const DarkModeProvider: React.FC<DarkModeProviderProps> = ({ children }) 
     </DarkModeContext.Provider>
   );
 };
-
-
