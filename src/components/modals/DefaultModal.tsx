@@ -1,7 +1,7 @@
 import ModalButton from "@components/buttons/ModalButton";
 import React from "react";
 
-interface defaultModalProps {
+interface DefaultModalProps {
   title: string;
   leftText: "네" | "이미지로" | "넹" | string;
   rightText: "아니요" | "링크로" | "아니용" | string;
@@ -9,7 +9,7 @@ interface defaultModalProps {
   rightClick: () => void;
 }
 
-const DefaultModal: React.FC<defaultModalProps> = ({
+const DefaultModal: React.FC<DefaultModalProps> = ({
   title,
   leftText,
   rightText,
