@@ -3,8 +3,8 @@ import LinkIcon from '@components/iconComponents/LinkIcon';
 import React from 'react'
 
 interface ModalButtonProps{
-    title: "넹" | "이미지로" | "아니용" | "링크로";
-    onClick?: () => void
+    title: "넹" | "이미지로" | "아니용" | "링크로" | string;
+    onClick: () => void
 }
 
 const ModalButton:React.FC<ModalButtonProps> = ({title, onClick}) => {
