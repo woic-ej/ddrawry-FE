@@ -21,7 +21,7 @@ const ChangeNameModal: React.FC<ChangeNameModalProps> = ({ currentName, setIsMod
     setErrorMessage("");
   };
 
-  const handleClick = () => {
+  const handleChangeNameClick = () => {
     if (newName === "") {
       setIsModalOpen(false);
       return;
@@ -56,7 +56,7 @@ const ChangeNameModal: React.FC<ChangeNameModalProps> = ({ currentName, setIsMod
         </div>
       </div>
       <div className="flex justify-end">
-        <ModalButton title="바꾸기" onClick={handleClick} />
+        <ModalButton title="바꾸기" onClick={handleChangeNameClick} />
       </div>
     </div>
   );
