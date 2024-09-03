@@ -17,6 +17,9 @@ const ChangeNameModal: React.FC<ChangeNameModalProps> = ({ currentName, setIsMod
     if (isValid && inputValue.length <= 5) {
       setIsNameValid(true);
     }
+    else {
+      setIsNameValid(false)
+    }
     setNewName(inputValue.slice(0, 5));
     setErrorMessage("");
   };
