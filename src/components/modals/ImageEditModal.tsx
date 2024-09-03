@@ -79,7 +79,7 @@ const ImageEditModal: React.FC<ImageEditModalProps> = ({ images, setIsImageEditM
                         alt="일기 그림"
                         height={450}
                         width={800}
-                        className="object-contain w-[800px] h-[450px]"
+                        className="object-cover w-[800px] h-[450px]"
                       />
                     </button>
                     {isEdit && <CircleXIcon onClick={handleOpenDeleteModal} />}
