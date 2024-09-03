@@ -41,7 +41,7 @@ const ChangeNameModal: React.FC<ChangeNameModalProps> = ({ currentName, setIsMod
       <div className="flex flex-col items-start gap-[20px] pl-[50px]">
         <div>현재 닉네임 : {currentName}</div>
         <div className="flex gap-[10px] items-center">
-          <p>바꿀 닉네임 : </p>
+          <span>바꿀 닉네임 : </span>
           <input
             type="text"
             className="w-[190px] h-[56px] border border-ButtonDisabledStroke rounded-[10px] p-[10px]"
