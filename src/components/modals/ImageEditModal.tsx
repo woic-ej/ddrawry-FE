@@ -23,7 +23,7 @@ const ImageEditModal: React.FC<ImageEditModalProps> = ({ images, setIsImageEditM
   const [isDeleteImageModal, setIsDeleteImageModal] = useState<boolean>(false);
   const handleCloseModal = () => {
     setIsImageEditModalOpen(false);
-  }
+  };
   const handleImageClick = () => {
     // 해당 일기의 그림 변경 api 연동
 
@@ -35,11 +35,11 @@ const ImageEditModal: React.FC<ImageEditModalProps> = ({ images, setIsImageEditM
 
   const handleOpenDeleteModal = () => {
     setIsDeleteImageModal(true);
-  }
+  };
 
   const handleCloseDeleteModal = () => {
     setIsDeleteImageModal(false);
-  }
+  };
 
   const handleImageDelete = () => {
     // 삭제 api 연동
@@ -59,7 +59,7 @@ const ImageEditModal: React.FC<ImageEditModalProps> = ({ images, setIsImageEditM
         <XIcon handleXIconClick={handleCloseModal} />
       </div>
       {images.length === 0 ? (
-        <EmptyImage />
+        <EmptyImage message="생성된 그림이 없어요!" />
       ) : (
         <>
           <div className="relative">
