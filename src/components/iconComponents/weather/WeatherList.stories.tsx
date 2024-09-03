@@ -6,7 +6,7 @@ function WeatherListComponent() {
   const [selectedWeather, setSelectedWeather] = useState<string | null>(null);
   return (
     <div className="flex gap-[30px]">
-      <span className="font-[400] leading-[48.96px] text-[36px] text-black">기분 : </span>
+      <span className="font-[400] leading-[48.96px] text-[36px] text-black">날씨 : </span>
       <WeatherList selectedWeather={selectedWeather} setSelectedWeather={setSelectedWeather} />
     </div>
   );
