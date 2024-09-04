@@ -10,9 +10,9 @@ const LoginPage: React.FC = () => {
   }
 
   return (
-    <>
+    <div className="flex flex-col h-screen">
       <DefaultHeader title="띠로리" />
-      <div className="mt-[50px] flex flex-col justify-center items-center gap-[70px]">
+      <div className="flex-grow flex flex-col justify-center items-center gap-[80px]">
         <DefaultDiaryLogo />
         <div className="flex flex-col gap-[20px] ">
           <div className="title-font font-[400] leading-[48.96px]">
@@ -24,7 +24,7 @@ const LoginPage: React.FC = () => {
         </div>
         <KakaoButton onClick={handleLogin} />
       </div>
-    </>
+    </div>
   );
 };
 
