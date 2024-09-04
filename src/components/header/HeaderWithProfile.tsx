@@ -7,9 +7,8 @@ interface HeaderWithProfileProps {
 
 const HeaderWithProfile: React.FC<HeaderWithProfileProps> = ({ title }) => {
   return (
-    <>
       <div
-        className={`fixed top-0 flex w-full p-0 h-[82px] justify-center items-center ${
+        className={`sticky top-0 flex w-full p-0 h-[82px] justify-center items-center ${
           title === "띠로리" ? "bg-Primary" : "bg-Lime"
         }`}
       >
@@ -18,9 +17,6 @@ const HeaderWithProfile: React.FC<HeaderWithProfileProps> = ({ title }) => {
           <ProfileIcon />
         </div>
       </div>
-      {/* 헤더 높이만큼의 공간 확보 */}
-      <div className="h-[82px]" />
-    </>
   );
 };
 
