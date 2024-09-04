@@ -10,7 +10,7 @@ import { Navigation, Pagination } from "swiper/modules";
 import ModalLayout from "@components/modals/ModalLayout";
 import DefaultModal from "@components/modals/DefaultModal";
 import XIcon from "@components/iconComponents/XIcon";
-import EmptyImage from "./EmptyImage";
+import EmptyState from "../empty/EmptyState";
 import CircleXIcon from "@components/iconComponents/CircleXIcon";
 
 interface ImageEditModalProps {
@@ -59,7 +59,7 @@ const ImageEditModal: React.FC<ImageEditModalProps> = ({ images, setIsImageEditM
         <XIcon handleXIconClick={handleCloseModal} />
       </div>
       {images.length === 0 ? (
-        <EmptyImage message="생성된 그림이 없어요!" />
+        <EmptyState message="생성된 그림이 없어요!" />
       ) : (
         <>
           <div className="relative">
