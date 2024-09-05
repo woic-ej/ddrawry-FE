@@ -20,7 +20,7 @@ const SmallButton: React.FC<SmallButtonProps> = ({ title, color, onClick }) => {
   };
   return (
     <button
-      className={`flex justify-center items-center w-[234px] h-[82px] rounded-[15px] gap-[10px] border font-[400] text-regular leading-[38.08px] ${buttonClasses()}`}
+      className={`flex justify-center items-center w-[234px] h-[82px] rounded-[15px] gap-[10px] border text-regular leading-[38.08px] ${buttonClasses()}`}
       onClick={onClick}
     >
       {title === "그림 그려줘!" && (

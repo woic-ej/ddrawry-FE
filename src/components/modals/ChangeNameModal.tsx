@@ -39,7 +39,7 @@ const ChangeNameModal: React.FC<ChangeNameModalProps> = ({ currentName, setIsMod
 
   return (
     <div
-      className="flex flex-col relative bg-white w-[683px] h-[453px] rounded-[30px] gap-[78px] p-[30px] border font-[400] body-font leading-[38.08px] text-center"
+      className="flex flex-col relative bg-white w-[683px] h-[453px] rounded-[30px] gap-[78px] p-[30px] border body-font leading-[38.08px] text-center"
       onClick={(e) => e.stopPropagation()}
     >
       <div>닉네임 수정하기</div>

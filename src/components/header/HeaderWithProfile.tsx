@@ -12,7 +12,7 @@ const HeaderWithProfile: React.FC<HeaderWithProfileProps> = ({ title }) => {
           title === "띠로리" ? "bg-Primary" : "bg-Lime"
         }`}
       >
-        <p className="text-center font-[400] title-font leading-[48.96px]">{title}</p>
+        <p className="text-center title-font leading-[48.96px]">{title}</p>
         <div className="absolute right-4">
           <ProfileIcon />
         </div>
