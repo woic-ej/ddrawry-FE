@@ -65,7 +65,7 @@ const CalenderView: React.FC = () => {
   }, [currentDate]);
 
   return (
-    <div className="w-fit flex flex-col items-center gap-[64px]">
+    <div className="w-full min-w-[990px] flex flex-col items-center gap-[64px]">
       <DateManipulationBar
         date={currentDate}
         prevMonthHandler={prevMonthHandler}

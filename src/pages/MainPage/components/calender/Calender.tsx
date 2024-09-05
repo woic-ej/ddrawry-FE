@@ -36,7 +36,7 @@ const renderCalenderItem = (day: Date, currentDate: Date, events: CalenderDataTy
 
 const Calender: React.FC<Props> = ({ currentMonthData, currentDate, calenderData }) => {
   return (
-    <div className="w-[1150px] min-h-[1067px] border-[3px] border-ButtonDisabled rounded-[10px] flex flex-col items-center gap-[54px]">
+    <div className="w-full min-w-[990px] min-h-[1067px] border-[3px] border-ButtonDisabled rounded-[10px] flex flex-col items-center gap-[54px]">
       <div className="flex w-full justify-around mt-[48px]">
         {DAY_LIST.map((day) => (
           <div
@@ -49,7 +49,7 @@ const Calender: React.FC<Props> = ({ currentMonthData, currentDate, calenderData
           </div>
         ))}
       </div>
-      <div className="grid grid-cols-7 gap-x-[12px] gap-y-[11px]">
+      <div className="grid grid-cols-7 w-fit gap-x-[12px] gap-y-[11px]">
         {currentMonthData.map((day) => renderCalenderItem(day, currentDate, calenderData))}
       </div>
     </div>

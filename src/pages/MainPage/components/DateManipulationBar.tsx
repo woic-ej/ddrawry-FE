@@ -10,7 +10,7 @@ interface Props {
 }
 const DateManipulationBar: React.FC<Props> = ({ date, prevMonthHandler, nextMonthHandler }) => {
   return (
-    <div className="w-[990px] h-[50px] bg-white flex justify-between">
+    <div className="w-full h-[50px] bg-white flex justify-between">
       <LeftArrowIcon onClick={prevMonthHandler} />
       <div className="title-font">{format(date, "yyyy년 M월")}</div>
       <RightArrowIcon onClick={nextMonthHandler} />
