@@ -51,7 +51,7 @@ const ProfileModal: React.FC<ProfileModalProps> = ({ nickName }) => {
   };
 
   return (
-    <div className="flex flex-col w-[400px] h-[340px] body-font font-[400] text-center leading-[38.08px] p-[20px] gap-[27px] border border-ButtonDisabledStroke shadow-custom">
+    <div className="flex flex-col w-[400px] h-[340px] body-font font-[400] text-center leading-[38.08px] p-[20px] gap-[27px] border border-ButtonDisabledStroke shadow-custom z-10 bg-white">
       {profileItems.map((item) => (
         <div
           key={item}
