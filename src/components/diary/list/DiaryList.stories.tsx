@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from "@storybook/react";
-import DiaryList from "@components/diary/DiaryList";
+import DiaryList from "@components/diary/list/DiaryList";
 
 function DiaryItemList() {
   return <DiaryList />;

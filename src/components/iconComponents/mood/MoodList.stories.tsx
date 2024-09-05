@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from "@storybook/react";
 import { useState } from "react";
-import MoodList from "@components/iconComponents/mood/moodList";
+import MoodList from "@components/iconComponents/mood/MoodList";
 
 function MoodListComponent() {
   const [selectedMood, setSelectedMood] = useState<string | null>(null);
