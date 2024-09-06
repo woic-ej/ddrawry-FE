@@ -64,7 +64,12 @@ const Diary: React.FC<Props> = ({ date, name, count, isFull }) => {
       </div>
       <div className={`w-full flex flex-grow ${!isClicked && " justify-center items-center"}`}>
         {isEmptyGrid && !isClicked ? (
-          <div className="hugeCaption-font text-center" onClick={() => setIsClicked(true)}>
+          <div
+            className="hugeCaption-font text-center cursor-pointer"
+            onClick={() => {
+              setIsClicked(true);
+            }}
+          >
             띠로리가 멋진 그림을 만들기위해서는 <br />
             최소 120자는 써야 해요!
           </div>
