@@ -1,6 +1,6 @@
 import MoodList from "@components/iconComponents/mood/MoodList";
 import WeatherList from "@components/iconComponents/weather/WeatherList";
-import React, { useCallback, useState } from "react";
+import React, { useState } from "react";
 import ImageCreationPanel from "@components/diary/image/ImageCreationPanel";
 import InputSection from "./InputSection";
 
@@ -14,23 +14,14 @@ interface Props {
 const Diary: React.FC<Props> = ({ date, name, count, isFull }) => {
   const numRows = 10;
   const numCols = 20;
-  const [gridValues, setGridValues] = useState(Array(numRows * numCols).fill(""));
+  const [content, setContent] = useState("");
   const [selectedMood, setSelectedMood] = useState<string | null>(null);
   const [selectedWeather, setSelectedWeather] = useState<string | null>(null);
   const [isClicked, setIsClicked] = useState<boolean>(false);
-  const isEmptyGrid = gridValues.every((value) => value === "");
 
-  const handleInputChange = (index: number, value: string) => {
-    if (value.length <= 1) {
-      const newGridValues = [...gridValues];
-      newGridValues[index] = value;
-      setGridValues(newGridValues);
-    }
+  const handleInputChange = (value: string) => {
+    setContent(value);
   };
-
-  const countTotalCharacters = useCallback(() => {
-    return gridValues.reduce((total, value) => total + value.length, 0);
-  }, [gridValues]);
 
   return (
     <div className="w-[1150px] h-[1530px] border-[3px] border-Charcoal flex flex-col">
@@ -56,14 +47,10 @@ const Diary: React.FC<Props> = ({ date, name, count, isFull }) => {
         />
       </div>
       <div className="flex items-center justify-center w-full h-[648px] border-b-[3px] border-Charcoal">
-        <ImageCreationPanel
-          count={count}
-          isFull={isFull}
-          isValidate={countTotalCharacters() > 120}
-        />
+        <ImageCreationPanel count={count} isFull={isFull} isValidate={content.length > 120} />
       </div>
       <div className={`w-full flex flex-grow ${!isClicked && " justify-center items-center"}`}>
-        {isEmptyGrid && !isClicked ? (
+        {content.length === 0 && !isClicked ? (
           <div
             className="hugeCaption-font text-center cursor-pointer"
             onClick={() => {
@@ -78,8 +65,7 @@ const Diary: React.FC<Props> = ({ date, name, count, isFull }) => {
             numCols={numCols}
             numRows={numRows}
             handleInputChange={handleInputChange}
-            gridValues={gridValues}
-            contentLength={countTotalCharacters()}
+            content={content}
           />
         )}
       </div>

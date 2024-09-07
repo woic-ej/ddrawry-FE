@@ -3,8 +3,8 @@ import React from "react";
 
 const WriteDiaryPage: React.FC = () => {
   return (
-    <div>
-      <Diary date="2024년 8월 10일" name="최은진" count={3} isFull={false} />;
+    <div className="flex justify-center">
+      <Diary date="2024년 8월 10일" name="최은진" count={3} isFull={false} />
     </div>
   );
 };
