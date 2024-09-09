@@ -12,7 +12,7 @@ import {
 } from "date-fns";
 import { useDateControl } from "@hooks/useDateControl";
 import { CalenderDataType } from "src/types/diaryTypes";
-import DiaryList from "@components/diary/DiaryList";
+import DiaryList from "@components/diary/list/DiaryList";
 import { useToggleStore } from "@store/useToggleStore";
 
 const DUMMY_DATA = [
