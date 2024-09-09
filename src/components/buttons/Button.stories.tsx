@@ -28,10 +28,30 @@ function Button() {
 
       <div className="flex flex-col gap-8">
         <h1 className="text-16 bg-white w-fit p-4">ModalButton</h1>
-        <ModalButton title="넹" />
-        <ModalButton title="이미지로" />
-        <ModalButton title="아니용" />
-        <ModalButton title="링크로" />
+        <ModalButton
+          title="넹"
+          onClick={() => {
+            return;
+          }}
+        />
+        <ModalButton
+          title="이미지로"
+          onClick={() => {
+            return;
+          }}
+        />
+        <ModalButton
+          title="아니용"
+          onClick={() => {
+            return;
+          }}
+        />
+        <ModalButton
+          title="링크로"
+          onClick={() => {
+            return;
+          }}
+        />
       </div>
 
       <div className="flex flex-col gap-8">

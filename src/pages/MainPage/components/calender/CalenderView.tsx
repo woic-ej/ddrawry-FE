@@ -12,6 +12,8 @@ import {
 } from "date-fns";
 import { useDateControl } from "@hooks/useDateControl";
 import { CalenderDataType } from "src/types/diaryTypes";
+import DiaryList from "@components/diary/DiaryList";
+import { useToggleStore } from "@store/useToggleStore";
 
 const DUMMY_DATA = [
   {
@@ -48,6 +50,7 @@ const CalenderView: React.FC = () => {
   const monthEnd = endOfMonth(currentDate); // 현재 달의 마지막 날짜 (요일 포함)
   const startDate = startOfWeek(monthStart); // 현재 달의 시작 날짜가 포함된 주의 시작 날짜
   const endDate = endOfWeek(monthEnd); // 현재 달의 마지막 날짜가 포함된 주의 끝 날짜
+  const { isCalenderView } = useToggleStore();
 
   const currentMonthData = useMemo(() => {
     const monthArray = [];
@@ -65,19 +68,22 @@ const CalenderView: React.FC = () => {
   }, [currentDate]);
 
   return (
-    <div className="w-fit flex flex-col items-center gap-[64px]">
+    <div className="w-full min-w-[990px] flex flex-col items-center gap-[64px]">
       <DateManipulationBar
         date={currentDate}
         prevMonthHandler={prevMonthHandler}
         nextMonthHandler={nextMonthHandler}
       />
-      {calenderData && (
-        <Calender
-          currentMonthData={currentMonthData}
-          currentDate={currentDate}
-          calenderData={calenderData}
-        />
-      )}
+      {calenderData &&
+        (isCalenderView === true ? (
+          <Calender
+            currentMonthData={currentMonthData}
+            currentDate={currentDate}
+            calenderData={calenderData}
+          />
+        ) : (
+          <DiaryList />
+        ))}
     </div>
   );
 };

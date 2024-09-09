@@ -12,7 +12,7 @@ interface Props {
 
 const DiaryItem: React.FC<Props> = ({ imageUrl, title, date, likeStatus }) => {
   return (
-    <div className="w-[950px] h-[275px] bg-white flex items-center justify-between border-b-[3px] border-buttonDisabled">
+    <div className="min-w-[1012.53px] h-[275px] bg-white flex items-center justify-between border-b-[3px] border-buttonDisabled">
       <div className="flex items-center gap-[46px]">
         {imageUrl ? (
           <img

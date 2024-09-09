@@ -34,6 +34,6 @@ body {
     @apply text-Gray text-huge;
   }
   .calender-item {
-    @apply w-[150px] h-[170px] rounded-[10px];
+    @apply w-full h-[170px] rounded-[10px];
   }
 }
