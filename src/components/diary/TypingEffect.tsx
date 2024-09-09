@@ -1,3 +1,4 @@
+import { useCursorIndex } from "@store/CursorIndex";
 import { useEffect, useState } from "react";
 
 interface Props {
@@ -12,23 +13,25 @@ const totalCells = COLS * ROWS;
 const TypingEffect: React.FC<Props> = ({ content, isFocus }) => {
   const initializeGrid = () => Array(totalCells).fill("");
   const [grid, setGrid] = useState<string[]>(initializeGrid);
-  const [cursorPoint, setCursorPoint] = useState<number | null>(null);
+  const { cursorIndex, setCursorIndex } = useCursorIndex();
+
+  const handleClick = (index: number) => {
+    setCursorIndex(index);
+  };
 
   useEffect(() => {
     const paddedContent = content.padEnd(totalCells, " ");
     setGrid(Array.from(paddedContent));
 
-    if (isFocus) {
-      setCursorPoint(content.length);
-    } else {
-      setCursorPoint(null);
+    if (!isFocus) {
+      setCursorIndex(null);
     }
-  }, [content, isFocus]);
+  }, [content, isFocus, setCursorIndex]);
 
   return (
-    <div className="w-full">
+    <div className="w-full flex flex-col">
       <div
-        className="grid gap-0 w-full h-[667px]"
+        className="grid gap-0 w-full flex-grow"
         style={{
           gridTemplateColumns: `repeat(${COLS}, 1fr)`,
           gridTemplateRows: `repeat(${ROWS}, 1fr)`,
@@ -37,10 +40,11 @@ const TypingEffect: React.FC<Props> = ({ content, isFocus }) => {
         {grid.map((value, index) => (
           <div
             key={index}
-            className={`border border-gray-300 flex items-center justify-center title-font `}
+            className={`border border-gray-300 flex items-center justify-center text-black text-regular `}
+            onClick={() => handleClick(index)}
           >
             {value}
-            {cursorPoint === index && <div className="w-[1px] h-[80%] bg-black animate-blink" />}
+            {cursorIndex === index && <div className="w-[1px] h-[80%] bg-black animate-blink" />}
           </div>
         ))}
       </div>

@@ -3,6 +3,7 @@ import WeatherList from "@components/iconComponents/weather/WeatherList";
 import React, { useState } from "react";
 import ImageCreationPanel from "@components/diary/image/ImageCreationPanel";
 import InputSection from "./InputSection";
+import { useCursorIndex } from "./../../store/CursorIndex";
 
 interface Props {
   date: string;
@@ -18,9 +19,19 @@ const Diary: React.FC<Props> = ({ date, name, count, isFull }) => {
   const [selectedMood, setSelectedMood] = useState<string | null>(null);
   const [selectedWeather, setSelectedWeather] = useState<string | null>(null);
   const [isClicked, setIsClicked] = useState<boolean>(false);
+  const { cursorIndex, setCursorIndex } = useCursorIndex();
 
   const handleInputChange = (value: string) => {
-    if (content.length < 240) setContent(value);
+    if (cursorIndex === value.length - 1) {
+      setCursorIndex(cursorIndex + 1);
+    }
+    setContent(value);
+  };
+
+  const handleOnKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (cursorIndex) {
+      if (event.key === "Backspace") setCursorIndex(cursorIndex - 2);
+    }
   };
 
   return (
@@ -65,7 +76,11 @@ const Diary: React.FC<Props> = ({ date, name, count, isFull }) => {
             최소 120자는 써야 해요!
           </div>
         ) : (
-          <InputSection handleInputChange={handleInputChange} content={content} />
+          <InputSection
+            handleInputChange={handleInputChange}
+            handleOnKeyDown={handleOnKeyDown}
+            content={content}
+          />
         )}
       </div>
     </div>
