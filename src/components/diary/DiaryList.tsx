@@ -5,7 +5,7 @@ const DUMMY_IMG = "https://avatars.githubusercontent.com/u/77326820?v=4";
 
 const DiaryList: React.FC = () => {
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col w-full">
       <DiaryItem
         imageUrl={DUMMY_IMG}
         title="신나는 산책을 했따."
