@@ -11,21 +11,21 @@ interface Props {
   isFull: boolean;
 }
 
+const WORD_LIMIT = 150;
+
 const Diary: React.FC<Props> = ({ date, name, count, isFull }) => {
-  const numRows = 10;
-  const numCols = 20;
   const [content, setContent] = useState("");
   const [selectedMood, setSelectedMood] = useState<string | null>(null);
   const [selectedWeather, setSelectedWeather] = useState<string | null>(null);
   const [isClicked, setIsClicked] = useState<boolean>(false);
 
   const handleInputChange = (value: string) => {
-    setContent(value);
+    if (content.length < 240) setContent(value);
   };
 
   return (
-    <div className="w-[1150px] h-[1530px] border-[3px] border-Charcoal flex flex-col">
-      <div className="flex justify-center items-center py-[12px] title-font border-b-[3px] border-Charcoal ">
+    <div className="w-[1150px] h-[1600px] border-[3px] border-Charcoal flex flex-col">
+      <div className="w-full flex justify-center items-center py-[12px] title-font border-b-[3px] border-Charcoal ">
         {date} {name}의 일기
       </div>
       <div className="flex w-full border-b-[3px] border-Charcoal">
@@ -47,26 +47,25 @@ const Diary: React.FC<Props> = ({ date, name, count, isFull }) => {
         />
       </div>
       <div className="flex items-center justify-center w-full h-[648px] border-b-[3px] border-Charcoal">
-        <ImageCreationPanel count={count} isFull={isFull} isValidate={content.length > 120} />
+        <ImageCreationPanel
+          count={count}
+          isFull={isFull}
+          isValidate={content.length > WORD_LIMIT}
+        />
       </div>
-      <div className={`w-full flex flex-grow ${!isClicked && " justify-center items-center"}`}>
+      <div
+        className={`w-full flex flex-grow ${!isClicked && " justify-center items-center cursor-pointer"}`}
+        onClick={() => {
+          setIsClicked(true);
+        }}
+      >
         {content.length === 0 && !isClicked ? (
-          <div
-            className="hugeCaption-font text-center cursor-pointer"
-            onClick={() => {
-              setIsClicked(true);
-            }}
-          >
+          <div className="hugeCaption-font text-center">
             띠로리가 멋진 그림을 만들기위해서는 <br />
             최소 120자는 써야 해요!
           </div>
         ) : (
-          <InputSection
-            numCols={numCols}
-            numRows={numRows}
-            handleInputChange={handleInputChange}
-            content={content}
-          />
+          <InputSection handleInputChange={handleInputChange} content={content} />
         )}
       </div>
     </div>

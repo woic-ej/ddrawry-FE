@@ -1,37 +1,36 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import TypingEffect from "./TypingEffect";
 
 interface Props {
-  numCols: number;
-  numRows: number;
   content: string;
   handleInputChange: (value: string) => void;
 }
 
-const InputSection: React.FC<Props> = ({ numCols, numRows, content, handleInputChange }) => {
-  const gridCells = Array.from({ length: numCols * numRows });
+const InputSection: React.FC<Props> = ({ content, handleInputChange }) => {
+  const [isFocus, setIsFocus] = useState<boolean>(true);
+  const handleClick = () => {
+    setIsFocus(true);
+    document.getElementById("input")?.focus();
+  };
+
+  const handleBlur = () => {
+    setIsFocus(false);
+  };
+
+  useEffect(() => {
+    document.getElementById("input")?.focus();
+  }, []);
+
   return (
-    <div className="relative w-full h-full">
-      <div
-        className="grid h-full"
-        style={{
-          gridTemplateColumns: `repeat(${numCols}, 1fr)`,
-          gridTemplateRows: `repeat(${numRows}, 1fr)`,
-        }}
-      >
-        {gridCells.map((_, index) => (
-          <div key={index} className="border border-gray-300"></div>
-        ))}
-      </div>
-      <textarea
+    <div className="flex flex-grow" onClick={handleClick} onBlur={handleBlur}>
+      <input
+        id="input"
+        type="text"
         value={content}
-        onChange={(e) => handleInputChange(e.currentTarget.value)}
-        className="w-[105%] h-full pl-[10px] leading-[4rem] title-font tracking-[25px] resize-none outline-none absolute top-0 left-0 "
-        style={{
-          backgroundColor: "transparent",
-          wordSpacing: "20px",
-        }}
-        rows={numRows}
+        onChange={(e) => handleInputChange(e.target.value)}
+        className="opacity-0 absolute left-[-9999px]"
       />
+      <TypingEffect content={content} isFocus={isFocus} />
     </div>
   );
 };

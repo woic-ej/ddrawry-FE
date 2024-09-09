@@ -27,8 +27,16 @@ export default {
         small: "18px",
       },
       boxShadow: {
-        custom: '8px 8px 16px 0 rgba(0, 0, 0, 0.04)'
-      }
+        custom: "8px 8px 16px 0 rgba(0, 0, 0, 0.04)",
+      },
+      animation: {
+        blink: "blink .5s step-end infinite alternate",
+      },
+      keyframes: {
+        blink: {
+          "50%": { backgroundColor: "transparent" },
+        },
+      },
     },
   },
   plugins: [],
