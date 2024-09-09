@@ -16,7 +16,7 @@ const HeaderWithProfile: React.FC<HeaderWithProfileProps> = ({ title }) => {
   return (
     <>
       <div
-        className={`z-[50] sticky top-0 flex w-full p-0 h-[82px] justify-center items-center ${
+        className={`z-[50] sticky top-0 flex w-full p-0 min-h-[82px] justify-center items-center min-w-[990px] ${
           title === "띠로리" ? "bg-Primary" : "bg-Lime"
         }`}
       >
@@ -28,7 +28,7 @@ const HeaderWithProfile: React.FC<HeaderWithProfileProps> = ({ title }) => {
         </div>
       </div>
       {isProfileModalOpen && (
-        <div className="absolute right-6 top-0 translate-y-[105px]">
+        <div className="z-[10] fixed right-6 top-0 translate-y-[105px]">
           <ProfileModal nickName="" />
         </div>
       )}
