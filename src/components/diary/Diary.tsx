@@ -73,7 +73,7 @@ const Diary: React.FC<Props> = ({ date, name, count, isFull }) => {
         {content.length === 0 && !isClicked ? (
           <div className="hugeCaption-font text-center">
             띠로리가 멋진 그림을 만들기위해서는 <br />
-            최소 120자는 써야 해요!
+            최소 ${WORD_LIMIT}자는 써야 해요!
           </div>
         ) : (
           <InputSection
