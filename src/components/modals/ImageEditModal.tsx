@@ -50,7 +50,7 @@ const ImageEditModal: React.FC<ImageEditModalProps> = ({ images, setIsImageEditM
       <div className="flex relative">
         {images.length !== 0 && (
           <button
-            className={`flex justify-center items-center rounded-[15px] border border-PrimaryStroke font-[400] ${isEdit ? "bg-PrimaryStroke" : "bg-Primary"} text-[18px] text-Charcoal leading-[24.48px] w-[113px] h-[50px]`}
+            className={`flex justify-center items-center rounded-[15px] border border-PrimaryStroke ${isEdit ? "bg-PrimaryStroke" : "bg-Primary"} text-[18px] text-Charcoal leading-[24.48px] w-[113px] h-[50px]`}
             onClick={handleEditClick}
           >
             {isEdit ? "취소" : "편집"}

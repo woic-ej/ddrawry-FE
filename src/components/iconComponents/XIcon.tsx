@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction } from 'react'
+import React from 'react'
 import XIconImage from "@assets/svgs/XIcon.svg";
 
 interface XIconProps {

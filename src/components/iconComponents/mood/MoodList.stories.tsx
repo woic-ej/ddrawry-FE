@@ -6,7 +6,7 @@ function MoodListComponent() {
   const [selectedMood, setSelectedMood] = useState<string | null>(null);
   return (
     <div className="flex gap-[30px]">
-      <span className="font-[400] leading-[48.96px] text-[36px] text-black">기분 : </span>
+      <span className="leading-[48.96px] text-[36px] text-black">기분 : </span>
       <MoodList selectedMood={selectedMood} setSelectedMood={setSelectedMood} />
     </div>
   );

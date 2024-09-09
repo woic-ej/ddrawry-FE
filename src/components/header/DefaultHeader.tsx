@@ -7,11 +7,11 @@ interface DefaultHeaderProps {
 const DefaultHeader: React.FC<DefaultHeaderProps> = ({ title }) => {
   return (
     <div
-      className={`flex w-full p-0 h-[82px] justify-center items-center ${
+      className={`z-[50] sticky top-0 flex w-full p-0 min-h-[82px] justify-center items-center ${
         title === "일기 쓰기" ? "bg-Highlight" : "bg-Primary"
       }`}
     >
-      <p className="text-center font-[400] title-font leading-[48.96px]">{title}</p>
+      <p className="text-center title-font leading-[48.96px]">{title}</p>
     </div>
   );
 };
