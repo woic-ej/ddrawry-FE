@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from "@storybook/react";
-import ImageCreationPanel from "@pages/DiaryPage/components/ImageCreationPanel";
+import ImageCreationPanel from "@components/diary/image/ImageCreationPanel";
 
 function ImageCreationPanelStory() {
   return (

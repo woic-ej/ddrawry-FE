@@ -1,5 +1,5 @@
 import React from "react";
-import DiaryItem from "@components/diary/DiaryItem";
+import DiaryItem from "@components/diary/list/DiaryItem";
 
 const DUMMY_IMG = "https://avatars.githubusercontent.com/u/77326820?v=4";
 

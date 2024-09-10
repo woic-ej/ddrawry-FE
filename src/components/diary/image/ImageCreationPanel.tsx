@@ -1,5 +1,5 @@
 import React from "react";
-import ImagesHistoryButton from "@pages/DiaryPage/components/ImagesHistoryButton";
+import ImagesHistoryButton from "@components/diary/image/ImagesHistoryButton";
 import SmallButton from "@components/buttons/SmallButton";
 
 interface Props {
