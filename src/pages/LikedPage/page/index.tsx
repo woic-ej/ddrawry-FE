@@ -10,8 +10,6 @@ const LikedPage: React.FC = () => {
   const { currentDate, prevMonthHandler, nextMonthHandler } = useDateControl();
   const { isTotalView } = useToggleStore();
 
-  console.log(isTotalView);
-
   return (
     <div className="flex flex-col h-screen w-full">
       <HeaderWithProfile title="좋아요한 일기들" />
