@@ -23,7 +23,7 @@ const DiaryItem: React.FC<Props> = ({ imageUrl, title, date, likeStatus }) => {
         ) : (
           <DefaultDiaryLogo />
         )}
-        <div className="flex flex-col gap-[18px]">
+        <div className="flex flex-col gap-[18px] items-start">
           <div className="body-font">{title}</div>
           <div className="smallCaption-font">{format(date, "yyyy년 M월 d일")}</div>
         </div>
