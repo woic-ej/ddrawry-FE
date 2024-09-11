@@ -1,8 +1,12 @@
 import React from "react";
 
-const SearchIcon: React.FC = () => {
+interface SearchIconProps {
+  handleClick: () => void;
+}
+
+const SearchIcon: React.FC<SearchIconProps> = ({handleClick}) => {
   return (
-    <button>
+    <button onClick={handleClick}>
       <svg
         width="36"
         height="36"
