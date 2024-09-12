@@ -2,8 +2,7 @@ import MoodList from "@components/iconComponents/mood/MoodList";
 import WeatherList from "@components/iconComponents/weather/WeatherList";
 import React, { useState } from "react";
 import ImageCreationPanel from "@components/diary/image/ImageCreationPanel";
-import InputSection from "./InputSection";
-import { useCursorIndex } from "./../../store/CursorIndex";
+import InputSection from "@components/diary/InputSection";
 
 interface Props {
   date: string;
@@ -12,26 +11,16 @@ interface Props {
   isFull: boolean;
 }
 
+const MAXIMUM_WORD = 250;
 const WORD_LIMIT = 150;
 
 const Diary: React.FC<Props> = ({ date, name, count, isFull }) => {
   const [content, setContent] = useState("");
   const [selectedMood, setSelectedMood] = useState<string | null>(null);
   const [selectedWeather, setSelectedWeather] = useState<string | null>(null);
-  const [isClicked, setIsClicked] = useState<boolean>(false);
-  const { cursorIndex, setCursorIndex } = useCursorIndex();
 
   const handleInputChange = (value: string) => {
-    if (cursorIndex === value.length - 1) {
-      setCursorIndex(cursorIndex + 1);
-    }
-    setContent(value);
-  };
-
-  const handleOnKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (cursorIndex) {
-      if (event.key === "Backspace") setCursorIndex(cursorIndex - 2);
-    }
+    if (value.length <= MAXIMUM_WORD) setContent(value);
   };
 
   return (
@@ -64,25 +53,12 @@ const Diary: React.FC<Props> = ({ date, name, count, isFull }) => {
           isValidate={content.length > WORD_LIMIT}
         />
       </div>
-      <div
-        className={`w-full flex flex-grow ${!isClicked && " justify-center items-center cursor-pointer"}`}
-        onClick={() => {
-          setIsClicked(true);
-        }}
-      >
-        {content.length === 0 && !isClicked ? (
-          <div className="hugeCaption-font text-center">
-            띠로리가 멋진 그림을 만들기위해서는 <br />
-            최소 ${WORD_LIMIT}자는 써야 해요!
-          </div>
-        ) : (
-          <InputSection
-            handleInputChange={handleInputChange}
-            handleOnKeyDown={handleOnKeyDown}
-            content={content}
-          />
-        )}
-      </div>
+      <InputSection
+        content={content}
+        wordLimit={WORD_LIMIT}
+        maxLength={MAXIMUM_WORD}
+        onChange={handleInputChange}
+      />
     </div>
   );
 };
