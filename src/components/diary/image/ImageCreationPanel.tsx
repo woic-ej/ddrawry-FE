@@ -25,7 +25,7 @@ const NotificationMessage: React.FC<Pick<Props, "count">> = ({ count }) => {
 const ImageCreationPanel: React.FC<Props> = ({ count, isFull, isValidate }) => {
   const { setImage } = useImageStore();
   const handleDrawClick = () => {
-    setImage("생성된 그림");
+    setImage("생성된 그림"); // api 호출로 대체
   };
 
   return (

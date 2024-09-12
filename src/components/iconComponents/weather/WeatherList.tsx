@@ -1,45 +1,41 @@
-import React, { Dispatch, SetStateAction } from "react";
+import React from "react";
 import SunnyIcon from "@components/iconComponents/weather/weatherItem/SunnyIcon";
 import RainyIcon from "@components/iconComponents/weather/weatherItem/RainyIcon";
 import SnowyIcon from "@components/iconComponents/weather/weatherItem/SnowyIcon";
 import ThunderStormIcon from "@components/iconComponents/weather/weatherItem/ThunderStormIcon";
 import CloudyIcon from "@components/iconComponents/weather/weatherItem/CloudyIcon";
 import WindyIcon from "@components/iconComponents/weather/weatherItem/WindyIcon";
+import useDiaryStore from "@store/diaryStore";
 
 interface WeatherListProps {
-  selectedWeather: string | null;
-  setSelectedWeather: Dispatch<SetStateAction<string | null>>;
   disabled?: boolean;
 }
 
-const WeatherList: React.FC<WeatherListProps> = ({
-  selectedWeather,
-  setSelectedWeather,
-  disabled,
-}) => {
+const WeatherList: React.FC<WeatherListProps> = ({ disabled }) => {
+  const { weather, setWeather } = useDiaryStore();
   const handleWeatherClick = (weather: string) => {
-    setSelectedWeather(weather);
+    setWeather(weather);
   };
 
   return (
     <div className="flex gap-[20px]">
       <button onClick={() => handleWeatherClick("sunny")} disabled={disabled}>
-        <SunnyIcon isClick={selectedWeather === "sunny"} />
+        <SunnyIcon isClick={weather === "sunny"} />
       </button>
       <button onClick={() => handleWeatherClick("rainy")} disabled={disabled}>
-        <RainyIcon isClick={selectedWeather === "rainy"} />
+        <RainyIcon isClick={weather === "rainy"} />
       </button>
       <button onClick={() => handleWeatherClick("snowy")} disabled={disabled}>
-        <SnowyIcon isClick={selectedWeather === "snowy"} />
+        <SnowyIcon isClick={weather === "snowy"} />
       </button>
       <button onClick={() => handleWeatherClick("thunderstorm")} disabled={disabled}>
-        <ThunderStormIcon isClick={selectedWeather === "thunderstorm"} />
+        <ThunderStormIcon isClick={weather === "thunderstorm"} />
       </button>
       <button onClick={() => handleWeatherClick("cloudy")} disabled={disabled}>
-        <CloudyIcon isClick={selectedWeather === "cloudy"} />
+        <CloudyIcon isClick={weather === "cloudy"} />
       </button>
       <button onClick={() => handleWeatherClick("windy")} disabled={disabled}>
-        <WindyIcon isClick={selectedWeather === "windy"} />
+        <WindyIcon isClick={weather === "windy"} />
       </button>
     </div>
   );
