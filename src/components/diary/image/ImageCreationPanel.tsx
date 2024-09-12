@@ -1,6 +1,7 @@
 import React from "react";
 import ImagesHistoryButton from "@components/diary/image/ImagesHistoryButton";
 import SmallButton from "@components/buttons/SmallButton";
+import useImageStore from "@store/imageStore";
 
 interface Props {
   count: number;
@@ -22,6 +23,11 @@ const NotificationMessage: React.FC<Pick<Props, "count">> = ({ count }) => {
 };
 
 const ImageCreationPanel: React.FC<Props> = ({ count, isFull, isValidate }) => {
+  const { setImage } = useImageStore();
+  const handleDrawClick = () => {
+    setImage("생성된 그림");
+  };
+
   return (
     <div className="flex flex-col gap-[18px] items-center">
       <ImagesHistoryButton isFull={isFull} />
@@ -33,7 +39,11 @@ const ImageCreationPanel: React.FC<Props> = ({ count, isFull, isValidate }) => {
             그림을 더 생성하고 싶으면 저장 공간을 비워주세요
           </div>
         ) : (
-          <SmallButton title="그림 그려줘!" color={`${isValidate ? "green" : "gray"}`} />
+          <SmallButton
+            title="그림 그려줘!"
+            color={`${isValidate ? "green" : "gray"}`}
+            onClick={handleDrawClick}
+          />
         ))}
     </div>
   );

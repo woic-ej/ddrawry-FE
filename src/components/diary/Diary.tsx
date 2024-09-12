@@ -3,6 +3,7 @@ import WeatherList from "@components/iconComponents/weather/WeatherList";
 import React, { useState } from "react";
 import ImageCreationPanel from "@components/diary/image/ImageCreationPanel";
 import InputSection from "@components/diary/InputSection";
+import useImageStore from "@store/imageStore";
 
 interface Props {
   date: string;
@@ -18,13 +19,14 @@ const Diary: React.FC<Props> = ({ date, name, count, isFull }) => {
   const [content, setContent] = useState("");
   const [selectedMood, setSelectedMood] = useState<string | null>(null);
   const [selectedWeather, setSelectedWeather] = useState<string | null>(null);
+  const { image } = useImageStore();
 
   const handleInputChange = (value: string) => {
     if (value.length <= MAXIMUM_WORD) setContent(value);
   };
 
   return (
-    <div className="w-[1150px] h-[1600px] border-[3px] border-Charcoal flex flex-col">
+    <div className="w-[1150px] h-[1600px] border-[3px] border-Charcoal flex flex-col mt-[85px] mb-[50px]">
       <div className="w-full flex justify-center items-center py-[12px] title-font border-b-[3px] border-Charcoal ">
         {date} {name}의 일기
       </div>
@@ -47,11 +49,15 @@ const Diary: React.FC<Props> = ({ date, name, count, isFull }) => {
         />
       </div>
       <div className="flex items-center justify-center w-full h-[648px] border-b-[3px] border-Charcoal">
-        <ImageCreationPanel
-          count={count}
-          isFull={isFull}
-          isValidate={content.length > WORD_LIMIT}
-        />
+        {image ? (
+          <img src={image} className="w-full h-full" />
+        ) : (
+          <ImageCreationPanel
+            count={count}
+            isFull={isFull}
+            isValidate={content.length > WORD_LIMIT}
+          />
+        )}
       </div>
       <InputSection
         content={content}
