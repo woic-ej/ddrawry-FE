@@ -1,11 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import ImagesHistoryButton from "@components/diary/image/ImagesHistoryButton";
 import SmallButton from "@components/buttons/SmallButton";
+import useImageStore from "@store/imageStore";
+import DefaultModal from "@components/modals/DefaultModal";
+import ModalLayout from "@components/modals/ModalLayout";
+import ImageEditModal from "@components/modals/ImageEditModal";
 
 interface Props {
   count: number;
   isFull: boolean;
   isValidate: boolean;
+  images: string[];
 }
 
 const NotificationMessage: React.FC<Pick<Props, "count">> = ({ count }) => {
@@ -21,10 +26,31 @@ const NotificationMessage: React.FC<Pick<Props, "count">> = ({ count }) => {
   }
 };
 
-const ImageCreationPanel: React.FC<Props> = ({ count, isFull, isValidate }) => {
+const ImageCreationPanel: React.FC<Props> = ({ count, isFull, isValidate, images }) => {
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [isHistoryModalOpen, setIsHistoryModalOpen] = useState<boolean>(false);
+  const { setImage } = useImageStore();
+
+  const handleImageHistory = () => {
+    setIsHistoryModalOpen(true);
+  };
+
+  const handleDrawClick = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleYesClick = () => {
+    setImage("생성된 그림"); // api 호출로 대체
+    setIsModalOpen(false);
+  };
+
+  const handleNoClick = () => {
+    setIsModalOpen(false);
+  };
+
   return (
     <div className="flex flex-col gap-[18px] items-center">
-      <ImagesHistoryButton isFull={isFull} />
+      <ImagesHistoryButton isFull={isFull} onClick={handleImageHistory} />
       <NotificationMessage count={count} />
       {count > 0 &&
         (isFull ? (
@@ -33,8 +59,28 @@ const ImageCreationPanel: React.FC<Props> = ({ count, isFull, isValidate }) => {
             그림을 더 생성하고 싶으면 저장 공간을 비워주세요
           </div>
         ) : (
-          <SmallButton title="그림 그려줘!" color={`${isValidate ? "green" : "gray"}`} />
+          <SmallButton
+            title="그림 그려줘!"
+            color={`${isValidate ? "green" : "gray"}`}
+            onClick={handleDrawClick}
+          />
         ))}
+      {isModalOpen && (
+        <ModalLayout setIsModalOpen={setIsModalOpen}>
+          <DefaultModal
+            title="그림을 그리면 오늘 생성 가능 횟수가 소진돼요! 띠로리에게 그림을 그려달라고 할까요?"
+            leftText="넹"
+            rightText="아니용"
+            leftClick={handleYesClick}
+            rightClick={handleNoClick}
+          />
+        </ModalLayout>
+      )}
+      {isHistoryModalOpen && (
+        <ModalLayout setIsModalOpen={setIsHistoryModalOpen}>
+          <ImageEditModal images={images} setIsImageEditModalOpen={setIsHistoryModalOpen} />
+        </ModalLayout>
+      )}
     </div>
   );
 };
