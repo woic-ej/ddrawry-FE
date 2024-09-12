@@ -14,7 +14,10 @@ interface Props {
 }
 
 const Diary: React.FC<Props> = ({ date, name, count, isFull }) => {
-  const { title, setTitle, content, setContent, limitLength, maxLength } = useDiaryStore();
+  const { mood, weather, title, setTitle, content, setContent, limitLength, maxLength } =
+    useDiaryStore();
+  const isValidate = !!(mood && weather && title && content.length >= limitLength);
+
   const { image } = useImageStore();
 
   const handleTitleChange = (value: string) => {
@@ -54,11 +57,7 @@ const Diary: React.FC<Props> = ({ date, name, count, isFull }) => {
         {image ? (
           <img src={image} className="w-full h-full" />
         ) : (
-          <ImageCreationPanel
-            count={count}
-            isFull={isFull}
-            isValidate={content.length >= limitLength}
-          />
+          <ImageCreationPanel count={count} isFull={isFull} isValidate={isValidate} images={[]} />
         )}
       </div>
       <InputSection

@@ -21,14 +21,17 @@ interface ImageEditModalProps {
 const ImageEditModal: React.FC<ImageEditModalProps> = ({ images, setIsImageEditModalOpen }) => {
   const [isEdit, setIsEdit] = useState<boolean>(false);
   const [isDeleteImageModal, setIsDeleteImageModal] = useState<boolean>(false);
+
   const handleCloseModal = () => {
     setIsImageEditModalOpen(false);
   };
+
   const handleImageClick = () => {
     // 해당 일기의 그림 변경 api 연동
 
-    !isEdit && setIsImageEditModalOpen(false);
+    if (!isEdit) setIsImageEditModalOpen(false);
   };
+
   const handleEditClick = () => {
     setIsEdit(!isEdit);
   };
