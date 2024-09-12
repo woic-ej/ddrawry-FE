@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import ImagesHistoryButton from "@components/diary/image/ImagesHistoryButton";
 import SmallButton from "@components/buttons/SmallButton";
 import useImageStore from "@store/imageStore";
+import DefaultModal from "@components/modals/DefaultModal";
+import ModalLayout from "@components/modals/ModalLayout";
 
 interface Props {
   count: number;
@@ -23,9 +25,20 @@ const NotificationMessage: React.FC<Pick<Props, "count">> = ({ count }) => {
 };
 
 const ImageCreationPanel: React.FC<Props> = ({ count, isFull, isValidate }) => {
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const { setImage } = useImageStore();
+
   const handleDrawClick = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleYesClick = () => {
     setImage("생성된 그림"); // api 호출로 대체
+    setIsModalOpen(false);
+  };
+
+  const handleNoClick = () => {
+    setIsModalOpen(false);
   };
 
   return (
@@ -45,6 +58,17 @@ const ImageCreationPanel: React.FC<Props> = ({ count, isFull, isValidate }) => {
             onClick={handleDrawClick}
           />
         ))}
+      {isModalOpen && (
+        <ModalLayout setIsModalOpen={setIsModalOpen}>
+          <DefaultModal
+            title="그림을 그리면 오늘 생성 가능 횟수가 소진돼요! 띠로리에게 그림을 그려달라고 할까요?"
+            leftText="넹"
+            rightText="아니용"
+            leftClick={handleYesClick}
+            rightClick={handleNoClick}
+          />
+        </ModalLayout>
+      )}
     </div>
   );
 };
