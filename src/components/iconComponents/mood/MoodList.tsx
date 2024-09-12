@@ -9,30 +9,32 @@ import HappyIcon from "@components/iconComponents/mood/moodItem/HappyIcon";
 interface MoodListProps {
   selectedMood: string | null;
   setSelectedMood: Dispatch<SetStateAction<string | null>>;
+  disabled?: boolean;
 }
 
-const MoodList: React.FC<MoodListProps> = ({ selectedMood, setSelectedMood }) => {
+const MoodList: React.FC<MoodListProps> = ({ selectedMood, setSelectedMood, disabled }) => {
   const handleMoodClick = (mood: string) => {
     setSelectedMood(mood);
   };
+
   return (
     <div className="flex gap-[20px]">
-      <button onClick={() => handleMoodClick("smile")}>
+      <button onClick={() => handleMoodClick("smile")} disabled={disabled}>
         <SmileIcon isClick={selectedMood === "smile"} />
       </button>
-      <button onClick={() => handleMoodClick("sad")}>
+      <button onClick={() => handleMoodClick("sad")} disabled={disabled}>
         <SadIcon isClick={selectedMood === "sad"} />
       </button>
-      <button onClick={() => handleMoodClick("mediocre")}>
+      <button onClick={() => handleMoodClick("mediocre")} disabled={disabled}>
         <MediocreIcon isClick={selectedMood === "mediocre"} />
       </button>
-      <button onClick={() => handleMoodClick("angry")}>
+      <button onClick={() => handleMoodClick("angry")} disabled={disabled}>
         <AngryIcon isClick={selectedMood === "angry"} />
       </button>
-      <button onClick={() => handleMoodClick("excited")}>
+      <button onClick={() => handleMoodClick("excited")} disabled={disabled}>
         <ExcitedIcon isClick={selectedMood === "excited"} />
       </button>
-      <button onClick={() => handleMoodClick("happy")}>
+      <button onClick={() => handleMoodClick("happy")} disabled={disabled}>
         <HappyIcon isClick={selectedMood === "happy"} />
       </button>
     </div>
