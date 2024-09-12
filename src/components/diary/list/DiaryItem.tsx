@@ -7,7 +7,7 @@ interface Props {
   imageUrl?: string;
   title: string;
   date: Date;
-  likeStatus: number;
+  likeStatus: boolean;
 }
 
 const DiaryItem: React.FC<Props> = ({ imageUrl, title, date, likeStatus }) => {

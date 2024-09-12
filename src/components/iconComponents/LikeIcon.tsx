@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 
 interface LikeIconProps {
-  status?: number;
+  status: boolean;
 }
 
-const LikeIcon: React.FC<LikeIconProps> = ({ status = 0 }) => {
-  const [fillColor, setFillColor] = useState<string>(status === 0 ? "none" : "#E7C7E7");
+const LikeIcon: React.FC<LikeIconProps> = ({ status = false }) => {
+  const [fillColor, setFillColor] = useState<string>(status === false ? "none" : "#E7C7E7");
   const handleClick = (): void => {
     setFillColor((prevColor) => (prevColor === "none" ? "#E7C7E7" : "none"));
   };
