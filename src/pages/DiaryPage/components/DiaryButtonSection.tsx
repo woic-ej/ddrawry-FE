@@ -4,7 +4,7 @@ import SmallButton from "@components/buttons/SmallButton";
 import ModalLayout from "@components/modals/ModalLayout";
 import DefaultModal from "@components/modals/DefaultModal";
 
-const ButtonSection: React.FC = () => {
+const DiaryButtonSection: React.FC = () => {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
   const [isShareModalOpen, setIsShareModalOpen] = useState<boolean>(false);
 
@@ -48,4 +48,4 @@ const ButtonSection: React.FC = () => {
   );
 };
 
-export default ButtonSection;
+export default DiaryButtonSection;

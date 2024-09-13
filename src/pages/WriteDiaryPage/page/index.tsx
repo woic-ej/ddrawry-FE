@@ -1,96 +1,56 @@
-import BigButton from "@components/buttons/BigButton";
-import SmallButton from "@components/buttons/SmallButton";
 import Diary from "@components/diary/Diary";
 import DefaultHeader from "@components/header/DefaultHeader";
-import DefaultModal from "@components/modals/DefaultModal";
-import ModalLayout from "@components/modals/ModalLayout";
+import React, { useEffect } from "react";
+import WriteDiaryButtonSection from "@pages/WriteDiaryPage/components/WriteDiaryButtonSection";
+import { DiaryDataType } from "src/types/diaryTypes";
 import useDiaryStore from "@store/diaryStore";
 import useImageStore from "@store/imageStore";
-import React, { useState } from "react";
 
 const WriteDiaryPage: React.FC = () => {
-  const [isResetModalOpen, setIsResetModalOpen] = useState<boolean>(false);
-  const [isImageModalOpen, setIsImageModalOpen] = useState<boolean>(false);
-  const [isSaveModalOpen, setIsSaveModalOpen] = useState<boolean>(false);
-  const { content, clearContent, limitLength, clearAll } = useDiaryStore();
-  const { image, clearImage } = useImageStore();
-  const isValid = content.length >= limitLength;
-
-  const handleResetClick = () => {
-    clearContent();
-    setIsResetModalOpen(false);
+  const { setMood, setWeather, setTitle, setContent, clearAll } = useDiaryStore();
+  const { setImage, clearImage } = useImageStore();
+  // 수정 또는 임시저장된 데이터가 있는 경우 api 호출
+  const diaryData: DiaryDataType = {
+    id: 1,
+    date: "2024-08-13",
+    nickname: "팡팡이",
+    count: 2,
+    isFull: false,
+    mood: "smile",
+    weather: "sunny",
+    title: "신나는 산책을 했따",
+    image: "null",
+    story:
+      "아침에 쿨쿨자고 일어나서 밥 먹고 응가하고 엄마랑 놀았따. 그러고 밥 먹고 낮잠을 자고 또 아빠랑 놀았따. 점심을 먹고 소화 시킬겸 언니랑 산책을 나갔다. 여기저기 신기한 냄새들을 잔뜩 맡았따. 완전 신나는 하루였따",
   };
 
-  const handleImageDeleteClick = () => {
-    clearImage();
-    setIsImageModalOpen(false);
-  };
+  useEffect(() => {
+    const diarySetting = () => {
+      setMood(diaryData.mood);
+      setWeather(diaryData.weather);
+      setTitle(diaryData.title);
+      setContent(diaryData.story);
+      setImage(diaryData.image);
+    };
 
-  const handleSaveClick = () => {
-    console.log("저장됨"); // api 호출로 후에 처리
-    clearImage();
-    clearAll();
-    setIsSaveModalOpen(false);
-  };
+    if (diaryData) {
+      diarySetting();
+    } else {
+      clearAll();
+      clearImage();
+    }
+  }, []);
 
   return (
     <div className="flex flex-col items-center">
       <DefaultHeader title="일기 쓰기" />
-      <Diary date="2024년 8월 10일" name="최은진" count={3} isFull={false} />
-      <div className="flex w-[1150px] justify-between mb-[80px]">
-        <div className="flex gap-[38px]">
-          <SmallButton
-            title="일기 초기화"
-            color="green"
-            onClick={() => setIsResetModalOpen(true)}
-          />
-          {image && (
-            <SmallButton
-              title="그림 지우기"
-              color="green"
-              onClick={() => setIsImageModalOpen(true)}
-            />
-          )}
-        </div>
-        <BigButton
-          title="일기 저장하기"
-          color={`${isValid ? "yellow" : "gray"}`}
-          onClick={() => isValid && setIsSaveModalOpen(true)}
-        />
-      </div>
-      {isResetModalOpen && (
-        <ModalLayout setIsModalOpen={setIsResetModalOpen}>
-          <DefaultModal
-            title="일기를 초기화 할까요?"
-            leftText="넹"
-            rightText="아니용"
-            leftClick={handleResetClick}
-            rightClick={() => setIsResetModalOpen(false)}
-          />
-        </ModalLayout>
-      )}
-      {isImageModalOpen && (
-        <ModalLayout setIsModalOpen={setIsImageModalOpen}>
-          <DefaultModal
-            title="이 그림을 삭제할까요?"
-            leftText="넹"
-            rightText="아니용"
-            leftClick={handleImageDeleteClick}
-            rightClick={() => setIsImageModalOpen(false)}
-          />
-        </ModalLayout>
-      )}
-      {isSaveModalOpen && (
-        <ModalLayout setIsModalOpen={setIsSaveModalOpen}>
-          <DefaultModal
-            title="이대로 일기를 저장할까요?"
-            leftText="넹"
-            rightText="아니용"
-            leftClick={handleSaveClick}
-            rightClick={() => setIsSaveModalOpen(false)}
-          />
-        </ModalLayout>
-      )}
+      <Diary
+        date={diaryData.date}
+        name={diaryData.nickname}
+        count={diaryData.count}
+        isFull={diaryData.isFull}
+      />
+      <WriteDiaryButtonSection />
     </div>
   );
 };

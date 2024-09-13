@@ -4,7 +4,7 @@ import useDiaryStore from "@store/diaryStore";
 import useImageStore from "@store/imageStore";
 import React, { useEffect } from "react";
 import { DiaryDataType } from "src/types/diaryTypes";
-import ButtonSection from "@pages/DiaryPage/components/ButtonSection";
+import DiaryButtonSection from "@pages/DiaryPage/components/DiaryButtonSection";
 
 const DiaryPage: React.FC = () => {
   const { setMood, setWeather, setTitle, setContent } = useDiaryStore();
@@ -41,7 +41,7 @@ const DiaryPage: React.FC = () => {
         count={diaryData.count}
         isFull={diaryData.isFull}
       />
-      <ButtonSection />
+      <DiaryButtonSection />
     </div>
   );
 };
