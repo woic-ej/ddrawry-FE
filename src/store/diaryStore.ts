@@ -32,7 +32,7 @@ const useDiaryStore = create<DiaryState>((set) => ({
       title: "",
       content: "",
     }),
-  maxLength: 250,
+  maxLength: 240,
   limitLength: 150,
 }));
 

@@ -14,7 +14,7 @@ function App() {
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/writeDiary" element={<WriteDiaryPage />} />
+        <Route path="/write" element={<WriteDiaryPage />} />
         <Route path="/liked" element={<LikedPage />} />
         <Route path="/diary/:diaryId" element={<DiaryPage />} />
         <Route path="/search" element={<SearchPage />} />
