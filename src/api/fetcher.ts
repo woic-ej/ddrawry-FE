@@ -49,7 +49,7 @@ const _fetch = async <T = unknown, R = unknown>({
 
   try {
     const res = await fetch(
-      `{프록시url}${endpoint}`,
+      `/api/v1${endpoint}`,
       requestOptions
     );
 
