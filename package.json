@@ -12,7 +12,7 @@
     "build-storybook": "storybook build",
     "chromatic": "npx chromatic --project-token=chpt_331321e81a5d63c",
     "prepare": "husky install",
-    "ts": "tsc --noEmit --incremental --watch"
+    "ts":"tsc -b"
   },
   "dependencies": {
     "classnames": "^2.5.1",
@@ -60,8 +60,7 @@
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
       "prettier --write",
-      "eslint --fix",
-      "tsc -b"
+      "eslint --fix"
     ]
   }
 }
