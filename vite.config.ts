@@ -36,7 +36,7 @@ export default defineConfig({
   server: {
     proxy: {
       "/api": {
-        target: "",
+        target: "https://ddrawry-be-deployment.onrender.com",
         changeOrigin: true,
       },
     },
