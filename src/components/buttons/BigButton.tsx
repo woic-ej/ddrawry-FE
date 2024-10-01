@@ -1,7 +1,7 @@
 import React from "react";
 
 interface BigButtonProps {
-  title: "홈으로 이동하기" | "일기 자랑하기";
+  title: "홈으로 이동하기" | "일기 자랑하기" | "일기 저장하기";
   color: "gray" | "yellow" | "blue";
   onClick?: () => void;
 }
