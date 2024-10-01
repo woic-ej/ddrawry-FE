@@ -61,7 +61,7 @@
     "*.{js,jsx,ts,tsx}": [
       "prettier --write",
       "eslint --fix",
-      "tsc --noEmit --incremental --watch"
+      "tsc -b"
     ]
   }
 }
