@@ -2,7 +2,13 @@ import { Meta, StoryObj } from "@storybook/react";
 import SearchBar from "@components/search/SearchBar";
 
 function Search() {
-  return <SearchBar />;
+  return (
+    <SearchBar
+      content=""
+      handleClick={() => console.log()}
+      handleInputChange={(e) => console.log(e)}
+    />
+  );
 }
 
 const meta: Meta<typeof Search> = {

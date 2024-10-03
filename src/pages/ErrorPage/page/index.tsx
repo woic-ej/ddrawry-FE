@@ -16,7 +16,7 @@ const ErrorPage: React.FC = () => {
         <div>
           <EmptyState message="Error - 어떤 에러가 발생했어요." />
         </div>
-        <BigButton text="홈으로 이동하기" color="blue" onClick={handleGoHome} />
+        <BigButton title="홈으로 이동하기" color="blue" onClick={handleGoHome} />
       </div>
     </div>
   );

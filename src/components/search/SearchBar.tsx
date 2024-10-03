@@ -11,7 +11,11 @@ interface SearchBarProps {
 const SearchBar: React.FC<SearchBarProps> = ({ content, handleInputChange, handleClick }) => {
   return (
     <div className="flex items-center gap-[18px]">
-      <SearchInput content={content} handleInputChange={handleInputChange}handleClick={handleClick}/>
+      <SearchInput
+        content={content}
+        handleInputChange={handleInputChange}
+        handleClick={handleClick}
+      />
       <SearchIcon handleClick={handleClick} />
     </div>
   );

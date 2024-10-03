@@ -1,10 +1,10 @@
 import React from "react";
 
 interface SearchIconProps {
-  handleClick: () => void;
+  handleClick?: () => void;
 }
 
-const SearchIcon: React.FC<SearchIconProps> = ({handleClick}) => {
+const SearchIcon: React.FC<SearchIconProps> = ({ handleClick }) => {
   return (
     <button onClick={handleClick}>
       <svg
