@@ -19,7 +19,12 @@ const NotificationMessage: React.FC<Pick<Props, "count">> = ({ count }) => {
       </div>
     );
   } else {
-    return <div className="regularCaption-font">오늘 그림 생성 기회를 다 써버렸어요 ㅠㅠ</div>;
+    return (
+      <div className="regularCaption-font">
+        오늘 그림 생성 기회를 다 써버렸어요 ㅠㅠ <br />
+        내일 다시 오면 그릴 수 있어요!
+      </div>
+    );
   }
 };
 
@@ -48,7 +53,7 @@ const ImageCreationPanel: React.FC<Props> = ({ count, isFull, isValidate }) => {
         (isFull ? (
           <div className="text-center regularCaption-font">
             그림 저장공간이 다 찼어요! <br />
-            그림을 더 생성하고 싶으면 저장 공간을 비워주세요
+            그림을 더 생성하고 싶으면 <span className="text-Red">띠로리 앨범</span>을 비워주세요
           </div>
         ) : (
           <SmallButton
