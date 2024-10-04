@@ -50,7 +50,7 @@ const WriteDiaryPage: React.FC = () => {
         count={diaryData.count}
         isFull={diaryData.isFull}
       />
-      <WriteDiaryButtonSection />
+      <WriteDiaryButtonSection images={["sads", "asda"]} />
     </div>
   );
 };

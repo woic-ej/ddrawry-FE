@@ -5,18 +5,22 @@ import BigButton from "@components/buttons/BigButton";
 import SmallButton from "@components/buttons/SmallButton";
 import useDiaryStore from "@store/diaryStore";
 import useImageStore from "@store/imageStore";
+import ImageEditModal from "@components/modals/ImageEditModal";
 
-const WriteDiaryButtonSection: React.FC = () => {
-  const [isResetModalOpen, setIsResetModalOpen] = useState<boolean>(false);
+interface Props {
+  images: string[];
+}
+
+const WriteDiaryButtonSection: React.FC<Props> = ({ images }) => {
+  const [isHistoryModalOpen, setIsHistoryModalOpen] = useState<boolean>(false);
   const [isImageModalOpen, setIsImageModalOpen] = useState<boolean>(false);
   const [isSaveModalOpen, setIsSaveModalOpen] = useState<boolean>(false);
-  const { content, clearContent, limitLength, clearAll } = useDiaryStore();
+  const { content, limitLength, clearAll } = useDiaryStore();
   const { image, clearImage } = useImageStore();
   const isValid = content.length >= limitLength;
 
-  const handleResetClick = () => {
-    clearContent();
-    setIsResetModalOpen(false);
+  const handleImageHistory = () => {
+    setIsHistoryModalOpen(true);
   };
 
   const handleImageDeleteClick = () => {
@@ -35,11 +39,7 @@ const WriteDiaryButtonSection: React.FC = () => {
     <>
       <div className="flex w-[1150px] justify-between mb-[80px]">
         <div className="flex gap-[38px]">
-          <SmallButton
-            title="일기 초기화"
-            color="green"
-            onClick={() => setIsResetModalOpen(true)}
-          />
+          <SmallButton title="띠로리 앨범" color="green" onClick={handleImageHistory} />
           {image && (
             <SmallButton
               title="그림 지우기"
@@ -54,15 +54,9 @@ const WriteDiaryButtonSection: React.FC = () => {
           onClick={() => isValid && setIsSaveModalOpen(true)}
         />
       </div>
-      {isResetModalOpen && (
-        <ModalLayout setIsModalOpen={setIsResetModalOpen}>
-          <DefaultModal
-            title="일기를 초기화 할까요?"
-            leftText="넹"
-            rightText="아니용"
-            leftClick={handleResetClick}
-            rightClick={() => setIsResetModalOpen(false)}
-          />
+      {isHistoryModalOpen && (
+        <ModalLayout setIsModalOpen={setIsHistoryModalOpen}>
+          <ImageEditModal images={images} setIsImageEditModalOpen={setIsHistoryModalOpen} />
         </ModalLayout>
       )}
       {isImageModalOpen && (

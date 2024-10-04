@@ -65,7 +65,7 @@ const Diary: React.FC<Props> = ({ date, name, count, isFull }) => {
         ) : isDiaryPage ? (
           <DefaultDiaryLogo />
         ) : (
-          <ImageCreationPanel count={count!} isFull={isFull!} isValidate={isValidate} images={[]} />
+          <ImageCreationPanel count={count!} isFull={isFull!} isValidate={isValidate} />
         )}
       </div>
       {isDiaryPage ? (

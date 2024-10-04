@@ -1,16 +1,13 @@
 import React, { useState } from "react";
-import ImagesHistoryButton from "@components/diary/image/ImagesHistoryButton";
 import SmallButton from "@components/buttons/SmallButton";
 import useImageStore from "@store/imageStore";
 import DefaultModal from "@components/modals/DefaultModal";
 import ModalLayout from "@components/modals/ModalLayout";
-import ImageEditModal from "@components/modals/ImageEditModal";
 
 interface Props {
   count: number;
   isFull: boolean;
   isValidate: boolean;
-  images: string[];
 }
 
 const NotificationMessage: React.FC<Pick<Props, "count">> = ({ count }) => {
@@ -26,14 +23,10 @@ const NotificationMessage: React.FC<Pick<Props, "count">> = ({ count }) => {
   }
 };
 
-const ImageCreationPanel: React.FC<Props> = ({ count, isFull, isValidate, images }) => {
+const ImageCreationPanel: React.FC<Props> = ({ count, isFull, isValidate }) => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const [isHistoryModalOpen, setIsHistoryModalOpen] = useState<boolean>(false);
-  const { setImage } = useImageStore();
 
-  const handleImageHistory = () => {
-    setIsHistoryModalOpen(true);
-  };
+  const { setImage } = useImageStore();
 
   const handleDrawClick = () => {
     setIsModalOpen(true);
@@ -50,7 +43,6 @@ const ImageCreationPanel: React.FC<Props> = ({ count, isFull, isValidate, images
 
   return (
     <div className="flex flex-col gap-[18px] items-center">
-      <ImagesHistoryButton isFull={isFull} onClick={handleImageHistory} />
       <NotificationMessage count={count} />
       {count > 0 &&
         (isFull ? (
@@ -74,11 +66,6 @@ const ImageCreationPanel: React.FC<Props> = ({ count, isFull, isValidate, images
             leftClick={handleYesClick}
             rightClick={handleNoClick}
           />
-        </ModalLayout>
-      )}
-      {isHistoryModalOpen && (
-        <ModalLayout setIsModalOpen={setIsHistoryModalOpen}>
-          <ImageEditModal images={images} setIsImageEditModalOpen={setIsHistoryModalOpen} />
         </ModalLayout>
       )}
     </div>
