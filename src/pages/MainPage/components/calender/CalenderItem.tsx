@@ -7,8 +7,8 @@ interface Props {
   day: string;
   isValidate: boolean;
   hasContent: boolean;
-  imageUrl?: string;
-  bookmark?: number;
+  imageUrl?: string | null;
+  bookmark?: boolean;
 }
 
 const CalenderItem: React.FC<Props> = ({ day, isValidate, hasContent, imageUrl, bookmark }) => {
@@ -22,7 +22,7 @@ const CalenderItem: React.FC<Props> = ({ day, isValidate, hasContent, imageUrl, 
           className={`${imageUrl && "calender-item object-cover"} `}
           alt={imageUrl ? "그림일기 이미지" : "기본 로고 이미지"}
         />
-        {bookmark === 1 && (
+        {bookmark && (
           <div className="absolute">
             <Like />
           </div>

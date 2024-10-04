@@ -13,6 +13,7 @@ const WriteDiaryPage: React.FC = () => {
   const diaryData: DiaryDataType = {
     id: 1,
     date: "2024-08-13",
+    bookmark: true,
     nickname: "팡팡이",
     count: 2,
     isFull: false,
