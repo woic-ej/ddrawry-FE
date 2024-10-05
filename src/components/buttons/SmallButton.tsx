@@ -2,7 +2,7 @@ import PaintIcon from "@components/iconComponents/PaintIcon";
 import React from "react";
 
 interface SmallButtonProps {
-  title: "수정하기" | "일기 초기화" | "지우기" | "그림 지우기" | "그림 그려줘!";
+  title: "수정하기" | "띠로리 앨범" | "지우기" | "그림 지우기" | "그림 그려줘!";
   color: "green" | "gray";
   onClick?: () => void;
 }

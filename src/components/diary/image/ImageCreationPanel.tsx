@@ -1,16 +1,13 @@
 import React, { useState } from "react";
-import ImagesHistoryButton from "@components/diary/image/ImagesHistoryButton";
 import SmallButton from "@components/buttons/SmallButton";
 import useImageStore from "@store/imageStore";
 import DefaultModal from "@components/modals/DefaultModal";
 import ModalLayout from "@components/modals/ModalLayout";
-import ImageEditModal from "@components/modals/ImageEditModal";
 
 interface Props {
   count: number;
   isFull: boolean;
   isValidate: boolean;
-  images: string[];
 }
 
 const NotificationMessage: React.FC<Pick<Props, "count">> = ({ count }) => {
@@ -22,18 +19,19 @@ const NotificationMessage: React.FC<Pick<Props, "count">> = ({ count }) => {
       </div>
     );
   } else {
-    return <div className="regularCaption-font">오늘 그림 생성 기회를 다 써버렸어요 ㅠㅠ</div>;
+    return (
+      <div className="regularCaption-font">
+        오늘 그림 생성 기회를 다 써버렸어요 ㅠㅠ <br />
+        내일 다시 오면 그릴 수 있어요!
+      </div>
+    );
   }
 };
 
-const ImageCreationPanel: React.FC<Props> = ({ count, isFull, isValidate, images }) => {
+const ImageCreationPanel: React.FC<Props> = ({ count, isFull, isValidate }) => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const [isHistoryModalOpen, setIsHistoryModalOpen] = useState<boolean>(false);
-  const { setImage } = useImageStore();
 
-  const handleImageHistory = () => {
-    setIsHistoryModalOpen(true);
-  };
+  const { setImage } = useImageStore();
 
   const handleDrawClick = () => {
     setIsModalOpen(true);
@@ -50,13 +48,12 @@ const ImageCreationPanel: React.FC<Props> = ({ count, isFull, isValidate, images
 
   return (
     <div className="flex flex-col gap-[18px] items-center">
-      <ImagesHistoryButton isFull={isFull} onClick={handleImageHistory} />
       <NotificationMessage count={count} />
       {count > 0 &&
         (isFull ? (
           <div className="text-center regularCaption-font">
             그림 저장공간이 다 찼어요! <br />
-            그림을 더 생성하고 싶으면 저장 공간을 비워주세요
+            그림을 더 생성하고 싶으면 <span className="text-Red">띠로리 앨범</span>을 비워주세요
           </div>
         ) : (
           <SmallButton
@@ -74,11 +71,6 @@ const ImageCreationPanel: React.FC<Props> = ({ count, isFull, isValidate, images
             leftClick={handleYesClick}
             rightClick={handleNoClick}
           />
-        </ModalLayout>
-      )}
-      {isHistoryModalOpen && (
-        <ModalLayout setIsModalOpen={setIsHistoryModalOpen}>
-          <ImageEditModal images={images} setIsImageEditModalOpen={setIsHistoryModalOpen} />
         </ModalLayout>
       )}
     </div>
