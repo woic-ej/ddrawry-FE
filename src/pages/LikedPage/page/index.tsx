@@ -6,11 +6,12 @@ import HeaderWithProfile from "@components/header/HeaderWithProfile";
 import { useDateControl } from "@hooks/useDateControl";
 import DateManipulationBar from "@pages/MainPage/components/DateManipulationBar";
 import { useToggleStore } from "@store/useToggleStore";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { DiaryListType } from "src/types/diaryTypes";
 import EmptyState from "@components/empty/EmptyState";
+import { format } from "date-fns";
 
-const LikedPage: React.FC = () => {
+const LikedPage = () => {
   const [likedDiaries, setLikedDiaries] = useState<DiaryListType[]>([]);
   const { currentDate, prevMonthHandler, nextMonthHandler } = useDateControl();
   const { isTotalView } = useToggleStore();
@@ -19,14 +20,14 @@ const LikedPage: React.FC = () => {
     (async () => {
       try {
         const { data }: { data: DiaryListType[] } = await api.get({
-          endpoint: apiRoutes.likeDiary,
+          endpoint: `${apiRoutes.likeDiary}?type=${isTotalView ? "all" : `month&date=${format(currentDate, "yyyyMM")}`}`,
         });
         setLikedDiaries(data);
       } catch (error) {
         console.error(error);
       }
     })();
-  }, []);
+  }, [currentDate, isTotalView]);
 
   return (
     <div className="flex flex-col h-screen w-full">
