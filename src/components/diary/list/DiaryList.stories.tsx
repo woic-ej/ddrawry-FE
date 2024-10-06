@@ -2,7 +2,7 @@ import { Meta, StoryObj } from "@storybook/react";
 import DiaryList from "@components/diary/list/DiaryList";
 
 function DiaryItemList() {
-  return <DiaryList />;
+  return <DiaryList diaries={[]} />;
 }
 
 const meta: Meta<typeof DiaryItemList> = {

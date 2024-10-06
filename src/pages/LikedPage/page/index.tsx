@@ -43,7 +43,7 @@ const LikedPage: React.FC = () => {
                 nextMonthHandler={nextMonthHandler}
               />
             )}
-            <DiaryList likedDiaries={likedDiaries} />
+            <DiaryList diaries={likedDiaries} />
           </div>
         </div>
       </div>
