@@ -17,7 +17,7 @@ const ToggleButton: React.FC<ToggleButtonProps> = ({ leftTitle, rightTitle }) =>
     } else {
       setIsLeftActive(isTotalView);
     }
-  }, [leftTitle]);
+  }, [leftTitle, isTotalView, isCalenderView]);
 
   const handleToggle = () => {
     if (activeButtonTitle === leftTitle) {

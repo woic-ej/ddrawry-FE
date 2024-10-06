@@ -1,19 +1,16 @@
-import React from "react";
 import DiaryItem from "@components/diary/list/DiaryItem";
+import { DiaryListType } from "src/types/diaryTypes";
 
-const DUMMY_IMG = "https://avatars.githubusercontent.com/u/77326820?v=4";
+interface Props {
+  likedDiaries: DiaryListType[];
+}
 
-const DiaryList: React.FC = () => {
+const DiaryList = ({ likedDiaries }: Props) => {
   return (
     <div className="flex flex-col w-full">
-      <DiaryItem
-        imageUrl={DUMMY_IMG}
-        title="신나는 산책을 했따."
-        date={new Date()}
-        likeStatus={true}
-      />
-      <DiaryItem imageUrl="" title="수영장갔다옴" date={new Date()} likeStatus={true} />
-      <DiaryItem imageUrl={DUMMY_IMG} title="룰루랄라" date={new Date()} likeStatus={true} />
+      {likedDiaries.map(({ id, title, image, date, bookmark }) => (
+        <DiaryItem key={id} title={title} image={image} date={date} bookmark={bookmark} />
+      ))}
     </div>
   );
 };

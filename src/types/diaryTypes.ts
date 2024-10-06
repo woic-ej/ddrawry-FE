@@ -1,8 +1,12 @@
 export type BaseDiaryType = {
   id: number;
   date: string;
-  image: string | null;
+  image: string;
   bookmark: boolean;
+};
+
+export type DiaryListType = BaseDiaryType & {
+  title: string;
 };
 
 export type DiaryDataType = BaseDiaryType & {
@@ -13,8 +17,4 @@ export type DiaryDataType = BaseDiaryType & {
   weather: string;
   title: string;
   story: string;
-};
-
-export type DiaryListType = BaseDiaryType & {
-  title: string;
 };
