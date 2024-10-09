@@ -1,16 +1,11 @@
 import React from "react";
 
 interface LikeIconProps {
-  status: boolean;
+  status: boolean | undefined;
   onClick: () => void;
 }
 
 const LikeIcon: React.FC<LikeIconProps> = ({ status = false, onClick }) => {
-  // const [fillColor, setFillColor] = useState<string>(status === false ? "none" : "#E7C7E7");
-  // const handleClick = (): void => {
-  //   setFillColor((prevColor) => (prevColor === "none" ? "#E7C7E7" : "none"));
-  // };
-
   return (
     <svg
       width="47.67"

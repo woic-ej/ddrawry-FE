@@ -6,11 +6,15 @@ import DateManipulationBar from "@pages/MainPage/components/DateManipulationBar"
 import { useToggleStore } from "@store/useToggleStore";
 import EmptyState from "@components/empty/EmptyState";
 import { useLikedDiaries } from "@api/liked/useLikedDiaries";
+import { format } from "date-fns";
 
 const LikedPage = () => {
   const { currentDate, prevMonthHandler, nextMonthHandler } = useDateControl();
   const { isTotalView } = useToggleStore();
-  const { data: likedDiaries, isPending } = useLikedDiaries(isTotalView, currentDate);
+  const { data: likedDiaries, isPending } = useLikedDiaries(
+    isTotalView,
+    format(currentDate, "yyyyMM"),
+  );
 
   if (isPending) return <div>Loading...</div>;
 

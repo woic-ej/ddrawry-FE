@@ -2,10 +2,15 @@ import LikeIcon from "@components/iconComponents/LikeIcon";
 import DefaultDiaryLogo from "@components/default/DefaultDiaryLogo";
 import { format } from "date-fns";
 import { DiaryListType } from "src/types/diaryTypes";
-import useLikeStatus from "@hooks/useLikeStatus";
+import { useLikeStatus } from "@api/liked/useLikeStatus";
 
 const DiaryItem = ({ id, image, title, date, bookmark }: DiaryListType) => {
-  const { likeStatus, toggleLike } = useLikeStatus(id, bookmark);
+  const { data: likeStatus = { bookmark }, mutate: toggleLike } = useLikeStatus(id);
+
+  const handleClick = () => {
+    toggleLike({ bookmark: !bookmark });
+  };
+
   return (
     <div className="min-w-[1012.53px] h-[275px] bg-white flex items-center justify-between border-b-[3px] border-buttonDisabled">
       <div className="flex items-center gap-[46px]">
@@ -19,7 +24,7 @@ const DiaryItem = ({ id, image, title, date, bookmark }: DiaryListType) => {
           <div className="smallCaption-font">{format(date, "yyyy년 M월 d일")}</div>
         </div>
       </div>
-      <LikeIcon status={likeStatus} onClick={toggleLike} />
+      <LikeIcon status={likeStatus.bookmark} onClick={handleClick} />
     </div>
   );
 };

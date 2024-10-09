@@ -1,14 +1,13 @@
 import api from "@api/fetcher";
 import { apiRoutes } from "@api/apiRoutes";
-import { format } from "date-fns";
 import { useQuery } from "@tanstack/react-query";
 import { DiaryListType } from "src/types/diaryTypes";
 
 const fetchLikedDiaries = async (
   isTotalView: boolean,
-  currentDate: Date,
+  currentDate: string,
 ): Promise<DiaryListType[]> => {
-  const query = isTotalView ? "all" : `month&date=${format(currentDate, "yyyyMM")}`;
+  const query = isTotalView ? "all" : `month&date=${currentDate}`;
   try {
     const { data }: { data: DiaryListType[] } = await api.get({
       endpoint: `${apiRoutes.likeDiary}?type=${query}`,
@@ -20,7 +19,7 @@ const fetchLikedDiaries = async (
   }
 };
 
-export const useLikedDiaries = (isTotalView: boolean, currentDate: Date) => {
+export const useLikedDiaries = (isTotalView: boolean, currentDate: string) => {
   return useQuery<DiaryListType[]>({
     queryKey: ["likedDiaries", isTotalView, currentDate],
     queryFn: () => fetchLikedDiaries(isTotalView, currentDate),
