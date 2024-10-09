@@ -1,7 +1,7 @@
 import React from "react";
 
 interface LikeIconProps {
-  status: boolean | undefined;
+  status: boolean;
   onClick: () => void;
 }
 
