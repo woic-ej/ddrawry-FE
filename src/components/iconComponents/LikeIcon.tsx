@@ -2,7 +2,7 @@ import React from "react";
 
 interface LikeIconProps {
   status: boolean;
-  onClick: () => void;
+  onClick?: () => void;
 }
 
 const LikeIcon: React.FC<LikeIconProps> = ({ status = false, onClick }) => {
