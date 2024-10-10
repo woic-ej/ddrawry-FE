@@ -17,7 +17,6 @@ export const useLogout = (setIsModalOpen: React.Dispatch<SetStateAction<boolean>
   const navigate = useNavigate();
   return useMutation({
     mutationFn: () => postLogout(),
-    mutationKey: ["logout"],
     onSuccess: (data: IPostResponseLogoutType) => {
       // 로그인 전역 상태 초기화 로직 추가해야함
       alert(data.message);
