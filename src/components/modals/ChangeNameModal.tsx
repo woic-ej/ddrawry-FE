@@ -1,4 +1,4 @@
-import { useChangeNickname } from "@api/liked/useChangeNickname";
+import { useChangeNickname } from "@api/users/useChangeNickname";
 import ModalButton from "@components/buttons/ModalButton";
 import React, { Dispatch, SetStateAction, useState } from "react";
 
