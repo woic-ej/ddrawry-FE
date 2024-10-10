@@ -1,6 +1,6 @@
 import { format, getDate, getMonth, parseISO } from "date-fns";
 import React from "react";
-import { CalenderDataType } from "src/types/diaryTypes";
+import { BaseDiaryType } from "src/types/diaryTypes";
 import CalenderItem from "@pages/MainPage/components/calender/CalenderItem";
 
 const DAY_LIST = ["일", "월", "화", "수", "목", "금", "토"];
@@ -8,18 +8,18 @@ const DAY_LIST = ["일", "월", "화", "수", "목", "금", "토"];
 interface Props {
   currentMonthData: Date[];
   currentDate: Date;
-  calenderData: CalenderDataType[];
+  calenderData: BaseDiaryType[];
 }
 
 // 일기 데이터가 있는 날을 찾아내는 함수
-const findEventForDate = (date: Date, events: CalenderDataType[]) => {
+const findEventForDate = (date: Date, events: BaseDiaryType[]) => {
   return events.find((event) => {
     const eventDate = parseISO(event.date);
     return getDate(date) === getDate(eventDate);
   });
 };
 
-const renderCalenderItem = (day: Date, currentDate: Date, events: CalenderDataType[]) => {
+const renderCalenderItem = (day: Date, currentDate: Date, events: BaseDiaryType[]) => {
   const isCurrentMonth = getMonth(day) === getMonth(currentDate);
   const formattedDay = format(day, "d");
   const calendarEvent = findEventForDate(day, events);

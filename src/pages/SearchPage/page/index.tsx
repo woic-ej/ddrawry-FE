@@ -30,7 +30,7 @@ const SearchPage: React.FC = () => {
     if (value === "") {
       results.length = 0;
     }
-    isSearchClicked && setIsSearchClicked(false);
+    if (isSearchClicked) setIsSearchClicked(false);
   };
 
   const handleSearchClick = () => {
@@ -60,7 +60,7 @@ const SearchPage: React.FC = () => {
         results.length > 0 && (
           <div className="w-full flex justify-center items-center mt-[60px]">
             <div>
-              <DiaryList />
+              <DiaryList diaries={[]} />
             </div>
           </div>
         )

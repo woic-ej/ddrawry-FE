@@ -16,9 +16,10 @@ const DiaryPage: React.FC = () => {
     mood: "smile",
     weather: "sunny",
     title: "신나는 산책을 했따",
-    image: null,
+    image: "",
     story:
       "아침에 쿨쿨자고 일어나서 밥 먹고 응가하고 엄마랑 놀았따. 그러고 밥 먹고 낮잠을 자고 또 아빠랑 놀았따. 점심을 먹고 소화 시킬겸 언니랑 산책을 나갔다. 여기저기 신기한 냄새들을 잔뜩 맡았따. 완전 신나는 하루였따",
+    bookmark: true,
   };
 
   useEffect(() => {

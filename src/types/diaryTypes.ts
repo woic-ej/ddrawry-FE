@@ -1,19 +1,20 @@
-export type CalenderDataType = {
+export type BaseDiaryType = {
   id: number;
   date: string;
   image: string;
-  bookmark: number;
+  bookmark: boolean;
 };
 
-export type DiaryDataType = {
-  id: number;
-  date: string;
+export type DiaryListType = BaseDiaryType & {
+  title: string;
+};
+
+export type DiaryDataType = BaseDiaryType & {
   nickname: string;
   count?: number;
   isFull?: boolean;
   mood: string;
   weather: string;
   title: string;
-  image: string | null;
   story: string;
 };
