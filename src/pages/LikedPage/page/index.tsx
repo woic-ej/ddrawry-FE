@@ -18,31 +18,38 @@ const LikedPage = () => {
 
   if (isPending) return <div>Loading...</div>;
 
+  const DiarySection = () => {
+    if (likedDiaries) {
+      if (likedDiaries.length !== 0) {
+        return (
+          <div className="w-full h-full flex justify-center items-center">
+            <EmptyState message="좋아요한 일기가 없어요! 소중한 일기들을 하나씩 모아봐요" />
+          </div>
+        );
+      } else {
+        return <DiaryList diaries={likedDiaries!} />;
+      }
+    }
+  };
+
   return (
     <div className="flex flex-col h-screen w-full">
       <HeaderWithProfile title="좋아요한 일기들" />
-      {likedDiaries &&
-        (likedDiaries?.length === 0 ? (
-          <div className="w-full h-full">
-            <EmptyState message="좋아요한 일기가 없어요! 소중한 일기들을 하나씩 모아봐요" />
-          </div>
-        ) : (
-          <div className="flex flex-grow items-center flex-col gap-[48px] px-[130px] py-[53px]">
-            <div className="flex justify-start w-full min-w-[990px]">
-              <ToggleButton leftTitle="전체보기" rightTitle="날짜별" />
-            </div>
-            <div className="w-full min-w-[990px] flex flex-col items-center gap-[64px]">
-              {!isTotalView && (
-                <DateManipulationBar
-                  date={currentDate}
-                  prevMonthHandler={prevMonthHandler}
-                  nextMonthHandler={nextMonthHandler}
-                />
-              )}
-              <DiaryList diaries={likedDiaries!} />
-            </div>
-          </div>
-        ))}
+      <div className="flex flex-grow items-center flex-col gap-[48px] px-[130px] py-[53px]">
+        <div className="flex justify-start w-full min-w-[990px]">
+          <ToggleButton leftTitle="전체보기" rightTitle="날짜별" />
+        </div>
+        <div className="w-full flex-grow flex flex-col items-center gap-[64px]">
+          {!isTotalView && (
+            <DateManipulationBar
+              date={currentDate}
+              prevMonthHandler={prevMonthHandler}
+              nextMonthHandler={nextMonthHandler}
+            />
+          )}
+          <DiarySection />
+        </div>
+      </div>
     </div>
   );
 };
