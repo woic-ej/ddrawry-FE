@@ -19,7 +19,6 @@ function Button() {
       <div className="flex flex-col gap-8">
         <h1 className="text-16 bg-white w-fit p-4">SmallButton</h1>
         <SmallButton title="수정하기" color="green" />
-        <SmallButton title="일기 초기화" color="green" />
         <SmallButton title="지우기" color="green" />
         <SmallButton title="그림 지우기" color="green" />
         <SmallButton title="그림 그려줘!" color="green" />
