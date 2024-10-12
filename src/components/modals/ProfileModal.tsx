@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import ModalLayout from "./ModalLayout";
 import ChangeNameModal from "./ChangeNameModal";
 import DefaultModal from "./DefaultModal";
+import { useLogout } from "@api/users/useLogout";
+import { useDeleteAccount } from "@api/users/useDeleteAccount";
 
 interface ProfileModalProps {
   nickName: string;
@@ -17,16 +19,15 @@ const ProfileModal: React.FC<ProfileModalProps> = ({ nickName }) => {
   const [isDeleteAccountModalOpen, setIsDeleteAccountModalOpen] = useState<boolean>(false);
   const navigate = useNavigate();
   const { isDarkMode, toggleDarkMode } = useDarkMode();
+  const logoutMutation = useLogout(setIsLogoutModalOpen);
+  const deleteAccount = useDeleteAccount(setIsDeleteAccountModalOpen);
 
   const handleLogout = () => {
-    setIsLogoutModalOpen(false);
-    navigate("/login");
+    logoutMutation.mutate();
   };
 
   const handleDeleteAccount = () => {
-    setIsDeleteAccountModalOpen(false);
-    localStorage.clear();
-    navigate("/login");
+    deleteAccount.mutate();
   };
 
   const handleClick = (item: string) => {

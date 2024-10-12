@@ -1,3 +1,4 @@
+import { useChangeNickname } from "@api/users/useChangeNickname";
 import ModalButton from "@components/buttons/ModalButton";
 import React, { Dispatch, SetStateAction, useState } from "react";
 
@@ -10,15 +11,15 @@ const ChangeNameModal: React.FC<ChangeNameModalProps> = ({ currentName, setIsMod
   const [isNameValid, setIsNameValid] = useState<boolean>(false);
   const [newName, setNewName] = useState<string>("");
   const [errorMessage, setErrorMessage] = useState<string>("");
+  const changeName = useChangeNickname(newName, setIsModalOpen);
 
   const handleChangeNickname = (event: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = event.target.value;
     const isValid = /^[a-zA-Z가-힣]*$/.test(inputValue);
     if (isValid && inputValue.length <= 5) {
       setIsNameValid(true);
-    }
-    else {
-      setIsNameValid(false)
+    } else {
+      setIsNameValid(false);
     }
     setNewName(inputValue.slice(0, 5));
     setErrorMessage("");
@@ -33,8 +34,7 @@ const ChangeNameModal: React.FC<ChangeNameModalProps> = ({ currentName, setIsMod
       setErrorMessage("닉네임은 1글자 이상 5글자 이하로 영문자, 한글만 허용");
       return;
     }
-    // api 연동
-    setIsModalOpen(false);
+    changeName.mutate();
   };
 
   return (
