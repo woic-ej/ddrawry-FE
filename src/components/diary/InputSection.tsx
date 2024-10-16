@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
+import { UseFormRegister } from "react-hook-form";
+import { DiaryFormData } from "src/types/WriteDiaryTypes";
 
 interface Props {
-  content: string;
   wordLimit: number;
   maxLength: number;
-  onChange: (value: string) => void;
+  register: UseFormRegister<DiaryFormData>;
+  currentStory: string;
 }
 
-const InputSection: React.FC<Props> = ({ content, wordLimit, maxLength, onChange }) => {
+const InputSection: React.FC<Props> = ({ wordLimit, maxLength, register, currentStory = "" }) => {
   const [isClicked, setIsClicked] = useState<boolean>(false);
 
   useEffect(() => {
@@ -21,7 +23,7 @@ const InputSection: React.FC<Props> = ({ content, wordLimit, maxLength, onChange
         setIsClicked(true);
       }}
     >
-      {content.length === 0 && !isClicked ? (
+      {currentStory.length === 0 && !isClicked ? (
         <div className="hugeCaption-font text-center">
           띠로리가 멋진 그림을 만들기위해서는 <br />
           최소 {wordLimit}자는 써야 해요!
@@ -31,11 +33,11 @@ const InputSection: React.FC<Props> = ({ content, wordLimit, maxLength, onChange
           <textarea
             id="textarea"
             className="resize-none outline-none title-font w-full flex-grow p-10"
-            value={content}
-            onChange={(e) => onChange(e.target.value)}
+            maxLength={maxLength - 1}
+            {...register("story")}
           />
           <div className="w-full flex justify-end items-center h-[50px] pr-[18px] text-Gray text-[22px]">
-            {content.length} / {maxLength} 자
+            {currentStory.length} / {maxLength} 자
           </div>
         </div>
       )}

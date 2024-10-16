@@ -1,37 +1,43 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import DefaultModal from "@components/modals/DefaultModal";
 import ModalLayout from "@components/modals/ModalLayout";
 import BigButton from "@components/buttons/BigButton";
 import SmallButton from "@components/buttons/SmallButton";
-import useDiaryStore from "@store/diaryStore";
-import useImageStore from "@store/imageStore";
 import ImageEditModal from "@components/modals/ImageEditModal";
+import { useFormContext } from "react-hook-form";
+import { DiaryFormData } from "src/types/WriteDiaryTypes";
+import { useWriteDiary } from "@api/diary/useWriteDiary";
 
 interface Props {
-  images: string[];
+  date: string;
+  nickname: string;
 }
 
-const WriteDiaryButtonSection: React.FC<Props> = ({ images }) => {
+const WriteDiaryButtonSection = ({ date, nickname }: Props) => {
   const [isHistoryModalOpen, setIsHistoryModalOpen] = useState<boolean>(false);
   const [isImageModalOpen, setIsImageModalOpen] = useState<boolean>(false);
   const [isSaveModalOpen, setIsSaveModalOpen] = useState<boolean>(false);
-  const { content, limitLength, clearAll } = useDiaryStore();
-  const { image, clearImage } = useImageStore();
-  const isValid = content.length >= limitLength;
+  const { mutate } = useWriteDiary();
+  const {
+    handleSubmit,
+    watch,
+    unregister,
+    formState: { isValid },
+  } = useFormContext<DiaryFormData>();
+  const currentImage = watch("image");
 
   const handleImageHistory = () => {
     setIsHistoryModalOpen(true);
   };
 
   const handleImageDeleteClick = () => {
-    clearImage();
+    unregister("image");
     setIsImageModalOpen(false);
   };
 
-  const handleSaveClick = () => {
-    console.log("저장됨"); // api 호출로 후에 처리
-    clearImage();
-    clearAll();
+  const handleSaveClick = (data: DiaryFormData) => {
+    mutate({ ...data, nickname, date });
+    console.log(data);
     setIsSaveModalOpen(false);
   };
 
@@ -40,7 +46,7 @@ const WriteDiaryButtonSection: React.FC<Props> = ({ images }) => {
       <div className="flex w-[1150px] justify-between mb-[80px]">
         <div className="flex gap-[38px]">
           <SmallButton title="띠로리 앨범" color="green" onClick={handleImageHistory} />
-          {image && (
+          {currentImage && (
             <SmallButton
               title="그림 지우기"
               color="green"
@@ -51,12 +57,13 @@ const WriteDiaryButtonSection: React.FC<Props> = ({ images }) => {
         <BigButton
           title="일기 저장하기"
           color={`${isValid ? "yellow" : "gray"}`}
-          onClick={() => isValid && setIsSaveModalOpen(true)}
+          disabled={!isValid}
+          onClick={() => setIsSaveModalOpen(true)}
         />
       </div>
       {isHistoryModalOpen && (
         <ModalLayout setIsModalOpen={setIsHistoryModalOpen}>
-          <ImageEditModal images={images} setIsImageEditModalOpen={setIsHistoryModalOpen} />
+          <ImageEditModal images={[]} setIsImageEditModalOpen={setIsHistoryModalOpen} />
         </ModalLayout>
       )}
       {isImageModalOpen && (
@@ -76,7 +83,7 @@ const WriteDiaryButtonSection: React.FC<Props> = ({ images }) => {
             title="이대로 일기를 저장할까요?"
             leftText="넹"
             rightText="아니용"
-            leftClick={handleSaveClick}
+            leftClick={handleSubmit(handleSaveClick)}
             rightClick={() => setIsSaveModalOpen(false)}
           />
         </ModalLayout>

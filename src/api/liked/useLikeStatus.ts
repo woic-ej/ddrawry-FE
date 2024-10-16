@@ -22,7 +22,7 @@ const updateLikeStatus = async (
   newStatus: LikeStatusPayload,
 ): Promise<LikeStatusResponse> => {
   try {
-    const data: LikeStatusResponse = await api.put({
+    const { data }: { data: LikeStatusResponse } = await api.put({
       endpoint: `${apiRoutes.likeDiary}/${id}`,
       body: newStatus,
     });

@@ -5,37 +5,39 @@ import MediocreIcon from "@components/iconComponents/mood/moodItem/MediocreIcon"
 import AngryIcon from "@components/iconComponents/mood/moodItem/AngryIcon";
 import ExcitedIcon from "@components/iconComponents/mood/moodItem/ExcitedIcon";
 import HappyIcon from "@components/iconComponents/mood/moodItem/HappyIcon";
-import useDiaryStore from "@store/diaryStore";
 
 interface MoodListProps {
+  setValue: (field: "mood", value: string) => void;
+  trigger: (field: "mood") => void;
+  currentMood: string;
   disabled?: boolean;
 }
 
-const MoodList: React.FC<MoodListProps> = ({ disabled }) => {
-  const { mood, setMood } = useDiaryStore();
+const MoodList: React.FC<MoodListProps> = ({ disabled, setValue, trigger, currentMood }) => {
   const handleMoodClick = (mood: string) => {
-    setMood(mood);
+    setValue("mood", mood);
+    trigger("mood");
   };
 
   return (
     <div className="flex gap-[20px]">
-      <button onClick={() => handleMoodClick("smile")} disabled={disabled}>
-        <SmileIcon isClick={mood === "smile"} />
+      <button type="button" onClick={() => handleMoodClick("smile")} disabled={disabled}>
+        <SmileIcon isClick={currentMood === "smile"} />
       </button>
-      <button onClick={() => handleMoodClick("sad")} disabled={disabled}>
-        <SadIcon isClick={mood === "sad"} />
+      <button type="button" onClick={() => handleMoodClick("sad")} disabled={disabled}>
+        <SadIcon isClick={currentMood === "sad"} />
       </button>
-      <button onClick={() => handleMoodClick("mediocre")} disabled={disabled}>
-        <MediocreIcon isClick={mood === "mediocre"} />
+      <button type="button" onClick={() => handleMoodClick("mediocre")} disabled={disabled}>
+        <MediocreIcon isClick={currentMood === "mediocre"} />
       </button>
-      <button onClick={() => handleMoodClick("angry")} disabled={disabled}>
-        <AngryIcon isClick={mood === "angry"} />
+      <button type="button" onClick={() => handleMoodClick("angry")} disabled={disabled}>
+        <AngryIcon isClick={currentMood === "angry"} />
       </button>
-      <button onClick={() => handleMoodClick("excited")} disabled={disabled}>
-        <ExcitedIcon isClick={mood === "excited"} />
+      <button type="button" onClick={() => handleMoodClick("excited")} disabled={disabled}>
+        <ExcitedIcon isClick={currentMood === "excited"} />
       </button>
-      <button onClick={() => handleMoodClick("happy")} disabled={disabled}>
-        <HappyIcon isClick={mood === "happy"} />
+      <button type="button" onClick={() => handleMoodClick("happy")} disabled={disabled}>
+        <HappyIcon isClick={currentMood === "happy"} />
       </button>
     </div>
   );
