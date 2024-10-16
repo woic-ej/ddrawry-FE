@@ -8,13 +8,20 @@ import WindyIcon from "@components/iconComponents/weather/weatherItem/WindyIcon"
 
 interface WeatherListProps {
   setValue: (field: "weather", value: string) => void;
+  trigger: (field: "weather") => void;
   currentWeather: string;
   disabled?: boolean;
 }
 
-const WeatherList: React.FC<WeatherListProps> = ({ disabled, setValue, currentWeather }) => {
+const WeatherList: React.FC<WeatherListProps> = ({
+  disabled,
+  setValue,
+  trigger,
+  currentWeather,
+}) => {
   const handleWeatherClick = (weather: string) => {
     setValue("weather", weather);
+    trigger("weather");
   };
 
   return (

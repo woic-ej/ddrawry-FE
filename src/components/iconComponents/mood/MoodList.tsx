@@ -8,13 +8,15 @@ import HappyIcon from "@components/iconComponents/mood/moodItem/HappyIcon";
 
 interface MoodListProps {
   setValue: (field: "mood", value: string) => void;
+  trigger: (field: "mood") => void;
   currentMood: string;
   disabled?: boolean;
 }
 
-const MoodList: React.FC<MoodListProps> = ({ disabled, setValue, currentMood }) => {
+const MoodList: React.FC<MoodListProps> = ({ disabled, setValue, trigger, currentMood }) => {
   const handleMoodClick = (mood: string) => {
     setValue("mood", mood);
+    trigger("mood");
   };
 
   return (

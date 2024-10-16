@@ -38,7 +38,7 @@ const DiaryPage: React.FC = () => {
       <HeaderWithLike />
       <Diary
         date={diaryData.date}
-        name={diaryData.nickname}
+        nickname={diaryData.nickname}
         count={diaryData.count}
         isFull={diaryData.isFull}
       />

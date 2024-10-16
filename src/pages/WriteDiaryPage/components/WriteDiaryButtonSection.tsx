@@ -3,33 +3,41 @@ import DefaultModal from "@components/modals/DefaultModal";
 import ModalLayout from "@components/modals/ModalLayout";
 import BigButton from "@components/buttons/BigButton";
 import SmallButton from "@components/buttons/SmallButton";
-import useImageStore from "@store/imageStore";
 import ImageEditModal from "@components/modals/ImageEditModal";
 import { useFormContext } from "react-hook-form";
 import { DiaryFormData } from "src/types/WriteDiaryTypes";
+import { useWriteDiary } from "@api/diary/useWriteDiary";
 
-const WriteDiaryButtonSection = () => {
+interface Props {
+  date: string;
+  nickname: string;
+}
+
+const WriteDiaryButtonSection = ({ date, nickname }: Props) => {
   const [isHistoryModalOpen, setIsHistoryModalOpen] = useState<boolean>(false);
   const [isImageModalOpen, setIsImageModalOpen] = useState<boolean>(false);
   const [isSaveModalOpen, setIsSaveModalOpen] = useState<boolean>(false);
-  const { image, clearImage } = useImageStore();
+  const { mutate } = useWriteDiary();
   const {
     handleSubmit,
+    watch,
+    unregister,
     formState: { isValid },
   } = useFormContext<DiaryFormData>();
+  const currentImage = watch("image");
 
   const handleImageHistory = () => {
     setIsHistoryModalOpen(true);
   };
 
   const handleImageDeleteClick = () => {
-    clearImage();
+    unregister("image");
     setIsImageModalOpen(false);
   };
 
   const handleSaveClick = (data: DiaryFormData) => {
-    console.log(data); // api 호출로 후에 처리
-    clearImage();
+    mutate({ ...data, nickname, date });
+    console.log(data);
     setIsSaveModalOpen(false);
   };
 
@@ -38,7 +46,7 @@ const WriteDiaryButtonSection = () => {
       <div className="flex w-[1150px] justify-between mb-[80px]">
         <div className="flex gap-[38px]">
           <SmallButton title="띠로리 앨범" color="green" onClick={handleImageHistory} />
-          {image && (
+          {currentImage && (
             <SmallButton
               title="그림 지우기"
               color="green"

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import SmallButton from "@components/buttons/SmallButton";
-import useImageStore from "@store/imageStore";
 import DefaultModal from "@components/modals/DefaultModal";
 import ModalLayout from "@components/modals/ModalLayout";
 
@@ -8,6 +7,7 @@ interface Props {
   count: number;
   isFull: boolean;
   isValidate: boolean;
+  setValue: (field: "image", value: string) => void;
 }
 
 const NotificationMessage: React.FC<Pick<Props, "count">> = ({ count }) => {
@@ -28,17 +28,15 @@ const NotificationMessage: React.FC<Pick<Props, "count">> = ({ count }) => {
   }
 };
 
-const ImageCreationPanel: React.FC<Props> = ({ count, isFull, isValidate }) => {
+const ImageCreationPanel: React.FC<Props> = ({ count, isFull, isValidate, setValue }) => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-
-  const { setImage } = useImageStore();
 
   const handleDrawClick = () => {
     setIsModalOpen(true);
   };
 
   const handleYesClick = () => {
-    setImage("생성된 그림"); // api 호출로 대체
+    setValue("image", "생성된 그림"); // api 호출로 대체
     setIsModalOpen(false);
   };
 
