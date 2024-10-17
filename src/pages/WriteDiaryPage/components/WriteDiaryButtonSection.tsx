@@ -37,7 +37,6 @@ const WriteDiaryButtonSection = ({ date, nickname }: Props) => {
 
   const handleSaveClick = (data: DiaryFormData) => {
     mutate({ ...data, nickname, date });
-    console.log(data);
     setIsSaveModalOpen(false);
   };
 

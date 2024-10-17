@@ -5,13 +5,22 @@ import { FormProvider, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { DiaryFormData, DiaryFormSchema } from "../../../types/WriteDiaryTypes";
 import { useParams } from "react-router-dom";
+import { useGetTempDiary } from "@api/diary/useTempDiary";
+import { useEffect } from "react";
 
 const WriteDiaryPage = () => {
-  const { date } = useParams<{ date: string }>();
+  const { date, tempId } = useParams<{ date: string; tempId: string }>();
   const methods = useForm<DiaryFormData>({
     resolver: zodResolver(DiaryFormSchema),
     mode: "onChange",
   });
+
+  const { data } = useGetTempDiary(tempId!);
+
+  // 임시데이터를 조회해서 그 값으로 폼 데이터 reset
+  useEffect(() => {
+    methods.reset(data);
+  }, [methods, data]);
 
   return (
     <div className="flex flex-col items-center">
