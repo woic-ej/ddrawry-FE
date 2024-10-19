@@ -7,6 +7,7 @@ import { DiaryFormData, DiaryFormSchema } from "../../../types/WriteDiaryTypes";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getTempDiary } from "@api/diary/useTempDiary";
+import TempSaveModal from "@pages/WriteDiaryPage/components/TempSaveModal";
 
 const WriteDiaryPage = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -29,6 +30,7 @@ const WriteDiaryPage = () => {
       }
       setNickname(data.nickname);
       methods.reset(data);
+      methods.trigger();
     })();
     setIsLoading(false);
   }, [methods, tempId]);
@@ -53,6 +55,7 @@ const WriteDiaryPage = () => {
         <Diary date={date!} nickname={nickname} count={2} />
         <WriteDiaryButtonSection date={date!} nickname={nickname} />
       </FormProvider>
+      <TempSaveModal />
     </div>
   );
 };

@@ -1,10 +1,14 @@
 import ToggleButton from "@components/buttons/ToggleButton";
 import HeaderWithProfile from "@components/header/HeaderWithProfile";
 import SearchIcon from "@components/search/SearchIcon";
-import React from "react";
+import React, { useEffect } from "react";
 import CalenderView from "../components/calender/CalenderView";
 
 const MainPage: React.FC = () => {
+  useEffect(() => {
+    sessionStorage.removeItem("initialLoad");
+  }, []);
+
   return (
     <div className="flex flex-col h-screen w-full">
       <HeaderWithProfile title="띠로리" />
