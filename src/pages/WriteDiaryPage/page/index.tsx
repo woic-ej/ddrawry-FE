@@ -55,7 +55,7 @@ const WriteDiaryPage = () => {
         <Diary date={date!} nickname={nickname} count={2} />
         <WriteDiaryButtonSection date={date!} nickname={nickname} />
       </FormProvider>
-      <TempSaveModal />
+      <TempSaveModal date={date!} tempId={tempId!} />
     </div>
   );
 };

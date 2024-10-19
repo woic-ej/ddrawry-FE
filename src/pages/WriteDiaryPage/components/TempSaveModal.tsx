@@ -1,12 +1,22 @@
 import ModalLayout from "@components/modals/ModalLayout";
 import DefaultModal from "@components/modals/DefaultModal";
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import {
+  SaveTempDiaryPayload,
+  useCancelTempDiary,
+  useSaveTempDiary,
+} from "@api/diary/useTempDiary";
 
-const TempSaveModal = () => {
+interface Props {
+  date: string;
+  tempId: string;
+}
+
+const TempSaveModal = ({ date, tempId }: Props) => {
   const [showModal, setShowModal] = useState<boolean>(false);
   const [isBlocking, setIsBlocking] = useState<boolean>(true);
-  const navigate = useNavigate();
+  const { mutate: saveTemp } = useSaveTempDiary(tempId);
+  const { mutate: cancelTemp } = useCancelTempDiary(tempId);
 
   useEffect(() => {
     const isInitialLoad = sessionStorage.getItem("initialLoad") === null;
@@ -29,18 +39,20 @@ const TempSaveModal = () => {
     return () => {
       window.removeEventListener("popstate", handlePopState); // 이벤트 해제
     };
-  }, []);
-
-  console.log(history.length);
+  }, [isBlocking]);
 
   const handleSave = () => {
+    const tempData: SaveTempDiaryPayload = JSON.parse(
+      localStorage.getItem(`temp-diary/${tempId}`)!,
+    );
     setShowModal(false);
     setIsBlocking(false);
-    navigate(-1);
+    saveTemp(tempData);
   };
 
   const handleCancel = () => {
     setShowModal(false);
+    cancelTemp({ date, type: "write" });
   };
 
   return (
