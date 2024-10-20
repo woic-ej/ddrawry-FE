@@ -33,6 +33,10 @@ const DiaryPage: React.FC = () => {
     diarySetting();
   }, []);
 
+  useEffect(() => {
+    sessionStorage.removeItem("initialLoad");
+  }, []);
+
   return (
     <div className="flex flex-col items-center">
       <HeaderWithLike />

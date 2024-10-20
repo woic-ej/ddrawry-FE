@@ -16,11 +16,13 @@ const LikedPage = () => {
     format(currentDate, "yyyyMM"),
   );
 
+  console.log(likedDiaries);
+
   if (isPending) return <div>Loading...</div>;
 
   const DiarySection = () => {
     if (likedDiaries) {
-      if (likedDiaries.length !== 0) {
+      if (likedDiaries.length === 0) {
         return (
           <div className="w-full h-full flex justify-center items-center">
             <EmptyState message="좋아요한 일기가 없어요! 소중한 일기들을 하나씩 모아봐요" />
