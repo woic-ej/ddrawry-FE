@@ -2,12 +2,18 @@ import KakaoButton from "@components/buttons/KakaoButton";
 import DefaultDiaryLogo from "@components/default/DefaultDiaryLogo";
 import DefaultHeader from "@components/header/DefaultHeader";
 import React from "react";
+import { apiRoutes } from "@api/apiRoutes";
+import { DOMAIN } from "@constants/domain";
 
 const LoginPage: React.FC = () => {
-
   const handleLogin = () => {
-    
-  }
+    const domain = window.location.hostname;
+    if (domain === "localhost") {
+      window.location.href = `${DOMAIN}/api/v1${apiRoutes.login}?dev=1`;
+    } else if (domain === "ddrawry.site") {
+      window.location.href = `${DOMAIN}/api/v1${apiRoutes.login}?dev=0`;
+    }
+  };
 
   return (
     <div className="flex flex-col h-screen">

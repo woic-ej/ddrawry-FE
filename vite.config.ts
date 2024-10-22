@@ -1,6 +1,7 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import path from "path";
+import { DOMAIN } from "./src/constants/domain";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -35,12 +36,16 @@ export default defineConfig({
         find: "@api",
         replacement: path.resolve(__dirname, "src/api"),
       },
+      {
+        find: "@constants",
+        replacement: path.resolve(__dirname, "src/constants"),
+      },
     ],
   },
   server: {
     proxy: {
       "/api": {
-        target: "https://ddrawry-dev-server.onrender.com",
+        target: DOMAIN,
         changeOrigin: true,
       },
     },
