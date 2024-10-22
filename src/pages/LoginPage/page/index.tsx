@@ -10,7 +10,7 @@ const LoginPage: React.FC = () => {
     const domain = window.location.hostname;
     if (domain === "localhost") {
       window.location.href = `${DOMAIN}/api/v1${apiRoutes.login}?dev=1`;
-    } else if (domain === "ddrawry.site") {
+    } else if (domain === "www.ddrawry.site") {
       window.location.href = `${DOMAIN}/api/v1${apiRoutes.login}?dev=0`;
     }
   };
