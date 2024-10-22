@@ -1,3 +1,5 @@
+import { DOMAIN } from "@constants/domain";
+
 interface IFetchOptions<T = unknown> {
   endpoint: string;
   body?: T;
@@ -21,6 +23,8 @@ interface IDeleteOptions {
   endpoint: string;
   authorization?: string;
 }
+
+const API_BASE_URL = import.meta.env.NODE_ENV === "production" ? DOMAIN : "/api/v1";
 
 const _fetch = async <T = unknown, R = unknown>({
   method,
@@ -47,7 +51,7 @@ const _fetch = async <T = unknown, R = unknown>({
     requestOptions.body = JSON.stringify(body);
   }
 
-  const res = await fetch(`/api/v1${endpoint}`, requestOptions);
+  const res = await fetch(`${API_BASE_URL}/${endpoint}`, requestOptions);
 
   if (!res.ok) {
     const errorData = await res.json();

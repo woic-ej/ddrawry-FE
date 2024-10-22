@@ -8,7 +8,7 @@ export const apiRoutes = {
   searchDiary: "/diaries/search",
   mainDiary: "diaries/main",
   images: "/images",
-  login: "/auth/login",
+  login: "/auth/kakao/login",
   refresh: "/auth/refresh",
   logout: "/auth/logout",
   auth: "/auth",
