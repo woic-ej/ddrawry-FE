@@ -1,0 +1,26 @@
+:root {
+  --swiper-navigation-color: #000;
+  --swiper-pagination-color: #E7C7E7;
+}
+
+.swiper-slide{
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+.swiper{
+  position: relative;
+  
+}
+
+.swiper .swiper-pagination {
+  position: absolute;
+  bottom: 0px;
+}
+
+.swiper-pagination-bullet{
+  width: 9px;
+  height: 9px;
+  margin-top: 10px;
+}

@@ -33,4 +33,10 @@ body {
   .hugeCaption-font {
     @apply text-Gray text-huge;
   }
+  .calender-item {
+    @apply w-full h-[170px] rounded-[10px];
+  }
+  .option-box {
+    @apply flex justify-center gap-[30px] grow py-[12px];
+  }
 }

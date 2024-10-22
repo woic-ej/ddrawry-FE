@@ -1,6 +1,7 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import path from "path";
+import { DOMAIN } from "./src/constants/domain";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -19,12 +20,32 @@ export default defineConfig({
         find: "@utils",
         replacement: path.resolve(__dirname, "src/utils"),
       },
+      {
+        find: "@pages",
+        replacement: path.resolve(__dirname, "src/pages"),
+      },
+      {
+        find: "@hooks",
+        replacement: path.resolve(__dirname, "src/hooks"),
+      },
+      {
+        find: "@store",
+        replacement: path.resolve(__dirname, "src/store"),
+      },
+      {
+        find: "@api",
+        replacement: path.resolve(__dirname, "src/api"),
+      },
+      {
+        find: "@constants",
+        replacement: path.resolve(__dirname, "src/constants"),
+      },
     ],
   },
   server: {
     proxy: {
       "/api": {
-        target: "",
+        target: DOMAIN,
         changeOrigin: true,
       },
     },

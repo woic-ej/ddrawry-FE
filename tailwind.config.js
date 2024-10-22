@@ -14,6 +14,7 @@ export default {
         LimeStroke: "#B4D28F",
         Lime: "#E4FDC5",
         black: "#000000",
+        Red: "#F46666",
         LemonStroke: "#E0D35F",
         Highlight: "#E7C7E7",
         Lemon: "#FFFACD",
@@ -24,6 +25,17 @@ export default {
         huge: "36px",
         regular: "28px",
         small: "18px",
+      },
+      boxShadow: {
+        custom: "8px 8px 16px 0 rgba(0, 0, 0, 0.04)",
+      },
+      animation: {
+        blink: "blink .5s step-end infinite alternate",
+      },
+      keyframes: {
+        blink: {
+          "50%": { backgroundColor: "transparent" },
+        },
       },
     },
   },

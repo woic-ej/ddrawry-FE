@@ -6,6 +6,7 @@ import WriteDiaryPage from "./pages/WriteDiaryPage/page";
 import LikedPage from "./pages/LikedPage/page";
 import ErrorPage from "./pages/ErrorPage/page";
 import DiaryPage from "./pages/DiaryPage/page";
+import SearchPage from "@pages/SearchPage/page";
 
 function App() {
   return (
@@ -13,9 +14,10 @@ function App() {
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/writeDiary" element={<WriteDiaryPage />} />
+        <Route path="/write/:date/:tempId" element={<WriteDiaryPage />} />
         <Route path="/liked" element={<LikedPage />} />
         <Route path="/diary/:diaryId" element={<DiaryPage />} />
+        <Route path="/search" element={<SearchPage />} />
         <Route path="*" element={<ErrorPage />} />
       </Routes>
     </Router>

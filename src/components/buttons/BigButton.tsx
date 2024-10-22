@@ -1,12 +1,13 @@
 import React from "react";
 
 interface BigButtonProps {
-  text: "홈으로 이동하기" | "일기 자랑하기" | "일기 저장하기";
+  title: "홈으로 이동하기" | "일기 자랑하기" | "일기 저장하기";
   color: "gray" | "yellow" | "blue";
+  disabled?: boolean;
   onClick?: () => void;
 }
 
-const BigButton: React.FC<BigButtonProps> = ({ text, color, onClick }) => {
+const BigButton: React.FC<BigButtonProps> = ({ title, color, onClick, disabled }) => {
   const buttonClasses = () => {
     switch (color) {
       case "gray":
@@ -21,10 +22,11 @@ const BigButton: React.FC<BigButtonProps> = ({ text, color, onClick }) => {
   };
   return (
     <button
-      className={`w-[429px] h-[82px] flex justify-center items-center rounded-[15px] border ${buttonClasses()} text-regular leading-[38.08px] font-[400]`}
+      disabled={disabled}
+      className={`w-[429px] h-[82px] flex justify-center items-center rounded-[15px] border ${buttonClasses()} text-regular leading-[38.08px]`}
       onClick={onClick}
     >
-      {text}
+      {title}
     </button>
   );
 };
