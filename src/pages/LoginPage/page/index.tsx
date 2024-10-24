@@ -2,17 +2,14 @@ import KakaoButton from "@components/buttons/KakaoButton";
 import DefaultDiaryLogo from "@components/default/DefaultDiaryLogo";
 import DefaultHeader from "@components/header/DefaultHeader";
 import React from "react";
-import { apiRoutes } from "@api/apiRoutes";
-import { DOMAIN } from "@constants/domain";
+
+const REST_API_KEY = import.meta.env.VITE_APP_K_REST_API;
+const REDIRECT_URI = "http://localhost:5173/oauth";
+const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
 
 const LoginPage: React.FC = () => {
   const handleLogin = () => {
-    const domain = window.location.hostname;
-    if (domain === "localhost") {
-      window.location.href = `${DOMAIN}/api/v1${apiRoutes.login}?dev=1`;
-    } else if (domain === "www.ddrawry.site") {
-      window.location.href = `${DOMAIN}/api/v1${apiRoutes.login}?dev=0`;
-    }
+    window.location.href = kakaoURL;
   };
 
   return (

@@ -7,6 +7,7 @@ import LikedPage from "./pages/LikedPage/page";
 import ErrorPage from "./pages/ErrorPage/page";
 import DiaryPage from "./pages/DiaryPage/page";
 import SearchPage from "@pages/SearchPage/page";
+import RedirectPage from "@pages/RedirectPage";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="/diary/:diaryId" element={<DiaryPage />} />
         <Route path="/search" element={<SearchPage />} />
         <Route path="*" element={<ErrorPage />} />
+        <Route path="/oauth" element={<RedirectPage />} />
       </Routes>
     </Router>
   );

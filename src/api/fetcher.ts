@@ -51,7 +51,7 @@ const _fetch = async <T = unknown, R = unknown>({
     requestOptions.body = JSON.stringify(body);
   }
 
-  const res = await fetch(`${API_BASE_URL}/${endpoint}`, requestOptions);
+  const res = await fetch(`${API_BASE_URL}${endpoint}`, requestOptions);
 
   if (!res.ok) {
     const errorData = await res.json();
