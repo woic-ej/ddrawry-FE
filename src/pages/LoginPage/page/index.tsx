@@ -1,11 +1,8 @@
 import KakaoButton from "@components/buttons/KakaoButton";
 import DefaultDiaryLogo from "@components/default/DefaultDiaryLogo";
 import DefaultHeader from "@components/header/DefaultHeader";
+import { kakaoURL } from "@constants/login";
 import React from "react";
-
-const REST_API_KEY = import.meta.env.VITE_APP_K_REST_API;
-const REDIRECT_URI = "http://localhost:5173/oauth";
-const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
 
 const LoginPage: React.FC = () => {
   const handleLogin = () => {

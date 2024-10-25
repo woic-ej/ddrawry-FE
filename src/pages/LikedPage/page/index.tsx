@@ -16,8 +16,6 @@ const LikedPage = () => {
     format(currentDate, "yyyyMM"),
   );
 
-  console.log(likedDiaries);
-
   if (isPending) return <div>Loading...</div>;
 
   const DiarySection = () => {
