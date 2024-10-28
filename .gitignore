@@ -26,6 +26,8 @@ dist-ssr
 
 *storybook.log
 
+#env
+*.env
 
 # https
 *.pem
