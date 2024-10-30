@@ -5,7 +5,7 @@ import DiaryButtonSection from "@pages/DiaryPage/components/DiaryButtonSection";
 import { DiaryFormData } from "src/types/WriteDiaryTypes";
 import { FormProvider, useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
-import { useGetDiary } from "@api/diary/useGetDiary";
+import { useGetDiary } from "@api/diary/useDiary";
 
 const DiaryPage: React.FC = () => {
   const methods = useForm<DiaryFormData>();

@@ -1,15 +1,21 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import BigButton from "@components/buttons/BigButton";
 import SmallButton from "@components/buttons/SmallButton";
 import ModalLayout from "@components/modals/ModalLayout";
 import DefaultModal from "@components/modals/DefaultModal";
+import { useDeleteDiary } from "@api/diary/useDiary";
 
-const DiaryButtonSection: React.FC = () => {
+interface Props {
+  diaryId: string;
+}
+
+const DiaryButtonSection = ({ diaryId }: Props) => {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
   const [isShareModalOpen, setIsShareModalOpen] = useState<boolean>(false);
+  const { mutate } = useDeleteDiary(diaryId);
 
   const handleDeleteClick = () => {
-    // 삭제 api 호출
+    mutate();
     setIsDeleteModalOpen(false);
   };
 
