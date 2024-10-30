@@ -12,8 +12,10 @@ const DisplaySection: React.FC<Props> = ({ content }) => {
   const [grid, setGrid] = useState<string[]>(initializeGrid);
 
   useEffect(() => {
-    const paddedContent = content.padEnd(COLS * ROWS, " ");
-    setGrid(Array.from(paddedContent));
+    if (content) {
+      const paddedContent = content.padEnd(COLS * ROWS, " ");
+      setGrid(Array.from(paddedContent));
+    }
   }, [content]);
 
   return (

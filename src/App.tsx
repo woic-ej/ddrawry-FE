@@ -17,7 +17,7 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/write/:date/:tempId" element={<WriteDiaryPage />} />
         <Route path="/liked" element={<LikedPage />} />
-        <Route path="/diary/:diaryId" element={<DiaryPage />} />
+        <Route path="/diary/:date/:diaryId" element={<DiaryPage />} />
         <Route path="/search" element={<SearchPage />} />
         <Route path="*" element={<ErrorPage />} />
         <Route path="/oauth" element={<OAuthRedirectHandler />} />
