@@ -11,8 +11,7 @@ const DiaryPage: React.FC = () => {
   const methods = useForm<DiaryFormData>();
   const { date, diaryId } = useParams<{ date: string; diaryId: string }>();
   const [nickname, setNickname] = useState<string>("");
-
-  const { data: diaryData } = useGetDiary(diaryId!);
+  const { data: diaryData, isError } = useGetDiary(diaryId!);
 
   useEffect(() => {
     sessionStorage.removeItem("initialLoad");
@@ -25,13 +24,15 @@ const DiaryPage: React.FC = () => {
     }
   }, [methods, diaryData]);
 
+  if (isError) return <div>에러발생</div>;
+
   return (
     <div className="flex flex-col items-center">
-      <HeaderWithLike />
+      {diaryData && <HeaderWithLike bookmark={diaryData.bookmark} id={Number(diaryId!)} />}
       <FormProvider {...methods}>
         <Diary date={date!} nickname={nickname} />
       </FormProvider>
-      <DiaryButtonSection />
+      <DiaryButtonSection diaryId={diaryId!} />
     </div>
   );
 };

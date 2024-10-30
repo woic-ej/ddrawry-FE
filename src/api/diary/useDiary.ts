@@ -9,6 +9,7 @@ type DiaryResponse = {
   weather: string;
   mood: string;
   story: string;
+  bookmark: boolean;
   image?: string;
 };
 

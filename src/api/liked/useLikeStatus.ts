@@ -33,7 +33,7 @@ const updateLikeStatus = async (
   }
 };
 
-export const useLikeStatus = (id: number) => {
+export const useLikeStatus = (id: number, isListPage?: boolean) => {
   const queryClient = useQueryClient();
   const { currentDate } = useDateControl();
   const { isTotalView } = useToggleStore();
@@ -47,6 +47,7 @@ export const useLikeStatus = (id: number) => {
   >({
     mutationFn: (newStatus: LikeStatusPayload) => updateLikeStatus(id, newStatus),
     onMutate: async () => {
+      if (!isListPage) return;
       // 쿼리를 취소 : 비동기 요청 중에 사용자가 다른 액션을 취하더라도 UI가 혼란스러워지지 않도록 하기위해
       await queryClient.cancelQueries({ queryKey });
 

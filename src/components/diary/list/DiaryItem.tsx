@@ -2,16 +2,9 @@ import LikeIcon from "@components/iconComponents/LikeIcon";
 import DefaultDiaryLogo from "@components/default/DefaultDiaryLogo";
 import { format } from "date-fns";
 import { DiaryListType } from "src/types/diaryTypes";
-import { useLikeStatus } from "@api/liked/useLikeStatus";
 import { Link } from "react-router-dom";
 
 const DiaryItem = ({ id, image, title, date, bookmark }: DiaryListType) => {
-  const { data: likeStatus = { bookmark }, mutate: toggleLike } = useLikeStatus(id);
-
-  const handleClick = () => {
-    toggleLike({ bookmark: !bookmark });
-  };
-
   return (
     <Link
       to={`/diary/${id}`}
@@ -28,7 +21,7 @@ const DiaryItem = ({ id, image, title, date, bookmark }: DiaryListType) => {
           <div className="smallCaption-font">{format(date, "yyyy년 M월 d일")}</div>
         </div>
       </div>
-      <LikeIcon status={likeStatus.bookmark} onClick={handleClick} />
+      <LikeIcon bookmark={bookmark} id={id} isListPage />
     </Link>
   );
 };

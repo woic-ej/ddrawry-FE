@@ -51,7 +51,7 @@ const _fetch = async <T = unknown, R = unknown>({
 
   let res = await fetch(`${API_BASE_URL}${endpoint}`, requestOptions);
 
-  if (res.status === 401 && !noAuth) {
+  if (res.status === 419 && !noAuth) {
     const newAccessToken = await refreshAccessToken();
     if (newAccessToken) {
       headers.Authorization = `Bearer ${newAccessToken}`;
