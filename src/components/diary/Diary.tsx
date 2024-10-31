@@ -21,6 +21,7 @@ const LIMIT_LENGTH = 150;
 const MAX_LENGTH = 240;
 
 const Diary: React.FC<Props> = ({ date, nickname, count, isFull }) => {
+  const formattedDate = date ? format(parseISO(date), "yyyy년 MM월 dd일") : "";
   const location = useLocation();
   const isDiaryPage = location.pathname.includes("diary");
   const {
@@ -40,7 +41,7 @@ const Diary: React.FC<Props> = ({ date, nickname, count, isFull }) => {
     <form>
       <div className="w-[1150px] h-[1600px] border-[3px] border-Charcoal flex flex-col mt-[85px] mb-[50px]">
         <div className="w-full flex justify-center items-center py-[12px] title-font border-b-[3px] border-Charcoal ">
-          {format(parseISO(date), "yyyy년 MM월 dd일")} {nickname}의 일기
+          {formattedDate} {nickname}의 일기
         </div>
         <div className="flex w-full border-b-[3px] border-Charcoal">
           <div className="option-box border-r-[3px] border-Charcoal">

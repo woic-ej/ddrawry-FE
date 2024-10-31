@@ -4,6 +4,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 
 type DiaryResponse = {
+  date: string;
   nickname: string;
   title: string;
   weather: string;
@@ -13,14 +14,19 @@ type DiaryResponse = {
   image?: string;
 };
 
-const getDiary = async (dairyId: string) => {
+export type EditDiaryResponse = {
+  temp_id: number;
+};
+
+const getDiary = async (diaryId: string) => {
   try {
     const { data }: { data: DiaryResponse } = await api.get({
-      endpoint: `${apiRoutes.diary}/${dairyId}?edit=false`,
+      endpoint: `${apiRoutes.diary}/${diaryId}?edit=false`,
     });
     return data;
   } catch (error) {
     console.error(error);
+    throw error;
   }
 };
 
@@ -29,13 +35,26 @@ const deleteDiary = async (diaryId: string) => {
     await api.delete({ endpoint: `${apiRoutes.diary}/${diaryId}` });
   } catch (error) {
     console.error(error);
+    throw error;
   }
 };
 
-export const useGetDiary = (dairyId: string) => {
+export const editDiary = async (diaryId: string) => {
+  try {
+    const { data }: { data: EditDiaryResponse } = await api.get({
+      endpoint: `${apiRoutes.diary}/${diaryId}?edit=true`,
+    });
+    return data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+export const useGetDiary = (diaryId: string) => {
   return useQuery({
-    queryKey: [`diary/${dairyId}`],
-    queryFn: () => getDiary(dairyId),
+    queryKey: [`diary${diaryId}`],
+    queryFn: () => getDiary(diaryId),
   });
 };
 

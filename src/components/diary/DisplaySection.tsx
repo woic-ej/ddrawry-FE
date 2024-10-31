@@ -26,8 +26,11 @@ const DisplaySection: React.FC<Props> = ({ content }) => {
         gridTemplateColumns: `repeat(${COLS}, 1fr)`,
       }}
     >
-      {grid.map((word) => (
-        <div className="border border-gray-300 flex items-center justify-center text-black text-regular">
+      {grid.map((word, index) => (
+        <div
+          key={`${word}${index}`}
+          className="border border-gray-300 flex items-center justify-center text-black text-regular"
+        >
           {word}
         </div>
       ))}

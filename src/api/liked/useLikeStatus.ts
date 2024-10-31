@@ -6,10 +6,6 @@ import { useDateControl } from "@hooks/useDateControl";
 import { useToggleStore } from "@store/useToggleStore";
 import { format } from "date-fns";
 
-type LikeStatusPayload = {
-  bookmark: boolean;
-};
-
 type LikeStatusResponse = {
   status: number;
   id: number;
@@ -17,14 +13,10 @@ type LikeStatusResponse = {
 };
 
 // 좋아요 등록, 취소 API 호출부
-const updateLikeStatus = async (
-  id: number,
-  newStatus: LikeStatusPayload,
-): Promise<LikeStatusResponse> => {
+const updateLikeStatus = async (id: number): Promise<LikeStatusResponse> => {
   try {
     const { data }: { data: LikeStatusResponse } = await api.put({
       endpoint: `${apiRoutes.likeDiary}/${id}`,
-      body: newStatus,
     });
     return data;
   } catch (error) {
@@ -42,10 +34,10 @@ export const useLikeStatus = (id: number, isListPage?: boolean) => {
   return useMutation<
     LikeStatusResponse,
     Error,
-    LikeStatusPayload,
+    void,
     { previousData: DiaryListType[] | undefined }
   >({
-    mutationFn: (newStatus: LikeStatusPayload) => updateLikeStatus(id, newStatus),
+    mutationFn: () => updateLikeStatus(id),
     onMutate: async () => {
       if (!isListPage) return;
       // 쿼리를 취소 : 비동기 요청 중에 사용자가 다른 액션을 취하더라도 UI가 혼란스러워지지 않도록 하기위해

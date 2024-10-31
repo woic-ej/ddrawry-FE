@@ -3,7 +3,8 @@ import api from "@api/fetcher";
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 
-type TempDiaryResponse = {
+export type TempDiaryType = {
+  date: string;
   nickname: string;
   title?: string;
   weather?: string;
@@ -12,19 +13,21 @@ type TempDiaryResponse = {
   image?: string;
 };
 
-export type SaveTempDiaryPayload = {
-  date: string;
-} & TempDiaryResponse;
-
 export type CancelTempDiaryPayload = {
   date: string;
   type: "main" | "write";
 };
 
-export const getTempDiary = async (tempId: string): Promise<TempDiaryResponse> => {
+export type HasTempDiaryResponse = {
+  temp_id: number;
+  is_temp_exist: boolean;
+};
+
+// 임시다이어리 조회 api
+export const getTempDiary = async (tempId: string): Promise<TempDiaryType> => {
   try {
-    const { data }: { data: TempDiaryResponse } = await api.get({
-      endpoint: `${apiRoutes.diary}/${tempId}`,
+    const { data }: { data: TempDiaryType } = await api.get({
+      endpoint: `${apiRoutes.diaryTemp}/${tempId}`,
     });
     return data;
   } catch (error) {
@@ -33,15 +36,30 @@ export const getTempDiary = async (tempId: string): Promise<TempDiaryResponse> =
   }
 };
 
-const saveTempDiary = async (tempId: string, body: SaveTempDiaryPayload) => {
+// 임시다이어리를 가지고있는지 여부 조회 api
+export const hasTempDiary = async (date: string) => {
   try {
-    await api.put({ endpoint: `${apiRoutes.diaryTempSave}/${tempId}`, body });
+    const { data }: { data: HasTempDiaryResponse } = await api.get({
+      endpoint: `${apiRoutes.diary}?date=${date.replace(/-/g, "")}`,
+    });
+    return data;
   } catch (error) {
     console.error(error);
     throw error;
   }
 };
 
+// 임시다이어리 저장 api
+const saveTempDiary = async (tempId: string, body: TempDiaryType) => {
+  try {
+    await api.put({ endpoint: `${apiRoutes.diaryTemp}/${tempId}`, body });
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+//임시다이어리 취소 api
 const cancelTempDiary = async (body: CancelTempDiaryPayload) => {
   try {
     await api.post({ endpoint: apiRoutes.diaryTempCancel, body });
@@ -55,7 +73,7 @@ export const useSaveTempDiary = (tempId: string) => {
   const navigate = useNavigate();
 
   return useMutation({
-    mutationFn: (body: SaveTempDiaryPayload) => saveTempDiary(tempId, body),
+    mutationFn: (body: TempDiaryType) => saveTempDiary(tempId, body),
     onSuccess: () => {
       localStorage.removeItem(`temp-diary/${tempId}`);
       navigate(-1);

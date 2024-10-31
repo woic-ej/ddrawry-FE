@@ -1,11 +1,7 @@
 import ModalLayout from "@components/modals/ModalLayout";
 import DefaultModal from "@components/modals/DefaultModal";
 import React, { useEffect, useState } from "react";
-import {
-  SaveTempDiaryPayload,
-  useCancelTempDiary,
-  useSaveTempDiary,
-} from "@api/diary/useTempDiary";
+import { TempDiaryType, useCancelTempDiary, useSaveTempDiary } from "@api/diary/useTempDiary";
 
 interface Props {
   date: string;
@@ -42,9 +38,7 @@ const TempSaveModal = ({ date, tempId }: Props) => {
   }, [isBlocking]);
 
   const handleSave = () => {
-    const tempData: SaveTempDiaryPayload = JSON.parse(
-      localStorage.getItem(`temp-diary/${tempId}`)!,
-    );
+    const tempData: TempDiaryType = JSON.parse(localStorage.getItem(`temp-diary/${tempId}`)!);
     setShowModal(false);
     setIsBlocking(false);
     saveTemp(tempData);
