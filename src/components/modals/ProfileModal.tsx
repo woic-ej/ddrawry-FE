@@ -6,12 +6,20 @@ import ChangeNameModal from "./ChangeNameModal";
 import DefaultModal from "./DefaultModal";
 import { useLogout } from "@api/users/useLogout";
 import { useDeleteAccount } from "@api/users/useDeleteAccount";
+import informationIcon from "@assets/images/information.png";
 
 interface ProfileModalProps {
   nickName: string;
 }
 
-const profileItems = ["닉네임 수정하기", "좋아요한 일기들", "로그아웃", "회원탈퇴", "다크 모드"];
+const profileItems = [
+  "닉네임 수정하기",
+  "좋아요한 일기들",
+  "로그아웃",
+  "회원탈퇴",
+  "다크 모드",
+  "도움말",
+];
 
 const ProfileModal: React.FC<ProfileModalProps> = ({ nickName }) => {
   const [isChangeNameModalOpen, setIsChangeNameModalOpen] = useState<boolean>(false);
@@ -46,20 +54,25 @@ const ProfileModal: React.FC<ProfileModalProps> = ({ nickName }) => {
         break;
       case "다크 모드":
         break;
+      case "도움말":
+        break;
       default:
         break;
     }
   };
 
   return (
-    <div className="flex flex-col w-[400px] h-[340px] body-font text-center leading-[38.08px] p-[20px] gap-[27px] border border-ButtonDisabledStroke shadow-custom z-10 bg-white">
+    <div className="flex flex-col w-[400px]  body-font text-center leading-[38.08px] p-[20px] gap-[27px] border border-ButtonDisabledStroke shadow-custom z-10 bg-white">
       {profileItems.map((item) => (
         <div
           key={item}
           onClick={() => handleClick(item)}
           className="flex justify-between items-center cursor-pointer"
         >
-          <span>{item}</span>
+          <span>
+            
+            {item === "도움말" ? <div className="flex items-center gap-[3px]">{item} <img src={informationIcon} className="w-[25px] h-[25px]" alt="도움말 아이콘" /></div>: item}
+          </span>
           {item === "다크 모드" && (
             <div
               onClick={toggleDarkMode}
