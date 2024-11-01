@@ -1,6 +1,7 @@
 export const apiRoutes = {
   changeSettings: "/users/settings",
   changeUserNickname: "/users/nickname",
+  userProfile: "/users/profile",
   diary: "/diaries",
   diaryTemp: "/diaries/temp",
   diaryTempCancel: "/diaries/cancel",
