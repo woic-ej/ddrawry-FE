@@ -31,7 +31,7 @@ const HeaderWithProfile: React.FC<HeaderWithProfileProps> = ({ title }) => {
       </div>
       {isProfileModalOpen && (
         <div className="z-[10] fixed right-6 top-0 translate-y-[105px]">
-          {userProfileData && <ProfileModal nickName={userProfileData && userProfileData.data.nickname} />}
+          {userProfileData && <ProfileModal nickName={userProfileData.data.nickname} />}
         </div>
       )}
     </>
