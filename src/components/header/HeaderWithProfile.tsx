@@ -1,3 +1,4 @@
+import { useConfirmProfile } from "@api/users/useConfirmProfile";
 import ProfileIcon from "@components/iconComponents/ProfileIcon";
 import ProfileModal from "@components/modals/ProfileModal";
 import React, { useState } from "react";
@@ -8,6 +9,7 @@ interface HeaderWithProfileProps {
 
 const HeaderWithProfile: React.FC<HeaderWithProfileProps> = ({ title }) => {
   const [isProfileModalOpen, setIsProfileModalOpen] = useState<boolean>(false);
+  const { data: userProfileData } = useConfirmProfile();
 
   const handleProfileIconClick = (event: React.MouseEvent) => {
     event.stopPropagation();
@@ -29,7 +31,7 @@ const HeaderWithProfile: React.FC<HeaderWithProfileProps> = ({ title }) => {
       </div>
       {isProfileModalOpen && (
         <div className="z-[10] fixed right-6 top-0 translate-y-[105px]">
-          <ProfileModal nickName="" />
+          {userProfileData && <ProfileModal nickName={userProfileData && userProfileData.data.nickname} />}
         </div>
       )}
     </>
