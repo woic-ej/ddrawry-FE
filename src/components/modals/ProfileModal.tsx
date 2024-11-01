@@ -7,6 +7,7 @@ import DefaultModal from "./DefaultModal";
 import { useLogout } from "@api/users/useLogout";
 import { useDeleteAccount } from "@api/users/useDeleteAccount";
 import informationIcon from "@assets/images/information.png";
+import InformationModal from "./InformationModal";
 
 interface ProfileModalProps {
   nickName: string;
@@ -25,6 +26,7 @@ const ProfileModal: React.FC<ProfileModalProps> = ({ nickName }) => {
   const [isChangeNameModalOpen, setIsChangeNameModalOpen] = useState<boolean>(false);
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState<boolean>(false);
   const [isDeleteAccountModalOpen, setIsDeleteAccountModalOpen] = useState<boolean>(false);
+  const [isImformationModalOpen, setIsInformationModalOpen] = useState<boolean>(false);
   const navigate = useNavigate();
   const { isDarkMode, toggleDarkMode } = useDarkMode();
   const logoutMutation = useLogout(setIsLogoutModalOpen);
@@ -55,6 +57,7 @@ const ProfileModal: React.FC<ProfileModalProps> = ({ nickName }) => {
       case "다크 모드":
         break;
       case "도움말":
+        setIsInformationModalOpen(true);
         break;
       default:
         break;
@@ -70,8 +73,14 @@ const ProfileModal: React.FC<ProfileModalProps> = ({ nickName }) => {
           className="flex justify-between items-center cursor-pointer"
         >
           <span>
-            
-            {item === "도움말" ? <div className="flex items-center gap-[3px]">{item} <img src={informationIcon} className="w-[25px] h-[25px]" alt="도움말 아이콘" /></div>: item}
+            {item === "도움말" ? (
+              <div className="flex items-center gap-[3px]">
+                {item}{" "}
+                <img src={informationIcon} className="w-[25px] h-[25px]" alt="도움말 아이콘" />
+              </div>
+            ) : (
+              item
+            )}
           </span>
           {item === "다크 모드" && (
             <div
@@ -114,6 +123,11 @@ const ProfileModal: React.FC<ProfileModalProps> = ({ nickName }) => {
             leftClick={handleDeleteAccount}
             rightClick={() => setIsDeleteAccountModalOpen(false)}
           />
+        </ModalLayout>
+      )}
+      {isImformationModalOpen && (
+        <ModalLayout setIsModalOpen={setIsInformationModalOpen}>
+          <InformationModal setIsModalOpen={setIsInformationModalOpen}/>
         </ModalLayout>
       )}
     </div>
