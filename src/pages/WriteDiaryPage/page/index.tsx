@@ -11,8 +11,9 @@ import TempSaveModal from "@pages/WriteDiaryPage/components/TempSaveModal";
 
 const WriteDiaryPage = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [date, setDate] = useState<string>("");
   const [nickname, setNickname] = useState<string>("");
-  const { date, tempId } = useParams<{ date: string; tempId: string }>();
+  const { tempId } = useParams<{ tempId: string }>();
   const methods = useForm<DiaryFormData>({
     resolver: zodResolver(DiaryFormSchema),
     mode: "onChange",
@@ -29,6 +30,7 @@ const WriteDiaryPage = () => {
         data = JSON.parse(storageTemp);
       }
       setNickname(data.nickname);
+      setDate(data.date);
       methods.reset(data);
       methods.trigger();
     })();
@@ -48,16 +50,18 @@ const WriteDiaryPage = () => {
     return <div>Loading..</div>;
   }
 
-  return (
-    <div className="flex flex-col items-center">
-      <DefaultHeader title="일기 쓰기" />
-      <FormProvider {...methods}>
-        <Diary date={date!} nickname={nickname} count={2} />
-        <WriteDiaryButtonSection date={date!} nickname={nickname} />
-      </FormProvider>
-      <TempSaveModal date={date!} tempId={tempId!} />
-    </div>
-  );
+  if (!isLoading) {
+    return (
+      <div className="flex flex-col items-center">
+        <DefaultHeader title="일기 쓰기" />
+        <FormProvider {...methods}>
+          <Diary date={date} nickname={nickname} count={2} />
+          <WriteDiaryButtonSection date={date} nickname={nickname} />
+        </FormProvider>
+        <TempSaveModal date={date} tempId={tempId!} />
+      </div>
+    );
+  }
 };
 
 export default WriteDiaryPage;

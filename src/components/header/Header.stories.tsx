@@ -13,7 +13,7 @@ function Header() {
       </div>
       <div className="flex flex-col gap-8">
         <h1 className="text-16 bg-white w-fit p-4">HasLikeHeader</h1>
-        <HeaderWithLike />
+        <HeaderWithLike bookmark={true} id={1} />
       </div>
       <div className="flex flex-col gap-8">
         <h1 className="text-16 bg-white w-fit p-4">HasProfileHeader</h1>
