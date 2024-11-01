@@ -39,15 +39,13 @@ const DiaryButtonSection = ({ date, diaryId }: Props) => {
   useEffect(() => {
     if (hasTempRes) {
       if (hasTempRes.is_temp_exist) setIsTempDiaryModalOpen(true);
-      else navigate(`/write/${hasTempRes.temp_id}?edit=true`);
+      else navigate(`/write/${hasTempRes.temp_id}?edit=true&diaryId=${diaryId}`);
     }
-  }, [hasTempRes, navigate]);
 
-  useEffect(() => {
     if (editDiaryData) {
-      navigate(`/write/${editDiaryData.temp_id}?edit=true`);
+      navigate(`/write/${editDiaryData.temp_id}?edit=true&diaryId=${diaryId}`);
     }
-  }, [editDiaryData, navigate]);
+  }, [hasTempRes, editDiaryData, navigate, diaryId]);
 
   return (
     <>
@@ -86,7 +84,7 @@ const DiaryButtonSection = ({ date, diaryId }: Props) => {
             title="임시저장된 일기가 있는데 불러올까요?"
             leftText="넹"
             rightText="아니용"
-            leftClick={() => navigate(`/write/${hasTempRes?.temp_id}`)}
+            leftClick={() => navigate(`/write/${hasTempRes?.temp_id}?edit=true&diaryId=${diaryId}`)}
             rightClick={cancelTempClick}
           />
         </ModalLayout>

@@ -6,7 +6,8 @@ import SmallButton from "@components/buttons/SmallButton";
 import ImageEditModal from "@components/modals/ImageEditModal";
 import { useFormContext } from "react-hook-form";
 import { DiaryFormData } from "src/types/WriteDiaryTypes";
-import { useWriteDiary } from "@api/diary/useWriteDiary";
+import { useSearchParams } from "react-router-dom";
+import { useUpdateDiary, useWriteDiary } from "@api/diary/useDiary";
 
 interface Props {
   date: string;
@@ -17,13 +18,19 @@ const WriteDiaryButtonSection = ({ date, nickname }: Props) => {
   const [isHistoryModalOpen, setIsHistoryModalOpen] = useState<boolean>(false);
   const [isImageModalOpen, setIsImageModalOpen] = useState<boolean>(false);
   const [isSaveModalOpen, setIsSaveModalOpen] = useState<boolean>(false);
-  const { mutate } = useWriteDiary();
+  const [searchParams] = useSearchParams();
+  const isEditPage = Boolean(searchParams.get("edit"));
+  const diaryId = searchParams.get("diaryId");
+  const { mutate: writeMutate } = useWriteDiary();
+  const { mutate: updateMutate } = useUpdateDiary();
+
   const {
     handleSubmit,
     watch,
     unregister,
     formState: { isValid },
   } = useFormContext<DiaryFormData>();
+
   const currentImage = watch("image");
 
   const handleImageHistory = () => {
@@ -36,7 +43,12 @@ const WriteDiaryButtonSection = ({ date, nickname }: Props) => {
   };
 
   const handleSaveClick = (data: DiaryFormData) => {
-    mutate({ ...data, nickname, date });
+    const diaryData = { ...data, nickname, date };
+    if (isEditPage) {
+      if (diaryId) updateMutate({ diaryId, diaryData });
+    } else {
+      writeMutate(diaryData);
+    }
     setIsSaveModalOpen(false);
   };
 
