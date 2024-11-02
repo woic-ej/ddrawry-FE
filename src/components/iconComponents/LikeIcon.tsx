@@ -9,7 +9,8 @@ interface LikeIconProps {
 const LikeIcon = ({ bookmark = false, id, isListPage }: LikeIconProps) => {
   const { data: likeStatus = { bookmark }, mutate: toggleLike } = useLikeStatus(id, isListPage);
 
-  const handleClick = () => {
+  const handleClick = (event: React.MouseEvent<SVGSVGElement>) => {
+    event.stopPropagation();
     toggleLike();
   };
 
