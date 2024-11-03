@@ -8,10 +8,7 @@ import { useLogout } from "@api/users/useLogout";
 import { useDeleteAccount } from "@api/users/useDeleteAccount";
 import informationIcon from "@assets/images/information.png";
 import InformationModal from "./InformationModal";
-
-interface ProfileModalProps {
-  nickName: string;
-}
+import { useConfirmProfile } from "@api/users/useConfirmProfile";
 
 const profileItems = [
   "닉네임 수정하기",
@@ -22,7 +19,7 @@ const profileItems = [
   "도움말",
 ];
 
-const ProfileModal: React.FC<ProfileModalProps> = ({ nickName }) => {
+const ProfileModal = () => {
   const [isChangeNameModalOpen, setIsChangeNameModalOpen] = useState<boolean>(false);
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState<boolean>(false);
   const [isDeleteAccountModalOpen, setIsDeleteAccountModalOpen] = useState<boolean>(false);
@@ -31,6 +28,7 @@ const ProfileModal: React.FC<ProfileModalProps> = ({ nickName }) => {
   const { isDarkMode, toggleDarkMode } = useDarkMode();
   const logoutMutation = useLogout(setIsLogoutModalOpen);
   const deleteAccount = useDeleteAccount(setIsDeleteAccountModalOpen);
+  const { data: userProfileData, isError, error } = useConfirmProfile();
 
   const handleLogout = () => {
     logoutMutation.mutate();
@@ -43,7 +41,12 @@ const ProfileModal: React.FC<ProfileModalProps> = ({ nickName }) => {
   const handleClick = (item: string) => {
     switch (item) {
       case "닉네임 수정하기":
-        setIsChangeNameModalOpen(true);
+        if (isError) {
+          alert(error);
+        }
+        else {
+          setIsChangeNameModalOpen(true);
+        }
         break;
       case "좋아요한 일기들":
         navigate("/liked");
@@ -98,9 +101,12 @@ const ProfileModal: React.FC<ProfileModalProps> = ({ nickName }) => {
           )}
         </div>
       ))}
-      {isChangeNameModalOpen && (
+      {userProfileData && isChangeNameModalOpen && (
         <ModalLayout setIsModalOpen={setIsChangeNameModalOpen}>
-          <ChangeNameModal currentName={nickName} setIsModalOpen={setIsChangeNameModalOpen} />
+          <ChangeNameModal
+            currentName={userProfileData.data.nickname}
+            setIsModalOpen={setIsChangeNameModalOpen}
+          />
         </ModalLayout>
       )}
       {isLogoutModalOpen && (
@@ -127,7 +133,7 @@ const ProfileModal: React.FC<ProfileModalProps> = ({ nickName }) => {
       )}
       {isImformationModalOpen && (
         <ModalLayout setIsModalOpen={setIsInformationModalOpen}>
-          <InformationModal setIsModalOpen={setIsInformationModalOpen}/>
+          <InformationModal setIsModalOpen={setIsInformationModalOpen} />
         </ModalLayout>
       )}
     </div>
