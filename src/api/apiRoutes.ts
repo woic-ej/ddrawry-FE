@@ -11,6 +11,6 @@ export const apiRoutes = {
   images: "/images",
   login: "/auth/kakao/callback",
   refresh: "/auth/refresh",
-  logout: "/auth/logout",
+  logout: "/auth/kakao/logout",
   auth: "/auth",
 };
