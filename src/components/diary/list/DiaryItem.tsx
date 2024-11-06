@@ -2,12 +2,17 @@ import LikeIcon from "@components/iconComponents/LikeIcon";
 import DefaultDiaryLogo from "@components/default/DefaultDiaryLogo";
 import { format } from "date-fns";
 import { DiaryListType } from "src/types/diaryTypes";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const DiaryItem = ({ id, image, title, date, bookmark }: DiaryListType) => {
+  const navigate = useNavigate();
+  const handleClick = () => {
+    navigate(`/diary/${id}`);
+  };
+
   return (
-    <Link
-      to={`/diary/${id}`}
+    <button
+      onClick={handleClick}
       className="min-w-[1012.53px] h-[275px] bg-white flex items-center justify-between border-b-[3px] border-buttonDisabled"
     >
       <div className="flex items-center gap-[46px]">
@@ -22,7 +27,7 @@ const DiaryItem = ({ id, image, title, date, bookmark }: DiaryListType) => {
         </div>
       </div>
       <LikeIcon bookmark={bookmark} id={id} isListPage />
-    </Link>
+    </button>
   );
 };
 

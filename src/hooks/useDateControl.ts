@@ -1,16 +1,17 @@
+import { useDateStore } from "@store/useDateStore";
 import { addMonths, subMonths } from "date-fns";
-import { useCallback, useState } from "react";
+import { useCallback } from "react";
 
 export const useDateControl = () => {
-  const [currentDate, setCurrentDate] = useState(new Date());
+  const { currentDate, setCurrentDate } = useDateStore();
 
   const prevMonthHandler = useCallback(() => {
     setCurrentDate(subMonths(currentDate, 1));
-  }, [currentDate]);
+  }, [currentDate, setCurrentDate]);
 
   const nextMonthHandler = useCallback(() => {
     setCurrentDate(addMonths(currentDate, 1));
-  }, [currentDate]);
+  }, [currentDate, setCurrentDate]);
 
   return { currentDate, setCurrentDate, prevMonthHandler, nextMonthHandler };
 };
