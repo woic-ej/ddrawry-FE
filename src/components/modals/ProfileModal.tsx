@@ -28,7 +28,7 @@ const ProfileModal = () => {
   const { isDarkMode, toggleDarkMode } = useDarkMode();
   const logoutMutation = useLogout(setIsLogoutModalOpen);
   const deleteAccount = useDeleteAccount(setIsDeleteAccountModalOpen);
-  const { data: userProfileData, isError, error } = useConfirmProfile();
+  const { data: userProfileData, isError, error, refetch } = useConfirmProfile();
 
   const handleLogout = () => {
     logoutMutation.mutate();
@@ -45,6 +45,7 @@ const ProfileModal = () => {
           alert(error);
         }
         else {
+          refetch();
           setIsChangeNameModalOpen(true);
         }
         break;
