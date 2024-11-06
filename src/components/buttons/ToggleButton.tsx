@@ -39,6 +39,8 @@ const ToggleButton: React.FC<ToggleButtonProps> = ({ leftTitle, rightTitle }) =>
       }
       setIsLeftActive(true);
     }
+
+    console.log(activeButtonTitle, leftTitle);
   };
 
   return (

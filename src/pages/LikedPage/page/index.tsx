@@ -16,8 +16,6 @@ const LikedPage = () => {
     format(currentDate, "yyyyMM"),
   );
 
-  if (isPending) return <div>Loading...</div>;
-
   const DiarySection = () => {
     if (likedDiaries) {
       if (likedDiaries.length === 0) {
@@ -39,16 +37,20 @@ const LikedPage = () => {
         <div className="flex justify-start w-full min-w-[990px]">
           <ToggleButton leftTitle="전체보기" rightTitle="날짜별" />
         </div>
-        <div className="w-full flex-grow flex flex-col items-center gap-[64px]">
-          {!isTotalView && (
-            <DateManipulationBar
-              date={currentDate}
-              prevMonthHandler={prevMonthHandler}
-              nextMonthHandler={nextMonthHandler}
-            />
-          )}
-          <DiarySection />
-        </div>
+        {isPending ? (
+          <div>Loading...</div>
+        ) : (
+          <div className="w-full flex-grow flex flex-col items-center gap-[64px]">
+            {!isTotalView && (
+              <DateManipulationBar
+                date={currentDate}
+                prevMonthHandler={prevMonthHandler}
+                nextMonthHandler={nextMonthHandler}
+              />
+            )}
+            <DiarySection />
+          </div>
+        )}
       </div>
     </div>
   );
