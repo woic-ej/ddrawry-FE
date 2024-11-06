@@ -20,8 +20,13 @@ const fetchLikedDiaries = async (
 };
 
 export const useLikedDiaries = (isTotalView: boolean, currentDate: string) => {
+  const queryKey = isTotalView
+    ? ["likedDiaries", isTotalView]
+    : ["likedDiaries", isTotalView, currentDate];
+
   return useQuery<DiaryListType[]>({
-    queryKey: ["likedDiaries", isTotalView, currentDate],
+    queryKey,
     queryFn: () => fetchLikedDiaries(isTotalView, currentDate),
+    staleTime: 300000, // 5분
   });
 };

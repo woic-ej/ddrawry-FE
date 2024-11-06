@@ -29,7 +29,9 @@ export const useLikeStatus = (id: number, isListPage?: boolean) => {
   const queryClient = useQueryClient();
   const { currentDate } = useDateControl();
   const { isTotalView } = useToggleStore();
-  const queryKey = ["likedDiaries", isTotalView, format(currentDate, "yyyyMM")];
+  const queryKey = isTotalView
+    ? ["likedDiaries", isTotalView]
+    : ["likedDiaries", isTotalView, format(currentDate, "yyyyMM")];
 
   return useMutation<
     LikeStatusResponse,
@@ -62,7 +64,15 @@ export const useLikeStatus = (id: number, isListPage?: boolean) => {
       }
     },
     onSettled: () => {
-      queryClient.invalidateQueries({ queryKey });
+      queryClient.invalidateQueries({
+        queryKey: ["likedDiaries", true],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["likedDiaries", false, format(currentDate, "yyyyMM")],
+      });
+      queryClient.invalidateQueries({
+        queryKey: [`diary${id}`],
+      });
     },
   });
 };
