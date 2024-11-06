@@ -1,5 +1,5 @@
 import { useDarkMode } from "@hooks/useDarkMode";
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ModalLayout from "./ModalLayout";
 import ChangeNameModal from "./ChangeNameModal";
