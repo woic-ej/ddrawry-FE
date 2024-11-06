@@ -16,9 +16,9 @@ const OAuthRedirectHandler = () => {
 
   if (isPending) return <div>로그인 중</div>;
   if (isSuccess) {
-    const redirectedFrom = sessionStorage.getItem("redirectedFrom") || "/";
-    sessionStorage.removeItem("redirectedFrom");
+    const redirectedFrom = localStorage.getItem("redirectedFrom") || "/";
     navigate(redirectedFrom, { replace: true });
+    setTimeout(() => localStorage.removeItem("redirectedFrom"), 0);
   }
   if (isError) return <div>에러발생</div>;
 };
