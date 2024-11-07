@@ -1,10 +1,10 @@
 import LikeIcon from "@components/iconComponents/LikeIcon";
 import DefaultDiaryLogo from "@components/default/DefaultDiaryLogo";
 import { format } from "date-fns";
-import { DiaryListType } from "src/types/diaryTypes";
+import { BaseDiaryType } from "src/types/diaryTypes";
 import { useNavigate } from "react-router-dom";
 
-const DiaryItem = ({ id, image, title, date, bookmark }: DiaryListType) => {
+const DiaryItem = ({ id, image, title, date, bookmark }: BaseDiaryType) => {
   const navigate = useNavigate();
   const handleClick = () => {
     navigate(`/diary/${id}`);
