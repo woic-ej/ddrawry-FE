@@ -1,7 +1,9 @@
 import ModalLayout from "@components/modals/ModalLayout";
 import DefaultModal from "@components/modals/DefaultModal";
 import React, { useEffect, useState } from "react";
-import { TempDiaryType, useCancelTempDiary, useSaveTempDiary } from "@api/diary/useTempDiary";
+import { useSaveTempDiary } from "@api/tempDiary/useSaveTempDiary";
+import { useCancelTempDiary } from "@api/tempDiary/useCancelTempDiary";
+import { TempDiaryType } from "src/types/tempTypes";
 
 interface Props {
   date: string;

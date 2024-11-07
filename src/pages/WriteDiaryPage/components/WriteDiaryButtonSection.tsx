@@ -7,7 +7,8 @@ import ImageEditModal from "@components/modals/ImageEditModal";
 import { useFormContext } from "react-hook-form";
 import { DiaryFormData } from "src/types/WriteDiaryTypes";
 import { useSearchParams } from "react-router-dom";
-import { useUpdateDiary, useWriteDiary } from "@api/diary/useDiary";
+import { useUpdateDiary } from "@api/diary/useUpdateDiary";
+import { useWriteDiary } from "@api/diary/useWriteDiary";
 
 interface Props {
   date: string;

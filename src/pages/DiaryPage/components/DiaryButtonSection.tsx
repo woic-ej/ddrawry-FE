@@ -3,9 +3,10 @@ import BigButton from "@components/buttons/BigButton";
 import SmallButton from "@components/buttons/SmallButton";
 import ModalLayout from "@components/modals/ModalLayout";
 import DefaultModal from "@components/modals/DefaultModal";
-import { editDiary, EditDiaryResponse, useDeleteDiary } from "@api/diary/useDiary";
 import { useNavigate } from "react-router-dom";
-import { hasTempDiary, HasTempDiaryResponse } from "@api/diary/useTempDiary";
+import { editDiary, hasTempDiary } from "@api/tempDiary/tempApis";
+import { useDeleteDiary } from "@api/diary/useDeleteDiary";
+import { EditDiaryResponse, HasTempDiaryResponse } from "src/types/tempTypes";
 
 interface Props {
   date: string;

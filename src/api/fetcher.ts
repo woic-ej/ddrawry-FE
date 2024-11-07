@@ -1,4 +1,3 @@
-import { DOMAIN } from "@constants/domain";
 import { apiRoutes } from "./apiRoutes";
 
 interface IFetchOptions<T = unknown> {
@@ -22,7 +21,8 @@ interface IDeleteOptions {
   endpoint: string;
 }
 
-const API_BASE_URL = import.meta.env.NODE_ENV === "production" ? DOMAIN : "/api/v1";
+const API_BASE_URL =
+  import.meta.env.NODE_ENV === "production" ? import.meta.env.VITE_API_URL : "/api/v1";
 
 const _fetch = async <T = unknown, R = unknown>({
   method,
@@ -51,14 +51,15 @@ const _fetch = async <T = unknown, R = unknown>({
 
   let res = await fetch(`${API_BASE_URL}${endpoint}`, requestOptions);
 
-  if (res.status === 419 && !noAuth) {
+  if ((res.status === 401 || res.status === 403 || res.status === 419) && !noAuth) {
+    localStorage.removeItem("access_token");
     const newAccessToken = await refreshAccessToken();
     if (newAccessToken) {
       headers.Authorization = `Bearer ${newAccessToken}`;
       res = await fetch(`${API_BASE_URL}${endpoint}`, { ...requestOptions, headers });
     } else {
       const currentPath = window.location.pathname + window.location.search;
-      sessionStorage.setItem("redirectedFrom", currentPath);
+      localStorage.setItem("redirectedFrom", currentPath);
       window.location.href = "/login";
       throw new Error("Session expired. Redirecting to login.");
     }
