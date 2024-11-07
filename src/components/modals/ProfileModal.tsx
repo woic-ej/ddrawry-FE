@@ -9,6 +9,7 @@ import { useDeleteAccount } from "@api/users/useDeleteAccount";
 import informationIcon from "@assets/images/information.png";
 import InformationModal from "./InformationModal";
 import { useConfirmProfile } from "@api/users/useConfirmProfile";
+import { useDateStore } from "@store/useDateStore";
 
 const profileItems = [
   "닉네임 수정하기",
@@ -29,6 +30,7 @@ const ProfileModal = () => {
   const logoutMutation = useLogout(setIsLogoutModalOpen);
   const deleteAccount = useDeleteAccount(setIsDeleteAccountModalOpen);
   const { data: userProfileData, isError, error, refetch } = useConfirmProfile();
+  const { clearCurrentDate } = useDateStore();
 
   const handleLogout = () => {
     logoutMutation.mutate();
@@ -50,6 +52,7 @@ const ProfileModal = () => {
         }
         break;
       case "좋아요한 일기들":
+        clearCurrentDate();
         navigate("/liked");
         break;
       case "로그아웃":

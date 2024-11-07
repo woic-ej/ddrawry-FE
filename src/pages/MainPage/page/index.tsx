@@ -3,10 +3,13 @@ import HeaderWithProfile from "@components/header/HeaderWithProfile";
 import SearchIcon from "@components/search/SearchIcon";
 import React, { useEffect } from "react";
 import CalenderView from "../components/calender/CalenderView";
+import { useDateStore } from "@store/useDateStore";
 
 const MainPage: React.FC = () => {
+  const { clearCurrentDate } = useDateStore();
   useEffect(() => {
     sessionStorage.removeItem("initialLoad");
+    clearCurrentDate();
   }, []);
 
   return (
