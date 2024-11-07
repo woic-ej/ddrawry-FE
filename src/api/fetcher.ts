@@ -1,4 +1,3 @@
-import { DOMAIN } from "@constants/domain";
 import { apiRoutes } from "./apiRoutes";
 
 interface IFetchOptions<T = unknown> {
@@ -22,7 +21,8 @@ interface IDeleteOptions {
   endpoint: string;
 }
 
-const API_BASE_URL = import.meta.env.NODE_ENV === "production" ? DOMAIN : "/api/v1";
+const API_BASE_URL =
+  import.meta.env.NODE_ENV === "production" ? import.meta.env.VITE_API_URL : "/api/v1";
 
 const _fetch = async <T = unknown, R = unknown>({
   method,
