@@ -32,7 +32,7 @@ const CalenderItem: React.FC<Props> = ({ day, isValidate, hasContent, imageUrl, 
   };
 
   const containerClassNames = classNames(
-    "calender-item relative flex justify-center items-center",
+    "calender-item relative flex justify-center items-center cursor-pointer",
     {
       "text-ButtonDisabledStroke text-regular": !isValidate,
       "bg-white body-font": isValidate,
