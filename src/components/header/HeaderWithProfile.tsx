@@ -8,6 +8,7 @@ interface HeaderWithProfileProps {
 
 const HeaderWithProfile: React.FC<HeaderWithProfileProps> = ({ title }) => {
   const [isProfileModalOpen, setIsProfileModalOpen] = useState<boolean>(false);
+  
 
   const handleProfileIconClick = (event: React.MouseEvent) => {
     event.stopPropagation();
@@ -29,7 +30,7 @@ const HeaderWithProfile: React.FC<HeaderWithProfileProps> = ({ title }) => {
       </div>
       {isProfileModalOpen && (
         <div className="z-[10] fixed right-6 top-0 translate-y-[105px]">
-          <ProfileModal nickName="" />
+          <ProfileModal/>
         </div>
       )}
     </>

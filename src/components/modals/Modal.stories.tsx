@@ -112,7 +112,7 @@ function Modal() {
       </div>
       <div className="flex flex-col gap-8">
         <h1 className="text-16 bg-white w-fit p-4">ProfileModal</h1>
-        <ProfileModal nickName="재로" />
+        <ProfileModal />
       </div>
 
       <div className="flex flex-col gap-8">

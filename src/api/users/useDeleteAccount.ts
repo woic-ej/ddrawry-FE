@@ -5,7 +5,9 @@ import { SetStateAction } from "react";
 import { useNavigate } from "react-router-dom";
 
 type IDeleteAccountType = {
-  user: number;
+    data: {
+        id: number;
+  }
   status: number;
   message: string;
 };

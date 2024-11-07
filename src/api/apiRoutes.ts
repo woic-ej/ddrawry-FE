@@ -1,6 +1,7 @@
 export const apiRoutes = {
   changeSettings: "/users/settings",
   changeUserNickname: "/users/nickname",
+  userProfile: "/users/profile",
   diary: "/diaries",
   diaryTemp: "/diaries/temp",
   diaryTempCancel: "/diaries/cancel",
@@ -10,6 +11,6 @@ export const apiRoutes = {
   images: "/images",
   login: "/auth/kakao/callback",
   refresh: "/auth/refresh",
-  logout: "/auth/logout",
+  logout: "/auth/kakao/logout",
   auth: "/auth",
 };
