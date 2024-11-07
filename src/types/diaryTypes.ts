@@ -18,4 +18,5 @@ export type WriteDiaryPayLoad = {
 
 export type WriteDiaryResponse = {
   id: number;
+  temp_id: number;
 };

@@ -27,6 +27,7 @@ export const useUpdateDiary = () => {
       updateDiary(diaryId, diaryData),
     onSuccess: (data) => {
       navigate(-2);
+      localStorage.removeItem(`temp-diary/${data.temp_id}`);
       queryClient.invalidateQueries({
         queryKey: [`diary${data.id}`],
       });

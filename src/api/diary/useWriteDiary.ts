@@ -20,9 +20,11 @@ const postDiary = async (diaryData: WriteDiaryPayLoad) => {
 
 export const useWriteDiary = () => {
   const navigate = useNavigate();
+
   return useMutation({
     mutationFn: (diaryData: WriteDiaryPayLoad) => postDiary(diaryData),
     onSuccess: (data) => {
+      localStorage.removeItem(`temp-diary/${data.temp_id}`);
       navigate(`/diary/${data.id}`);
     },
     onError: (error) => {
