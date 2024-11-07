@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { DiaryFormData, DiaryFormSchema } from "../../../types/WriteDiaryTypes";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { getTempDiary } from "@api/diary/useTempDiary";
+import { getTempDiary } from "@api/tempDiary/tempApis";
 import TempSaveModal from "@pages/WriteDiaryPage/components/TempSaveModal";
 
 const WriteDiaryPage = () => {
@@ -46,22 +46,22 @@ const WriteDiaryPage = () => {
     return () => subscription.unsubscribe();
   }, [methods, tempId]);
 
-  if (isLoading) {
-    return <div>Loading..</div>;
-  }
-
-  if (!isLoading) {
-    return (
-      <div className="flex flex-col items-center">
-        <DefaultHeader title="일기 쓰기" />
-        <FormProvider {...methods}>
-          <Diary date={date} nickname={nickname} count={2} />
-          <WriteDiaryButtonSection date={date} nickname={nickname} />
-        </FormProvider>
-        <TempSaveModal date={date} tempId={tempId!} />
-      </div>
-    );
-  }
+  return (
+    <div className="flex flex-col items-center">
+      <DefaultHeader title="일기 쓰기" />
+      {isLoading ? (
+        <div>loading...</div>
+      ) : (
+        <>
+          <FormProvider {...methods}>
+            <Diary date={date} nickname={nickname} count={2} />
+            <WriteDiaryButtonSection date={date} nickname={nickname} />
+          </FormProvider>
+          <TempSaveModal date={date} tempId={tempId!} />
+        </>
+      )}
+    </div>
+  );
 };
 
 export default WriteDiaryPage;
