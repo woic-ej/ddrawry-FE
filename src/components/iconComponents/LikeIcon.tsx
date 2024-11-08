@@ -3,11 +3,11 @@ import { useLikeStatus } from "@api/liked/useLikeStatus";
 interface LikeIconProps {
   bookmark: boolean;
   id: number;
-  isListPage?: boolean;
+  isLikedPage?: boolean;
 }
 
-const LikeIcon = ({ bookmark = false, id, isListPage }: LikeIconProps) => {
-  const { data: likeStatus = { bookmark }, mutate: toggleLike } = useLikeStatus(id, isListPage);
+const LikeIcon = ({ bookmark = false, id, isLikedPage }: LikeIconProps) => {
+  const { data: likeStatus = { bookmark }, mutate: toggleLike } = useLikeStatus(id, isLikedPage);
 
   const handleClick = (event: React.MouseEvent<SVGSVGElement>) => {
     event.stopPropagation();
