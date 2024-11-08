@@ -21,7 +21,7 @@ export const useGetMainDiaries = (type: boolean, date: string) => {
     queryKey: ["MAIN_DIARIES", type, date],
     queryFn: () => {
       if (type) {
-        return getMainDiaries("calender", date);
+        return getMainDiaries("calendar", date);
       } else {
         return getMainDiaries("list", date);
       }
