@@ -29,9 +29,8 @@ export const useChangeUserSetting = (body: IPatchUserSettingType) => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: () => patchUserSetting(body),
-    onSuccess: async (data: IPatchResponseUserSettingType) => {
+    onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: ["USER_PROFILE"] });
-      console.log(data.message);
     },
   });
 };
