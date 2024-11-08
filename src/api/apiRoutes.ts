@@ -7,7 +7,7 @@ export const apiRoutes = {
   diaryTempCancel: "/diaries/cancel",
   likeDiary: "/diaries/like",
   searchDiary: "/diaries/search",
-  mainDiary: "diaries/main",
+  mainDiary: "/diaries/main",
   images: "/images",
   login: "/auth/kakao/callback",
   refresh: "/auth/refresh",

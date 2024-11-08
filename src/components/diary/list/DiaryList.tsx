@@ -1,8 +1,8 @@
 import DiaryItem from "@components/diary/list/DiaryItem";
-import { DiaryListType } from "src/types/diaryTypes";
+import { BaseDiaryType} from "src/types/diaryTypes";
 
 interface Props {
-  diaries: DiaryListType[];
+  diaries: BaseDiaryType[];
 }
 
 const DiaryList = ({ diaries }: Props) => {
