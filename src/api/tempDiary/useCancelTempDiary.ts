@@ -4,10 +4,19 @@ import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { CancelTempDiaryPayload } from "src/types/tempTypes";
 
+type IPostResponseCancelTempType = {
+  status: number;
+  message: string;
+  data: { temp_id: number; }
+}
+
 //임시다이어리 취소 api
 const cancelTempDiary = async (body: CancelTempDiaryPayload) => {
   try {
-    await api.post({ endpoint: apiRoutes.diaryTempCancel, body });
+    return await api.post<CancelTempDiaryPayload,IPostResponseCancelTempType>({
+      endpoint: apiRoutes.diaryTempCancel,
+      body,
+    });
   } catch (error) {
     console.error(error);
     throw error;
@@ -19,9 +28,16 @@ export const useCancelTempDiary = (tempId: string) => {
 
   return useMutation({
     mutationFn: (body: CancelTempDiaryPayload) => cancelTempDiary(body),
-    onSuccess: () => {
+    onSuccess: (data) => {
       localStorage.removeItem(`temp-diary/${tempId}`);
-      navigate(-1);
+      // type === 'write'일 경우
+      if (data.status === 200) {
+              navigate(-1);
+      }
+      // type === 'main'일 경우
+      else if(data.status === 201){
+        navigate(`/write/${data.data.temp_id}`);
+      }
     },
     onError: (error) => alert(error),
   });
