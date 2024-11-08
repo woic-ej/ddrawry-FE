@@ -28,17 +28,11 @@ export const getTempDiary = async (tempId: string): Promise<TempDiaryType> => {
   }
 };
 
-const formatDate = (date: string) => {
-  return date.includes("-") ? date.replace(/-/g, "") : date;
-};
-
 // 임시다이어리를 가지고있는지 여부 조회 api
 export const hasTempDiary = async (date: string) => {
-  const formattedDate = formatDate(date);
-
   try {
     const { data }: { data: HasTempDiaryResponse } = await api.get({
-      endpoint: `${apiRoutes.diary}?date=${formattedDate}`,
+      endpoint: `${apiRoutes.diary}?date=${date.replace(/-/g, "")}`,
     });
     return data;
   } catch (error) {

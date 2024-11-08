@@ -33,7 +33,6 @@ const CalenderItem: React.FC<Props> = ({
 }) => {
   const navigate = useNavigate();
   const [isTempModalOpen, setIsTempModalOpen] = useState<boolean>(false);
-  const formattedDate = format(currentDate, "yyyyMMdd");
   const [getIsExistTemp, setGetIsExistTemp] = useState<HasTempDiaryResponse>();
   const { mutate: cancelTemp } = useCancelTempDiary(String(getIsExistTemp?.temp_id));
   const postDate = format(currentDate, "yyyy-MM-dd");
@@ -73,7 +72,7 @@ const CalenderItem: React.FC<Props> = ({
       navigate(`/diary/${id}`);
     } else if (!isFutureDate) {
       try {
-        const data = await hasTempDiary(formattedDate);
+        const data = await hasTempDiary(postDate);
         setGetIsExistTemp(data)
         if (data.is_temp_exist) {
           setIsTempModalOpen(true);
