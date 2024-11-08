@@ -1,4 +1,4 @@
-import { format, getDate, getMonth, parseISO } from "date-fns";
+import { format, getDate, getMonth, parseISO, isAfter } from "date-fns";
 import React from "react";
 import { BaseDiaryType } from "src/types/diaryTypes";
 import CalenderItem from "@pages/MainPage/components/calender/CalenderItem";
@@ -15,22 +15,27 @@ interface Props {
 const findEventForDate = (date: Date, events: BaseDiaryType[]) => {
   return events.find((event) => {
     const eventDate = parseISO(event.date);
-    return getDate(date) === getDate(eventDate);
+    return getDate(date) === getDate(eventDate) && getMonth(date) === getMonth(eventDate);
   });
 };
 
 const renderCalenderItem = (day: Date, currentDate: Date, events: BaseDiaryType[]) => {
   const isCurrentMonth = getMonth(day) === getMonth(currentDate);
-  const formattedDay = format(day, "d");
+  const isFutureDate = isAfter(day, new Date()); // 오늘 이후 날짜인지 확인
   const calendarEvent = findEventForDate(day, events);
   return (
-    <CalenderItem
-      day={formattedDay}
-      isValidate={isCurrentMonth}
-      hasContent={!!calendarEvent}
-      imageUrl={calendarEvent?.image}
-      bookmark={calendarEvent?.bookmark}
-    />
+    <div key={format(day, "MMdd")}>
+      <CalenderItem
+        currentDate={day}
+        day={format(day, "d")}
+        isValidate={isCurrentMonth}
+        isFutureDate={isFutureDate}
+        hasContent={!!calendarEvent}
+        imageUrl={calendarEvent?.image}
+        bookmark={calendarEvent?.bookmark}
+        id={calendarEvent?.id}
+      />
+    </div>
   );
 };
 
@@ -49,7 +54,7 @@ const Calender: React.FC<Props> = ({ currentMonthData, currentDate, calenderData
           </div>
         ))}
       </div>
-      <div className="grid grid-cols-7 w-fit gap-x-[12px] gap-y-[11px]">
+      <div className="grid grid-cols-7 w-full gap-x-[12px] gap-y-[11px]">
         {currentMonthData.map((day) => renderCalenderItem(day, currentDate, calenderData))}
       </div>
     </div>

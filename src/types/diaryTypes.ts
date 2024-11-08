@@ -3,8 +3,9 @@ import { DiaryFormData } from "src/types/WriteDiaryTypes";
 export type BaseDiaryType = {
   id: number;
   date: string;
-  image: string;
+  image: string | null;
   bookmark: boolean;
+  title?: string
 };
 
 export type DiaryListType = BaseDiaryType & {
