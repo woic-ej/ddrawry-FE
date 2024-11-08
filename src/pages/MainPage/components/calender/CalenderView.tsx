@@ -14,6 +14,7 @@ import DiaryList from "@components/diary/list/DiaryList";
 import { useToggleStore } from "@store/useToggleStore";
 import { format } from "date-fns";
 import { useGetMainDiaries } from "@api/calender/useCalender";
+import EmptyState from "@components/empty/EmptyState";
 
 const CalenderView: React.FC = () => {
   const { currentDate, prevMonthHandler, nextMonthHandler } = useDateControl();
@@ -42,7 +43,7 @@ const CalenderView: React.FC = () => {
   }, [startDate, endDate]);
 
   return (
-    <div className="w-full min-w-[990px] flex flex-col items-center gap-[64px]">
+    <div className="w-full min-w-[990px] flex flex-col items-center gap-[64px] flex-grow">
       <DateManipulationBar
         date={currentDate}
         prevMonthHandler={prevMonthHandler}
@@ -55,6 +56,10 @@ const CalenderView: React.FC = () => {
             currentDate={currentDate}
             calenderData={getMainCalender.data}
           />
+        ) : getMainCalender.data.length === 0 ? (
+          <div className={"h-full w-full flex flex-grow justify-center items-center"}>
+            <EmptyState message="작성된 일기가 없어요!" />
+          </div>
         ) : (
           <DiaryList diaries={getMainCalender.data} />
         ))}
