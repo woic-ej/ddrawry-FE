@@ -23,13 +23,16 @@ const renderCalenderItem = (day: Date, currentDate: Date, events: BaseDiaryType[
   const isCurrentMonth = getMonth(day) === getMonth(currentDate);
   const formattedDay = format(day, "d");
   const calendarEvent = findEventForDate(day, events);
+
   return (
     <CalenderItem
+      currentDate={currentDate}
       day={formattedDay}
       isValidate={isCurrentMonth}
       hasContent={!!calendarEvent}
       imageUrl={calendarEvent?.image}
       bookmark={calendarEvent?.bookmark}
+      id={calendarEvent?.id}
     />
   );
 };
@@ -49,7 +52,7 @@ const Calender: React.FC<Props> = ({ currentMonthData, currentDate, calenderData
           </div>
         ))}
       </div>
-      <div className="grid grid-cols-7 w-fit gap-x-[12px] gap-y-[11px]">
+      <div className="grid grid-cols-7 w-full gap-x-[12px] gap-y-[11px]">
         {currentMonthData.map((day) => renderCalenderItem(day, currentDate, calenderData))}
       </div>
     </div>
