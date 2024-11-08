@@ -1,4 +1,4 @@
-import { format, getDate, getMonth, parseISO } from "date-fns";
+import { format, getDate, getMonth, parseISO, isAfter } from "date-fns";
 import React from "react";
 import { BaseDiaryType } from "src/types/diaryTypes";
 import CalenderItem from "@pages/MainPage/components/calender/CalenderItem";
@@ -21,19 +21,21 @@ const findEventForDate = (date: Date, events: BaseDiaryType[]) => {
 
 const renderCalenderItem = (day: Date, currentDate: Date, events: BaseDiaryType[]) => {
   const isCurrentMonth = getMonth(day) === getMonth(currentDate);
-  const formattedDay = format(day, "d");
+  const isFutureDate = isAfter(day, new Date()); // 오늘 이후 날짜인지 확인
   const calendarEvent = findEventForDate(day, events);
-
   return (
-    <CalenderItem
-      currentDate={currentDate}
-      day={formattedDay}
-      isValidate={isCurrentMonth}
-      hasContent={!!calendarEvent}
-      imageUrl={calendarEvent?.image}
-      bookmark={calendarEvent?.bookmark}
-      id={calendarEvent?.id}
-    />
+    <div key={format(day, "MMdd")}>
+      <CalenderItem
+        currentDate={day}
+        day={format(day, "d")}
+        isValidate={isCurrentMonth}
+        isFutureDate={isFutureDate}
+        hasContent={!!calendarEvent}
+        imageUrl={calendarEvent?.image}
+        bookmark={calendarEvent?.bookmark}
+        id={calendarEvent?.id}
+      />
+    </div>
   );
 };
 

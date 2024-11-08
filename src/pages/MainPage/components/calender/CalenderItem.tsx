@@ -6,22 +6,24 @@ import { useNavigate } from "react-router-dom";
 import { useConfirmTemp } from "@api/calender/useConfirmTemp";
 import ModalLayout from "@components/modals/ModalLayout";
 import DefaultModal from "@components/modals/DefaultModal";
-import { useCancelTempDiary } from "@api/tempDiary/useCancelTempDiary";
 import { format } from "date-fns";
+import { useCancelTempDiary } from "@api/tempDiary/useCancelTempDiary";
 
 interface Props {
   day: string;
   isValidate: boolean;
+  isFutureDate: boolean; // 오늘 이후 날짜 여부
   hasContent: boolean;
   imageUrl?: string | null;
   bookmark?: boolean;
-  id?: number;
+  id: number | undefined;
   currentDate: Date;
 }
 
 const CalenderItem: React.FC<Props> = ({
   day,
   isValidate,
+  isFutureDate,
   hasContent,
   imageUrl,
   bookmark,
@@ -58,24 +60,27 @@ const CalenderItem: React.FC<Props> = ({
   };
 
   const containerClassNames = classNames(
-    "calender-item relative flex justify-center items-center cursor-pointer",
+    "calender-item relative flex justify-center items-center",
     {
+      "cursor-pointer": !isFutureDate,
       "text-ButtonDisabledStroke text-regular": !isValidate,
       "bg-white body-font": isValidate,
+      "bg-[#F0F0F0]": isTempModalOpen,
     },
   );
 
   const handleCalenderItemClick = () => {
-    if (hasContent) {
+    // 오늘 이후 날짜는 클릭 X
+    if (!isFutureDate && hasContent) {
       navigate(`/diary/${id}`);
-    } else {
+    } else if (!isFutureDate) {
       getConfirmTemp();
     }
   };
 
   return (
     <>
-      <div className={containerClassNames} onClick={handleCalenderItemClick}>
+      <div className={containerClassNames} onClick={handleCalenderItemClick} key={day}>
         {renderImage()}
         <span className="absolute">{day}</span>
       </div>
