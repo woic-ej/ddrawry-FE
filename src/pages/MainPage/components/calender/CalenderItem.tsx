@@ -3,11 +3,12 @@ import DefaultLogo from "@assets/images/calenderItem-logo.png";
 import Like from "@pages/MainPage/components/icons/Like";
 import classNames from "classnames";
 import { useNavigate } from "react-router-dom";
-import { useConfirmTemp } from "@api/calender/useConfirmTemp";
 import ModalLayout from "@components/modals/ModalLayout";
 import DefaultModal from "@components/modals/DefaultModal";
 import { format } from "date-fns";
 import { useCancelTempDiary } from "@api/tempDiary/useCancelTempDiary";
+import { hasTempDiary } from "@api/tempDiary/tempApis";
+import { HasTempDiaryResponse } from "src/types/tempTypes";
 
 interface Props {
   day: string;
@@ -33,11 +34,8 @@ const CalenderItem: React.FC<Props> = ({
   const navigate = useNavigate();
   const [isTempModalOpen, setIsTempModalOpen] = useState<boolean>(false);
   const formattedDate = format(currentDate, "yyyyMMdd");
-  const { mutate: getConfirmTemp, data: IsExistTemp } = useConfirmTemp(
-    formattedDate,
-    setIsTempModalOpen,
-  );
-  const { mutate: cancelTemp } = useCancelTempDiary(String(IsExistTemp?.data.temp_id));
+  const [getIsExistTemp, setGetIsExistTemp] = useState<HasTempDiaryResponse>();
+  const { mutate: cancelTemp } = useCancelTempDiary(String(getIsExistTemp?.temp_id));
   const postDate = format(currentDate, "yyyy-MM-dd");
   
   const renderImage = () => {
@@ -69,12 +67,23 @@ const CalenderItem: React.FC<Props> = ({
     },
   );
 
-  const handleCalenderItemClick = () => {
+  const handleCalenderItemClick = async() => {
     // 오늘 이후 날짜는 클릭 X
     if (!isFutureDate && hasContent) {
       navigate(`/diary/${id}`);
     } else if (!isFutureDate) {
-      getConfirmTemp();
+      try {
+        const data = await hasTempDiary(formattedDate);
+        setGetIsExistTemp(data)
+        if (data.is_temp_exist) {
+          setIsTempModalOpen(true);
+        } else {
+          navigate(`/write/${data?.temp_id}`);
+        }
+      }
+      catch (error) {
+        console.error(error)
+      }
     }
   };
 
@@ -84,13 +93,13 @@ const CalenderItem: React.FC<Props> = ({
         {renderImage()}
         <span className="absolute">{day}</span>
       </div>
-      {isTempModalOpen && IsExistTemp && (
+      {isTempModalOpen && getIsExistTemp && (
         <ModalLayout setIsModalOpen={setIsTempModalOpen}>
           <DefaultModal
             title="임시 저장된 일기를 불러올까요?"
             leftText="네"
             rightText="아니요"
-            leftClick={() => navigate(`/write/${IsExistTemp.data.temp_id}`)}
+            leftClick={() => navigate(`/write/${getIsExistTemp.temp_id}`)}
             rightClick={() => {
               setIsTempModalOpen(false);
               cancelTemp({ date: postDate, type: "main" });
