@@ -7,13 +7,13 @@ import { CancelTempDiaryPayload } from "src/types/tempTypes";
 type IPostResponseCancelTempType = {
   status: number;
   message: string;
-  data: { temp_id: number; }
-}
+  data: { temp_id: number };
+};
 
 //임시다이어리 취소 api
 const cancelTempDiary = async (body: CancelTempDiaryPayload) => {
   try {
-    return await api.post<CancelTempDiaryPayload,IPostResponseCancelTempType>({
+    return await api.post<CancelTempDiaryPayload, IPostResponseCancelTempType>({
       endpoint: apiRoutes.diaryTempCancel,
       body,
     });
@@ -32,10 +32,10 @@ export const useCancelTempDiary = (tempId: string) => {
       localStorage.removeItem(`temp-diary/${tempId}`);
       // type === 'write'일 경우
       if (data.status === 200) {
-              navigate(-1);
+        navigate(-1);
       }
       // type === 'main'일 경우
-      else if(data.status === 201){
+      else if (data.status === 201) {
         navigate(`/write/${data.data.temp_id}`);
       }
     },
