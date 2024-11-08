@@ -15,7 +15,7 @@ interface Props {
 const findEventForDate = (date: Date, events: BaseDiaryType[]) => {
   return events.find((event) => {
     const eventDate = parseISO(event.date);
-    return getDate(date) === getDate(eventDate);
+    return getDate(date) === getDate(eventDate) && getMonth(date) === getMonth(eventDate);
   });
 };
 
