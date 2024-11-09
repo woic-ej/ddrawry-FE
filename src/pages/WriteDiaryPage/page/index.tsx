@@ -59,7 +59,11 @@ const WriteDiaryPage = () => {
               count={tempData.remaining_count}
               isFull={Boolean(tempData.image_count === 3)}
             />
-            <WriteDiaryButtonSection date={tempData.date} nickname={tempData.nickname} />
+            <WriteDiaryButtonSection
+              date={tempData.date}
+              nickname={tempData.nickname}
+              tempId={tempId!}
+            />
           </FormProvider>
           <TempSaveModal date={tempData.date} tempId={tempId!} />
         </>

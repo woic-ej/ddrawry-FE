@@ -9,21 +9,23 @@ import { DiaryFormData } from "src/types/WriteDiaryTypes";
 import { useSearchParams } from "react-router-dom";
 import { useUpdateDiary } from "@api/diary/useUpdateDiary";
 import { useWriteDiary } from "@api/diary/useWriteDiary";
+import { useGetImage } from "@api/image/useGetImage";
 
 interface Props {
   date: string;
   nickname: string;
+  tempId: string;
 }
 
-const WriteDiaryButtonSection = ({ date, nickname }: Props) => {
+const WriteDiaryButtonSection = ({ date, nickname, tempId }: Props) => {
   const [isHistoryModalOpen, setIsHistoryModalOpen] = useState<boolean>(false);
   const [isImageModalOpen, setIsImageModalOpen] = useState<boolean>(false);
   const [isSaveModalOpen, setIsSaveModalOpen] = useState<boolean>(false);
   const [searchParams] = useSearchParams();
-  const isEditPage = Boolean(searchParams.get("edit"));
-  const diaryId = searchParams.get("diaryId");
+  const [isEditPage, diaryId] = [Boolean(searchParams.get("edit")), searchParams.get("diaryId")];
   const { mutate: writeMutate } = useWriteDiary();
   const { mutate: updateMutate } = useUpdateDiary();
+  const { data: imageHistory, refetch: getImageHistory } = useGetImage(tempId!);
 
   const {
     handleSubmit,
@@ -35,6 +37,7 @@ const WriteDiaryButtonSection = ({ date, nickname }: Props) => {
   const currentImage = watch("image");
 
   const handleImageHistory = () => {
+    getImageHistory();
     setIsHistoryModalOpen(true);
   };
 
@@ -73,9 +76,9 @@ const WriteDiaryButtonSection = ({ date, nickname }: Props) => {
           onClick={() => setIsSaveModalOpen(true)}
         />
       </div>
-      {isHistoryModalOpen && (
+      {isHistoryModalOpen && imageHistory && (
         <ModalLayout setIsModalOpen={setIsHistoryModalOpen}>
-          <ImageEditModal images={[]} setIsImageEditModalOpen={setIsHistoryModalOpen} />
+          <ImageEditModal images={imageHistory} setIsImageEditModalOpen={setIsHistoryModalOpen} />
         </ModalLayout>
       )}
       {isImageModalOpen && (

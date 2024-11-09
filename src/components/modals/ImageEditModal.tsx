@@ -12,9 +12,10 @@ import DefaultModal from "@components/modals/DefaultModal";
 import XIcon from "@components/iconComponents/XIcon";
 import EmptyState from "../empty/EmptyState";
 import CircleXIcon from "@components/iconComponents/CircleXIcon";
+import { GetImageType } from "src/types/imageTypes";
 
 interface ImageEditModalProps {
-  images: string[];
+  images: GetImageType[];
   setIsImageEditModalOpen: Dispatch<SetStateAction<boolean>>;
 }
 
@@ -28,7 +29,6 @@ const ImageEditModal: React.FC<ImageEditModalProps> = ({ images, setIsImageEditM
 
   const handleImageClick = () => {
     // 해당 일기의 그림 변경 api 연동
-
     if (!isEdit) setIsImageEditModalOpen(false);
   };
 
@@ -49,7 +49,7 @@ const ImageEditModal: React.FC<ImageEditModalProps> = ({ images, setIsImageEditM
   };
 
   return (
-    <div className="flex flex-col w-[1028px] h-[646px] rounded-[30px] border p-[25px] gap-[40px] bg-white">
+    <div className="flex flex-col w-[1028px] h-[646px] rounded-[30px] border p-[25px] gap-[20px] bg-white">
       <div className="flex relative">
         {images.length !== 0 && (
           <button
@@ -73,17 +73,23 @@ const ImageEditModal: React.FC<ImageEditModalProps> = ({ images, setIsImageEditM
               modules={[Pagination, Navigation]}
               navigation={true}
             >
-              {images.map((image, index) => (
-                <SwiperSlide key={index} className="flex justify-center">
-                  <div className=" w-[800px] h-[505px] pb-[50px] pt-[30px]">
-                    <button onClick={handleImageClick}>
+              {images.map((image) => (
+                <SwiperSlide key={image.id} className="flex justify-center">
+                  <div className="w-[800px] h-[505px] pb-[50px] pt-[30px] relative">
+                    <button
+                      onClick={handleImageClick}
+                      className={`relative group ${isEdit && "cursor-default"}`}
+                    >
                       <img
-                        src={image}
+                        src={image.temp_image_1}
                         alt="일기 그림"
                         height={450}
                         width={800}
                         className="object-cover w-[800px] h-[450px]"
                       />
+                      {!isEdit && (
+                        <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-10 group-active:opacity-10" />
+                      )}
                     </button>
                     {isEdit && <CircleXIcon onClick={handleOpenDeleteModal} />}
                   </div>
