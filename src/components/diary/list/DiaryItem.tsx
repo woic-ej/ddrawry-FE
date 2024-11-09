@@ -2,9 +2,11 @@ import LikeIcon from "@components/iconComponents/LikeIcon";
 import DefaultDiaryLogo from "@components/default/DefaultDiaryLogo";
 import { format } from "date-fns";
 import { BaseDiaryType } from "src/types/diaryTypes";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const DiaryItem = ({ id, image, title, date, bookmark }: BaseDiaryType) => {
+  const location = useLocation();
+  const isLikedPage = location.pathname === "/liked";
   const navigate = useNavigate();
   const handleClick = () => {
     navigate(`/diary/${id}`);
@@ -26,7 +28,7 @@ const DiaryItem = ({ id, image, title, date, bookmark }: BaseDiaryType) => {
           <div className="smallCaption-font">{format(date, "yyyy년 M월 d일")}</div>
         </div>
       </div>
-      <LikeIcon bookmark={bookmark} id={id} isListPage />
+      <LikeIcon bookmark={bookmark} id={id} isLikedPage={isLikedPage} />
     </button>
   );
 };
