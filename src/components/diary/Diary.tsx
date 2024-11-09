@@ -84,6 +84,7 @@ const Diary: React.FC<Props> = ({ date, nickname, count, isFull }) => {
               count={count!}
               isFull={isFull!}
               isValidate={!errors.story && !!currentStory}
+              story={currentStory}
               setValue={setValue}
             />
           )}

@@ -2,11 +2,15 @@ import React, { useState } from "react";
 import SmallButton from "@components/buttons/SmallButton";
 import DefaultModal from "@components/modals/DefaultModal";
 import ModalLayout from "@components/modals/ModalLayout";
+import { useCreateImage } from "@api/image/useCreateImage";
+import { useParams } from "react-router-dom";
+import { CreateImagePayLoad } from "src/types/imageTypes";
 
 interface Props {
   count: number;
   isFull: boolean;
   isValidate: boolean;
+  story: string;
   setValue: (field: "image", value: string) => void;
 }
 
@@ -28,21 +32,31 @@ const NotificationMessage: React.FC<Pick<Props, "count">> = ({ count }) => {
   }
 };
 
-const ImageCreationPanel: React.FC<Props> = ({ count, isFull, isValidate, setValue }) => {
+const ImageCreationPanel: React.FC<Props> = ({ count, isFull, isValidate, story, setValue }) => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const { tempId } = useParams<{ tempId: string }>();
+  const { mutate: createImage, isPending } = useCreateImage(setValue);
 
   const handleDrawClick = () => {
     setIsModalOpen(true);
   };
 
   const handleYesClick = () => {
-    setValue("image", "생성된 그림"); // api 호출로 대체
+    const storyData: CreateImagePayLoad = {
+      temp_id: tempId!,
+      story,
+    };
+    createImage(storyData);
     setIsModalOpen(false);
   };
 
   const handleNoClick = () => {
     setIsModalOpen(false);
   };
+
+  if (isPending) {
+    return <div>그림 그리는중</div>;
+  }
 
   return (
     <div className="flex flex-col gap-[18px] items-center">
