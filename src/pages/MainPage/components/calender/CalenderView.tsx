@@ -53,7 +53,6 @@ const CalenderView: React.FC = () => {
         ...getPreviousMainCalender.data,
       ]);
     }
-    
   }, [getCurrentMainCalender, getNextMainCalender, getPreviousMainCalender, currentDateParam]);
 
   const currentMonth = currentDate.getMonth() + 1;
@@ -81,7 +80,8 @@ const CalenderView: React.FC = () => {
         prevMonthHandler={prevMonthHandler}
         nextMonthHandler={nextMonthHandler}
       />
-      {getTotalCalenderData && getCurrentMainCalender && 
+      {getTotalCalenderData &&
+        getCurrentMainCalender &&
         (isCalenderView === true ? (
           <Calender
             currentMonthData={currentMonthData}

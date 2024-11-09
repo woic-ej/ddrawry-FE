@@ -8,11 +8,11 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getTempDiary } from "@api/tempDiary/tempApis";
 import TempSaveModal from "@pages/WriteDiaryPage/components/TempSaveModal";
+import { TempDiaryType } from "src/types/tempTypes";
 
 const WriteDiaryPage = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [date, setDate] = useState<string>("");
-  const [nickname, setNickname] = useState<string>("");
+  const [tempData, setTempData] = useState<TempDiaryType | null>(null);
   const { tempId } = useParams<{ tempId: string }>();
   const methods = useForm<DiaryFormData>({
     resolver: zodResolver(DiaryFormSchema),
@@ -29,8 +29,7 @@ const WriteDiaryPage = () => {
       } else {
         data = JSON.parse(storageTemp);
       }
-      setNickname(data.nickname);
-      setDate(data.date);
+      setTempData(data);
       methods.reset(data);
       methods.trigger();
     })();
@@ -49,15 +48,20 @@ const WriteDiaryPage = () => {
   return (
     <div className="flex flex-col items-center">
       <DefaultHeader title="일기 쓰기" />
-      {isLoading ? (
+      {isLoading || !tempData ? (
         <div>loading...</div>
       ) : (
         <>
           <FormProvider {...methods}>
-            <Diary date={date} nickname={nickname} count={2} />
-            <WriteDiaryButtonSection date={date} nickname={nickname} />
+            <Diary
+              date={tempData.date}
+              nickname={tempData.nickname}
+              count={tempData.remaining_count}
+              isFull={Boolean(tempData.image_count === 3)}
+            />
+            <WriteDiaryButtonSection date={tempData.date} nickname={tempData.nickname} />
           </FormProvider>
-          <TempSaveModal date={date} tempId={tempId!} />
+          <TempSaveModal date={tempData.date} tempId={tempId!} />
         </>
       )}
     </div>

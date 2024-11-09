@@ -15,8 +15,8 @@ const MainPage: React.FC = () => {
   }, []);
 
   const handleSearchIconClick = () => {
-    navigate('/search')
-  }
+    navigate("/search");
+  };
 
   return (
     <div className="flex flex-col h-screen w-full">
@@ -24,9 +24,7 @@ const MainPage: React.FC = () => {
       <div className="flex flex-grow items-center flex-col gap-[48px] px-[130px] py-[53px]">
         <div className="flex justify-between w-full min-w-[990px]">
           <ToggleButton leftTitle="캘린더형" rightTitle="목록형" />
-          
-            <SearchIcon handleClick={handleSearchIconClick}/>
-          
+          <SearchIcon handleClick={handleSearchIconClick} />
         </div>
         <CalenderView />
       </div>
