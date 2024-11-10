@@ -3,7 +3,7 @@ export type CreateImagePayLoad = {
   story: string;
 };
 
-export type GetImageType = {
+export type GetImageResponse = {
   id: number;
-  temp_image_1: string;
+  image: string;
 };

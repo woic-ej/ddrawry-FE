@@ -31,6 +31,7 @@ const WriteDiaryButtonSection = ({ date, nickname, tempId }: Props) => {
     handleSubmit,
     watch,
     unregister,
+    setValue,
     formState: { isValid },
   } = useFormContext<DiaryFormData>();
 
@@ -78,7 +79,11 @@ const WriteDiaryButtonSection = ({ date, nickname, tempId }: Props) => {
       </div>
       {isHistoryModalOpen && imageHistory && (
         <ModalLayout setIsModalOpen={setIsHistoryModalOpen}>
-          <ImageEditModal images={imageHistory} setIsImageEditModalOpen={setIsHistoryModalOpen} />
+          <ImageEditModal
+            images={imageHistory}
+            setIsImageEditModalOpen={setIsHistoryModalOpen}
+            setValue={setValue}
+          />
         </ModalLayout>
       )}
       {isImageModalOpen && (

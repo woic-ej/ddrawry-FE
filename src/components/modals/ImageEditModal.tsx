@@ -1,6 +1,5 @@
-import React, { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-
 import "swiper/css";
 import "swiper/css/zoom";
 import "swiper/css/navigation";
@@ -12,14 +11,15 @@ import DefaultModal from "@components/modals/DefaultModal";
 import XIcon from "@components/iconComponents/XIcon";
 import EmptyState from "../empty/EmptyState";
 import CircleXIcon from "@components/iconComponents/CircleXIcon";
-import { GetImageType } from "src/types/imageTypes";
+import { GetImageResponse } from "src/types/imageTypes";
 
 interface ImageEditModalProps {
-  images: GetImageType[];
+  images: GetImageResponse[];
   setIsImageEditModalOpen: Dispatch<SetStateAction<boolean>>;
+  setValue: (field: "image", value: string) => void;
 }
 
-const ImageEditModal: React.FC<ImageEditModalProps> = ({ images, setIsImageEditModalOpen }) => {
+const ImageEditModal = ({ images, setIsImageEditModalOpen, setValue }: ImageEditModalProps) => {
   const [isEdit, setIsEdit] = useState<boolean>(false);
   const [isDeleteImageModal, setIsDeleteImageModal] = useState<boolean>(false);
 
@@ -27,9 +27,12 @@ const ImageEditModal: React.FC<ImageEditModalProps> = ({ images, setIsImageEditM
     setIsImageEditModalOpen(false);
   };
 
-  const handleImageClick = () => {
+  const handleImageClick = (imageUrl: string) => {
     // 해당 일기의 그림 변경 api 연동
-    if (!isEdit) setIsImageEditModalOpen(false);
+    if (!isEdit) {
+      setValue("image", imageUrl);
+      setIsImageEditModalOpen(false);
+    }
   };
 
   const handleEditClick = () => {
@@ -77,11 +80,11 @@ const ImageEditModal: React.FC<ImageEditModalProps> = ({ images, setIsImageEditM
                 <SwiperSlide key={image.id} className="flex justify-center">
                   <div className="w-[800px] h-[505px] pb-[50px] pt-[30px] relative">
                     <button
-                      onClick={handleImageClick}
+                      onClick={() => handleImageClick(image.image)}
                       className={`relative group ${isEdit && "cursor-default"}`}
                     >
                       <img
-                        src={image.temp_image_1}
+                        src={image.image}
                         alt="일기 그림"
                         height={450}
                         width={800}

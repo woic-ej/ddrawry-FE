@@ -44,6 +44,7 @@ const DiaryButtonSection = ({ date, diaryId }: Props) => {
     }
 
     if (editDiaryData) {
+      localStorage.removeItem(`temp-diary/${hasTempRes?.temp_id}`);
       navigate(`/write/${editDiaryData.temp_id}?edit=true&diaryId=${diaryId}`);
     }
   }, [hasTempRes, editDiaryData, navigate, diaryId]);
