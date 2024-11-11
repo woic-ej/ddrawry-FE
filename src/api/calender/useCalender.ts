@@ -9,21 +9,21 @@ type IGetMainDiariesType = {
   data: BaseDiaryType[]
 };
 
-const getMainDiaries = async (type: string, date: string) => {
+const getMainDiaries = async (type: string, startDate: string, endDate: string) => {
   const data = await api.get<IGetMainDiariesType>({
-    endpoint: `${apiRoutes.mainDiary}?type=${type}&date=${date}`,
+    endpoint: `${apiRoutes.mainDiary}?type=${type}&start=${startDate}&end=${endDate}`,
   });
   return data;
 };
 
-export const useGetMainDiaries = (type: boolean, date: string) => {
+export const useGetMainDiaries = (type: boolean, startDate: string, endDate: string) => {
   return useQuery({
-    queryKey: ["MAIN_DIARIES", type, date],
+    queryKey: ["MAIN_DIARIES", type, startDate, endDate],
     queryFn: () => {
       if (type) {
-        return getMainDiaries("calendar", date);
+        return getMainDiaries("calendar", startDate, endDate);
       } else {
-        return getMainDiaries("list", date);
+        return getMainDiaries("list", startDate, endDate);
       }
     },
   });
