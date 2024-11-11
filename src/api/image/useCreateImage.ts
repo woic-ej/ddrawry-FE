@@ -1,12 +1,13 @@
 import { apiRoutes } from "@api/apiRoutes";
 import api from "@api/fetcher";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { CreateImagePayLoad } from "src/types/imageTypes";
 import { useTempDataStore } from "@store/useTempDataStore";
 
 type CreateImageResponse = {
   image_url: string;
   remain_count: number;
+  image_count: number;
 };
 
 const createImage = async (body: CreateImagePayLoad): Promise<CreateImageResponse> => {
@@ -22,14 +23,20 @@ const createImage = async (body: CreateImagePayLoad): Promise<CreateImageRespons
   }
 };
 
-export const useCreateImage = (setValue: (field: "image", value: string) => void) => {
+export const useCreateImage = (
+  setValue: (field: "image", value: string) => void,
+  tempId: string,
+) => {
   const { addTempData } = useTempDataStore();
+  const queryClient = useQueryClient();
 
   return useMutation<CreateImageResponse, Error, CreateImagePayLoad>({
     mutationFn: (body) => createImage(body),
     onSuccess: (data) => {
       addTempData("remain_count", data.remain_count);
+      addTempData("image_count", data.image_count);
       setValue("image", data.image_url);
+      queryClient.invalidateQueries({ queryKey: ["images", tempId] });
     },
   });
 };

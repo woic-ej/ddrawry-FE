@@ -35,7 +35,7 @@ const NotificationMessage: React.FC<Pick<Props, "count">> = ({ count }) => {
 const ImageCreationPanel: React.FC<Props> = ({ count, isFull, isValidate, story, setValue }) => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const { tempId } = useParams<{ tempId: string }>();
-  const { mutate: createImage, isPending } = useCreateImage(setValue);
+  const { mutate: createImage, isPending } = useCreateImage(setValue, tempId!);
 
   const handleDrawClick = () => {
     setIsModalOpen(true);
