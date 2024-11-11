@@ -9,7 +9,6 @@ import { DiaryFormData } from "src/types/WriteDiaryTypes";
 import { useSearchParams } from "react-router-dom";
 import { useUpdateDiary } from "@api/diary/useUpdateDiary";
 import { useWriteDiary } from "@api/diary/useWriteDiary";
-import { useGetImage } from "@api/image/useGetImage";
 
 interface Props {
   date: string;
@@ -25,7 +24,6 @@ const WriteDiaryButtonSection = ({ date, nickname, tempId }: Props) => {
   const [isEditPage, diaryId] = [Boolean(searchParams.get("edit")), searchParams.get("diaryId")];
   const { mutate: writeMutate } = useWriteDiary();
   const { mutate: updateMutate } = useUpdateDiary();
-  const { data: imageHistory, refetch: getImageHistory } = useGetImage(tempId!);
 
   const {
     handleSubmit,
@@ -38,7 +36,6 @@ const WriteDiaryButtonSection = ({ date, nickname, tempId }: Props) => {
   const currentImage = watch("image");
 
   const handleImageHistory = () => {
-    getImageHistory();
     setIsHistoryModalOpen(true);
   };
 
@@ -77,10 +74,10 @@ const WriteDiaryButtonSection = ({ date, nickname, tempId }: Props) => {
           onClick={() => setIsSaveModalOpen(true)}
         />
       </div>
-      {isHistoryModalOpen && imageHistory && (
+      {isHistoryModalOpen && (
         <ModalLayout setIsModalOpen={setIsHistoryModalOpen}>
           <ImageEditModal
-            images={imageHistory}
+            tempId={tempId}
             setIsImageEditModalOpen={setIsHistoryModalOpen}
             setValue={setValue}
           />

@@ -11,24 +11,27 @@ import DefaultModal from "@components/modals/DefaultModal";
 import XIcon from "@components/iconComponents/XIcon";
 import EmptyState from "../empty/EmptyState";
 import CircleXIcon from "@components/iconComponents/CircleXIcon";
-import { GetImageResponse } from "src/types/imageTypes";
+import { useDeleteImage } from "@api/image/useDeleteImage";
+import { useGetImage } from "@api/image/useGetImage";
 
 interface ImageEditModalProps {
-  images: GetImageResponse[];
+  tempId: string;
   setIsImageEditModalOpen: Dispatch<SetStateAction<boolean>>;
   setValue: (field: "image", value: string) => void;
 }
 
-const ImageEditModal = ({ images, setIsImageEditModalOpen, setValue }: ImageEditModalProps) => {
+const ImageEditModal = ({ tempId, setIsImageEditModalOpen, setValue }: ImageEditModalProps) => {
   const [isEdit, setIsEdit] = useState<boolean>(false);
   const [isDeleteImageModal, setIsDeleteImageModal] = useState<boolean>(false);
+  const [deleteImageId, setDeleteImageId] = useState<number | null>();
+  const { data: imageHistory, isPending } = useGetImage(tempId);
+  const { mutate: DeleteImageMutate } = useDeleteImage(tempId, setIsDeleteImageModal);
 
   const handleCloseModal = () => {
     setIsImageEditModalOpen(false);
   };
 
   const handleImageClick = (imageUrl: string) => {
-    // 해당 일기의 그림 변경 api 연동
     if (!isEdit) {
       setValue("image", imageUrl);
       setIsImageEditModalOpen(false);
@@ -39,7 +42,8 @@ const ImageEditModal = ({ images, setIsImageEditModalOpen, setValue }: ImageEdit
     setIsEdit(!isEdit);
   };
 
-  const handleOpenDeleteModal = () => {
+  const handleOpenDeleteModal = (imageId: number) => {
+    setDeleteImageId(imageId);
     setIsDeleteImageModal(true);
   };
 
@@ -48,58 +52,64 @@ const ImageEditModal = ({ images, setIsImageEditModalOpen, setValue }: ImageEdit
   };
 
   const handleImageDelete = () => {
-    // 삭제 api 연동
+    if (deleteImageId) DeleteImageMutate(deleteImageId);
   };
 
   return (
     <div className="flex flex-col w-[1028px] h-[646px] rounded-[30px] border p-[25px] gap-[20px] bg-white">
-      <div className="flex relative">
-        {images.length !== 0 && (
-          <button
-            className={`flex justify-center items-center rounded-[15px] border border-PrimaryStroke ${isEdit ? "bg-PrimaryStroke" : "bg-Primary"} text-[18px] text-Charcoal leading-[24.48px] w-[113px] h-[50px]`}
-            onClick={handleEditClick}
-          >
-            {isEdit ? "취소" : "편집"}
-          </button>
-        )}
-        <XIcon handleXIconClick={handleCloseModal} />
-      </div>
-      {images.length === 0 ? (
-        <EmptyState message="생성된 그림이 없어요!" />
+      {isPending || !imageHistory ? (
+        <div>...Loading</div>
       ) : (
         <>
-          <div className="relative">
-            <Swiper
-              slidesPerView={1}
-              spaceBetween={0}
-              pagination={{ clickable: true }}
-              modules={[Pagination, Navigation]}
-              navigation={true}
-            >
-              {images.map((image) => (
-                <SwiperSlide key={image.id} className="flex justify-center">
-                  <div className="w-[800px] h-[505px] pb-[50px] pt-[30px] relative">
-                    <button
-                      onClick={() => handleImageClick(image.image)}
-                      className={`relative group ${isEdit && "cursor-default"}`}
-                    >
-                      <img
-                        src={image.image}
-                        alt="일기 그림"
-                        height={450}
-                        width={800}
-                        className="object-cover w-[800px] h-[450px]"
-                      />
-                      {!isEdit && (
-                        <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-10 group-active:opacity-10" />
-                      )}
-                    </button>
-                    {isEdit && <CircleXIcon onClick={handleOpenDeleteModal} />}
-                  </div>
-                </SwiperSlide>
-              ))}
-            </Swiper>
+          <div className="flex relative">
+            {imageHistory.length !== 0 && (
+              <button
+                className={`flex justify-center items-center rounded-[15px] border border-PrimaryStroke ${isEdit ? "bg-PrimaryStroke" : "bg-Primary"} text-[18px] text-Charcoal leading-[24.48px] w-[113px] h-[50px]`}
+                onClick={handleEditClick}
+              >
+                {isEdit ? "취소" : "편집"}
+              </button>
+            )}
+            <XIcon handleXIconClick={handleCloseModal} />
           </div>
+          {imageHistory.length === 0 ? (
+            <EmptyState message="생성된 그림이 없어요!" />
+          ) : (
+            <>
+              <div className="relative">
+                <Swiper
+                  slidesPerView={1}
+                  spaceBetween={0}
+                  pagination={{ clickable: true }}
+                  modules={[Pagination, Navigation]}
+                  navigation={true}
+                >
+                  {imageHistory.map((image) => (
+                    <SwiperSlide key={image.id} className="flex justify-center">
+                      <div className="w-[800px] h-[505px] pb-[50px] pt-[30px] relative">
+                        <button
+                          onClick={() => handleImageClick(image.image)}
+                          className={`relative group ${isEdit && "cursor-default"}`}
+                        >
+                          <img
+                            src={image.image}
+                            alt="일기 그림"
+                            height={450}
+                            width={800}
+                            className="object-cover w-[800px] h-[450px]"
+                          />
+                          {!isEdit && (
+                            <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-10 group-active:opacity-10" />
+                          )}
+                        </button>
+                        {isEdit && <CircleXIcon onClick={() => handleOpenDeleteModal(image.id)} />}
+                      </div>
+                    </SwiperSlide>
+                  ))}
+                </Swiper>
+              </div>
+            </>
+          )}
         </>
       )}
 

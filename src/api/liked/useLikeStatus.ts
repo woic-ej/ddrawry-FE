@@ -63,7 +63,7 @@ export const useLikeStatus = (id: number, isListPage?: boolean) => {
         queryClient.setQueryData(queryKey, context.previousData);
       }
     },
-    onSettled: () => {
+    onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ["likedDiaries", true],
       });

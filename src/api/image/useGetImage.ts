@@ -19,7 +19,6 @@ export const useGetImage = (tempId: string) => {
   return useQuery({
     queryKey: ["images", tempId],
     queryFn: () => getImage(tempId),
-    enabled: false,
-    staleTime: 300000,
+    staleTime: Infinity,
   });
 };
