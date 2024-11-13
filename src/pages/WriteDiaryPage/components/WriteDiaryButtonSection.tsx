@@ -13,15 +13,15 @@ import { useWriteDiary } from "@api/diary/useWriteDiary";
 interface Props {
   date: string;
   nickname: string;
+  tempId: string;
 }
 
-const WriteDiaryButtonSection = ({ date, nickname }: Props) => {
+const WriteDiaryButtonSection = ({ date, nickname, tempId }: Props) => {
   const [isHistoryModalOpen, setIsHistoryModalOpen] = useState<boolean>(false);
   const [isImageModalOpen, setIsImageModalOpen] = useState<boolean>(false);
   const [isSaveModalOpen, setIsSaveModalOpen] = useState<boolean>(false);
   const [searchParams] = useSearchParams();
-  const isEditPage = Boolean(searchParams.get("edit"));
-  const diaryId = searchParams.get("diaryId");
+  const [isEditPage, diaryId] = [Boolean(searchParams.get("edit")), searchParams.get("diaryId")];
   const { mutate: writeMutate } = useWriteDiary();
   const { mutate: updateMutate } = useUpdateDiary();
 
@@ -29,6 +29,7 @@ const WriteDiaryButtonSection = ({ date, nickname }: Props) => {
     handleSubmit,
     watch,
     unregister,
+    setValue,
     formState: { isValid },
   } = useFormContext<DiaryFormData>();
 
@@ -75,7 +76,11 @@ const WriteDiaryButtonSection = ({ date, nickname }: Props) => {
       </div>
       {isHistoryModalOpen && (
         <ModalLayout setIsModalOpen={setIsHistoryModalOpen}>
-          <ImageEditModal images={[]} setIsImageEditModalOpen={setIsHistoryModalOpen} />
+          <ImageEditModal
+            tempId={tempId}
+            setIsImageEditModalOpen={setIsHistoryModalOpen}
+            setValue={setValue}
+          />
         </ModalLayout>
       )}
       {isImageModalOpen && (

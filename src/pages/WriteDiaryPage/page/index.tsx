@@ -8,11 +8,11 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getTempDiary } from "@api/tempDiary/tempApis";
 import TempSaveModal from "@pages/WriteDiaryPage/components/TempSaveModal";
+import { useTempDataStore } from "@store/useTempDataStore";
 
 const WriteDiaryPage = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [date, setDate] = useState<string>("");
-  const [nickname, setNickname] = useState<string>("");
+  const { tempData, setTempData, clearTempData } = useTempDataStore();
   const { tempId } = useParams<{ tempId: string }>();
   const methods = useForm<DiaryFormData>({
     resolver: zodResolver(DiaryFormSchema),
@@ -22,6 +22,7 @@ const WriteDiaryPage = () => {
   // 임시데이터를 조회해서 그 값으로 폼 데이터 reset
   useEffect(() => {
     (async () => {
+      clearTempData();
       let data = await getTempDiary(tempId!);
       const storageTemp = localStorage.getItem(`temp-diary/${tempId}`);
       if (!storageTemp) {
@@ -29,13 +30,12 @@ const WriteDiaryPage = () => {
       } else {
         data = JSON.parse(storageTemp);
       }
-      setNickname(data.nickname);
-      setDate(data.date);
+      setTempData(data);
       methods.reset(data);
       methods.trigger();
     })();
     setIsLoading(false);
-  }, [methods, tempId]);
+  }, [methods, tempId, setTempData, clearTempData]);
 
   // 폼 데이터가 변경 될 때 마다 로컬 스토리지에 저장
   useEffect(() => {
@@ -46,18 +46,29 @@ const WriteDiaryPage = () => {
     return () => subscription.unsubscribe();
   }, [methods, tempId]);
 
+  console.log(tempData);
+
   return (
     <div className="flex flex-col items-center">
       <DefaultHeader title="일기 쓰기" />
-      {isLoading ? (
+      {isLoading || !tempData ? (
         <div>loading...</div>
       ) : (
         <>
           <FormProvider {...methods}>
-            <Diary date={date} nickname={nickname} count={2} />
-            <WriteDiaryButtonSection date={date} nickname={nickname} />
+            <Diary
+              date={tempData.date}
+              nickname={tempData.nickname}
+              count={tempData.remain_count}
+              isFull={Boolean(tempData.image_count === 3)}
+            />
+            <WriteDiaryButtonSection
+              date={tempData.date}
+              nickname={tempData.nickname}
+              tempId={tempId!}
+            />
           </FormProvider>
-          <TempSaveModal date={date} tempId={tempId!} />
+          <TempSaveModal date={tempData.date} tempId={tempId!} />
         </>
       )}
     </div>
