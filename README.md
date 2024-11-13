@@ -1,3 +1,15 @@
+<div>
+  <p> 
+    - 로컬서버 http -> https로 적용
+ </p>
+ <p>
+    - init-https.sh 파일이 실행되어야 localhost-key.pem, localhost.pem 키 파일이 생성됨
+ </p>
+  <p>
+    - clone or pull 받고 pnpm install -> pnpm run init-https 실행한 이후 루트 경로에 init-https.sh파일이랑 .pem 파일 2개 정상적으로 설치 됐는지 확인하고 pnpm run dev 실행 -> https 적용
+  </p>
+</div>
+
 ## 📖 프로젝트 소개
 > AI를 기반으로한 일기 서비스 : 일기내용을 토대로 AI가 그림일기 그려주는 서비스
 <br/>
