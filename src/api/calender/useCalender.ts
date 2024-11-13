@@ -19,8 +19,6 @@ const getMainDiaries = async (
     type === "calendar"
       ? `${apiRoutes.mainDiary}?type=${type}&start=${startDate}&end=${endDate}`
       : `${apiRoutes.mainDiary}?type=${type}&date=${currentDate}`;
-  console.log(currentDate)
-  console.log(endpoint);
   const data = await api.get<IGetMainDiariesType>({
     endpoint,
   });
