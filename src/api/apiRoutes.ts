@@ -8,6 +8,7 @@ export const apiRoutes = {
   likeDiary: "/diaries/like",
   searchDiary: "/diaries/search",
   mainDiary: "/diaries/main",
+  sharedDiary: "/diaries/share",
   images: "/images",
   login: "/auth/kakao/callback",
   refresh: "/auth/refresh",
