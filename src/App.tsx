@@ -9,6 +9,7 @@ import DiaryPage from "@pages/DiaryPage/page";
 import SearchPage from "@pages/SearchPage/page";
 import OAuthRedirectHandler from "@pages/LoginPage/loginHandler/oauthHandler";
 import CommonRoute from "./routes/CommonRoute";
+import SharedPage from "@pages/SharedPage";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route path="/liked" element={<LikedPage />} />
         <Route path="/diary/:diaryId" element={<DiaryPage />} />
         <Route path="/search" element={<SearchPage />} />
+        <Route path="/shared/:imageUrl" element={<SharedPage />} />
         <Route path="*" element={<ErrorPage />} />
       </Routes>
     </Router>
