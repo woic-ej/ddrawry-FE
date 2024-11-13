@@ -13,6 +13,7 @@
 <img src="https://img.shields.io/badge/pnpm-CB3837?style=for-the-badge&logo=pnpm&logoColor=white"/>
 <img src="https://img.shields.io/badge/fetchAPI-5A29E4?style=for-the-badge&logo=fetchAPI&logoColor=white">
 <img src="https://img.shields.io/badge/contextAPI-553830?style=for-the-badge&logo=contextAPI&logoColor=white">
+<img src="https://img.shields.io/badge/Storybook-FF1154?style=for-the-badge&logo=Storybook&logoColor=white"/>
 </div>
 
 ### 협업 툴

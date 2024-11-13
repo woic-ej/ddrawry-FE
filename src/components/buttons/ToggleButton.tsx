@@ -13,8 +13,10 @@ const ToggleButton: React.FC<ToggleButtonProps> = ({ leftTitle, rightTitle }) =>
 
   useEffect(() => {
     if (leftTitle === "캘린더형") {
+      setActiveButtonTitle(isCalenderView ? "캘린더형" : "목록형");
       setIsLeftActive(isCalenderView);
     } else {
+      setActiveButtonTitle(isTotalView ? "전체보기" : "날짜별");
       setIsLeftActive(isTotalView);
     }
   }, [leftTitle, isTotalView, isCalenderView]);
@@ -22,20 +24,20 @@ const ToggleButton: React.FC<ToggleButtonProps> = ({ leftTitle, rightTitle }) =>
   const handleToggle = () => {
     if (activeButtonTitle === leftTitle) {
       if (leftTitle === "캘린더형") {
-        setActiveButtonTitle("목록형");
         setIsCalenderView(false);
+        setActiveButtonTitle("목록형");
       } else {
-        setActiveButtonTitle("날짜별");
         setIsTotalView(false);
+        setActiveButtonTitle("날짜별");
       }
       setIsLeftActive(false);
     } else {
       if (rightTitle === "날짜별") {
-        setActiveButtonTitle("전체보기");
         setIsTotalView(true);
+        setActiveButtonTitle("전체보기");
       } else {
-        setActiveButtonTitle("캘린더형");
         setIsCalenderView(true);
+        setActiveButtonTitle("캘린더형");
       }
       setIsLeftActive(true);
     }
