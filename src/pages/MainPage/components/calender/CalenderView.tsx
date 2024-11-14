@@ -23,12 +23,13 @@ const CalenderView: React.FC = () => {
   const startDate = startOfWeek(monthStart); // 현재 달의 시작 날짜가 포함된 주의 시작 날짜
   const endDate = endOfWeek(monthEnd); // 현재 달의 마지막 날짜가 포함된 주의 끝 날짜
   const { isCalenderView } = useToggleStore();
-
+  
   // 해당달 캘린더 data
   const { data: getCurrentMainCalender } = useGetMainDiaries(
     isCalenderView,
     format(startDate, "yyyyMMdd"),
     format(endDate, "yyyyMMdd"),
+    format(currentDate, "yyyyMM"),
   );
 
   const currentMonthData = useMemo(() => {
