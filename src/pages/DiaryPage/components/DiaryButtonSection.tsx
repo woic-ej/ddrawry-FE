@@ -8,11 +8,12 @@ import { editDiary, hasTempDiary } from "@api/tempDiary/tempApis";
 import { useDeleteDiary } from "@api/diary/useDeleteDiary";
 import { EditDiaryResponse, HasTempDiaryResponse } from "src/types/tempTypes";
 import html2canvas from "html2canvas";
+import { postShareDiaryImage } from "@api/diary/useShareDiary";
 
 interface Props {
   date: string;
   diaryId: string;
-  diaryRef: React.RefObject<HTMLDivElement>
+  diaryRef: React.RefObject<HTMLDivElement>;
 }
 
 const DiaryButtonSection = ({ date, diaryId, diaryRef }: Props) => {
@@ -39,20 +40,44 @@ const DiaryButtonSection = ({ date, diaryId, diaryRef }: Props) => {
     setEditDiaryData(data);
   };
 
-  const handleImageShare = async () => {
+  const createSharedDiaryImage = async () => {
     if (diaryRef.current) {
       const canvas = await html2canvas(diaryRef.current);
-      const imageUrl = canvas.toDataURL("sharedDiaryImage/png");
+      return canvas.toDataURL("image/png");
+    }
+    return null;
+  };
+
+  const handleImageShare = async () => {
+    const imageUrl = await createSharedDiaryImage();
+    if (imageUrl) {
       const link = document.createElement("a");
       link.href = imageUrl;
-      link.download = `${date}-diary.png`
+      link.download = `${date}-diary.png`;
       link.click();
+    } else {
+      alert("이미지 생성에 실패했습니다.");
     }
-  }
+  };
 
-  const handleLinkShare = () => {
-
-  }
+  const handleLinkShare = async () => {
+    const imageUrl = await createSharedDiaryImage();
+    if (imageUrl) {
+      try {
+        const response = await postShareDiaryImage(Number(diaryId), imageUrl);
+        console.log("response.data.image_url: ", response.image_url);
+        const shareUrl = `${window.location.origin}/shared?image=${encodeURIComponent(response.image_url)}`;
+        console.log("shareUrl:", shareUrl);
+        await navigator.clipboard.writeText(shareUrl);
+        alert("공유 링크가 클립보드에 복사되었습니다.");
+      } catch (error) {
+        console.error(error);
+        alert(`Error: ${error}`);
+      }
+    } else {
+      alert("이미지 생성에 실패했습니다.");
+    }
+  };
 
   useEffect(() => {
     if (hasTempRes) {

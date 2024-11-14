@@ -2,11 +2,7 @@ import { apiRoutes } from "@api/apiRoutes";
 import api from "@api/fetcher";
 
 type IPostResponseShareDiaryType = {
-  status: string;
-  message: string;
-  data: {
-    image_url: string;
-  };
+  image_url: string;
 };
 
 export const postShareDiaryImage = async (diaryId: number, imageBase64Url: string) => {
