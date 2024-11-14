@@ -37,6 +37,14 @@ const DiaryButtonSection = ({ date, diaryId }: Props) => {
     setEditDiaryData(data);
   };
 
+  const handleImageShare = () => {
+
+  }
+
+  const handleLinkShare = () => {
+
+  }
+
   useEffect(() => {
     if (hasTempRes) {
       if (hasTempRes.is_temp_exist) setIsTempDiaryModalOpen(true);
@@ -75,8 +83,8 @@ const DiaryButtonSection = ({ date, diaryId }: Props) => {
             title="짱 멋진 일기를 어떻게 자랑할까요?"
             leftText="이미지로"
             rightText="링크로"
-            leftClick={() => console.log("이미지로 공유")}
-            rightClick={() => console.log("링크로 공유")}
+            leftClick={handleImageShare}
+            rightClick={handleLinkShare}
           />
         </ModalLayout>
       )}
