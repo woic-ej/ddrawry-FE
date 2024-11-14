@@ -7,13 +7,15 @@ import { useNavigate } from "react-router-dom";
 import { editDiary, hasTempDiary } from "@api/tempDiary/tempApis";
 import { useDeleteDiary } from "@api/diary/useDeleteDiary";
 import { EditDiaryResponse, HasTempDiaryResponse } from "src/types/tempTypes";
+import html2canvas from "html2canvas";
 
 interface Props {
   date: string;
   diaryId: string;
+  diaryRef: React.RefObject<HTMLDivElement>
 }
 
-const DiaryButtonSection = ({ date, diaryId }: Props) => {
+const DiaryButtonSection = ({ date, diaryId, diaryRef }: Props) => {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
   const [isShareModalOpen, setIsShareModalOpen] = useState<boolean>(false);
   const [isTempModalOpen, setIsTempDiaryModalOpen] = useState<boolean>(false);
@@ -37,8 +39,15 @@ const DiaryButtonSection = ({ date, diaryId }: Props) => {
     setEditDiaryData(data);
   };
 
-  const handleImageShare = () => {
-
+  const handleImageShare = async () => {
+    if (diaryRef.current) {
+      const canvas = await html2canvas(diaryRef.current);
+      const imageUrl = canvas.toDataURL("sharedDiaryImage/png");
+      const link = document.createElement("a");
+      link.href = imageUrl;
+      link.download = `${date}-diary.png`
+      link.click();
+    }
   }
 
   const handleLinkShare = () => {
