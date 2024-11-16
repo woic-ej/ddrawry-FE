@@ -46,8 +46,6 @@ const WriteDiaryPage = () => {
     return () => subscription.unsubscribe();
   }, [methods, tempId]);
 
-  console.log(tempData);
-
   return (
     <div className="flex flex-col items-center">
       <DefaultHeader title="일기 쓰기" />
