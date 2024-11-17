@@ -5,17 +5,16 @@ import DateManipulationBar from "@pages/MainPage/components/DateManipulationBar"
 import { useToggleStore } from "@store/useToggleStore";
 import { useLikedDiaries } from "@api/liked/useLikedDiaries";
 import { format } from "date-fns";
-import DiarySection from "@pages/LikedPage/components/DiarySection";
+import EmptyState from "@components/empty/EmptyState";
+import DiaryList from "@components/diary/list/DiaryList";
 
 const LikedPage = () => {
   const { currentDate, prevMonthHandler, nextMonthHandler } = useDateControl();
   const { isTotalView } = useToggleStore();
-  const {
-    data: likedDiaries,
-    isLoading,
-    isError,
-    error,
-  } = useLikedDiaries(isTotalView, format(currentDate, "yyyyMM"));
+  const { data: likedDiaries, isLoading } = useLikedDiaries(
+    isTotalView,
+    format(currentDate, "yyyyMM"),
+  );
 
   return (
     <div className="flex flex-col h-screen w-full">
@@ -35,9 +34,14 @@ const LikedPage = () => {
                 nextMonthHandler={nextMonthHandler}
               />
             )}
-            {likedDiaries && (
-              <DiarySection likedDiaries={likedDiaries} isError={isError} error={error} />
-            )}
+            {likedDiaries &&
+              (likedDiaries.length === 0 ? (
+                <div className="w-full h-full flex justify-center items-center">
+                  <EmptyState message="좋아요한 일기가 없어요! 소중한 일기들을 하나씩 모아봐요" />
+                </div>
+              ) : (
+                <DiaryList diaries={likedDiaries!} />
+              ))}
           </div>
         )}
       </div>

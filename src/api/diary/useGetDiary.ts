@@ -25,6 +25,6 @@ export const useGetDiary = (diaryId: string) => {
   return useQuery({
     queryKey: [`diary${diaryId}`],
     queryFn: () => getDiary(diaryId),
-    staleTime: 1000 * 60 * 5,
+    staleTime: Infinity,
   });
 };

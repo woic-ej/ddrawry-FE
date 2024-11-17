@@ -31,6 +31,9 @@ export const useUpdateDiary = () => {
       queryClient.invalidateQueries({
         queryKey: [`diary${data.id}`],
       });
+      queryClient.invalidateQueries({
+        predicate: (query) => query.queryKey[0] === "likedDiaries",
+      });
     },
   });
 };
