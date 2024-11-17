@@ -10,7 +10,7 @@ import { useGetDiary } from "@api/diary/useGetDiary";
 const DiaryPage: React.FC = () => {
   const methods = useForm<DiaryFormData>();
   const { diaryId } = useParams<{ diaryId: string }>();
-  const { data: diaryData, isError } = useGetDiary(diaryId!);
+  const { data: diaryData } = useGetDiary(diaryId!);
 
   useEffect(() => {
     sessionStorage.removeItem("initialLoad");
@@ -21,8 +21,6 @@ const DiaryPage: React.FC = () => {
       methods.reset(diaryData);
     }
   }, [methods, diaryData]);
-
-  if (isError) return <div>에러발생</div>;
 
   return (
     <div className="flex flex-col items-center">

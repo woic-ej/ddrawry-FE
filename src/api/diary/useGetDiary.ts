@@ -15,15 +15,10 @@ type GetDiaryResponse = {
 
 // 일기 조회
 const getDiary = async (diaryId: string) => {
-  try {
-    const { data }: { data: GetDiaryResponse } = await api.get({
-      endpoint: `${apiRoutes.diary}/${diaryId}?edit=false`,
-    });
-    return data;
-  } catch (error) {
-    console.error(error);
-    throw error;
-  }
+  const { data }: { data: GetDiaryResponse } = await api.get({
+    endpoint: `${apiRoutes.diary}/${diaryId}?edit=false`,
+  });
+  return data;
 };
 
 export const useGetDiary = (diaryId: string) => {

@@ -3,18 +3,22 @@ import { createRoot } from "react-dom/client";
 import App from "./App.tsx";
 import "./index.css";
 import { DarkModeProvider } from "@store/DarkModeContext.tsx";
-import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
+import { QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-
-const queryClient = new QueryClient();
+import { Toaster } from "react-hot-toast";
+import ErrorBoundaryWrapper from "@utils/ErrorBoundary.tsx";
+import { queryClient } from "@utils/queryClient.ts";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <DarkModeProvider>
-        <App />
-      </DarkModeProvider>
-      <ReactQueryDevtools initialIsOpen={false} />
-    </QueryClientProvider>
+    <ErrorBoundaryWrapper>
+      <QueryClientProvider client={queryClient}>
+        <DarkModeProvider>
+          <App />
+          <Toaster />
+        </DarkModeProvider>
+        <ReactQueryDevtools initialIsOpen={false} />
+      </QueryClientProvider>
+    </ErrorBoundaryWrapper>
   </StrictMode>,
 );
