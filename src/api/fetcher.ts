@@ -68,7 +68,6 @@ const _fetch = async <T = unknown, R = unknown>({
             const currentPath = window.location.pathname + window.location.search;
             localStorage.setItem("redirectedFrom", currentPath);
             window.location.href = "/login";
-            throw new Error("refreshToken 만료");
           }
       } else {
         throw new CustomError(detail, res.status);
