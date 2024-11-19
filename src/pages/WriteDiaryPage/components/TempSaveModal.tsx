@@ -58,7 +58,7 @@ const TempSaveModal = ({ date, tempId }: Props) => {
   return (
     <>
       {showModal && (
-        <ModalLayout setIsModalOpen={setShowModal}>
+        <ModalLayout>
           <DefaultModal
             title="현재 작성중인 일기를 임시저장 할까요??"
             leftText="넹"
