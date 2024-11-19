@@ -6,7 +6,7 @@ import ServerError from "@pages/ErrorPage/errors/ServerError";
 import GenericError from "@pages/ErrorPage/errors/GenericError";
 import NetworkError from "@pages/ErrorPage/errors/NetworkError";
 
-const ErrorFallback = ({ error, resetErrorBoundary }: FallbackProps) => {
+const ErrorFallback = ({ error }: FallbackProps) => {
   if (error instanceof CustomError) {
     switch (error.statusCode) {
       case 404:
@@ -16,7 +16,7 @@ const ErrorFallback = ({ error, resetErrorBoundary }: FallbackProps) => {
         return (
           <ServerError
             message="서버에서 문제가 발생했습니다. 잠시 후 다시 시도해주세요."
-            handleClick={resetErrorBoundary}
+            handleClick={() => window.location.reload()}
           />
         );
       case 503:
@@ -25,14 +25,14 @@ const ErrorFallback = ({ error, resetErrorBoundary }: FallbackProps) => {
         return (
           <ServerError
             message="서버 응답 시간이 초과되었습니다. 인터넷 연결을 확인하거나 잠시 후 다시 시도해주세요."
-            handleClick={resetErrorBoundary}
+            handleClick={() => window.location.reload()}
           />
         );
       default:
         return <GenericError />;
     }
   } else if (error instanceof TypeError) {
-    return <NetworkError handleClick={resetErrorBoundary} />;
+    return <NetworkError handleClick={() => window.location.reload()} />;
   }
 
   return <GenericError />;

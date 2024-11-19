@@ -27,8 +27,5 @@ export const useWriteDiary = () => {
       localStorage.removeItem(`temp-diary/${data.temp_id}`);
       navigate(`/diary/${data.id}`);
     },
-    onError: (error) => {
-      console.log(error);
-    },
   });
 };

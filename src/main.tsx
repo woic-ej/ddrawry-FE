@@ -1,4 +1,3 @@
-import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import App from "./App.tsx";
 import "./index.css";
@@ -10,15 +9,13 @@ import ErrorBoundaryWrapper from "@utils/ErrorBoundary.tsx";
 import { queryClient } from "@utils/queryClient.ts";
 
 createRoot(document.getElementById("root")!).render(
-  <StrictMode>
-    <ErrorBoundaryWrapper>
-      <QueryClientProvider client={queryClient}>
-        <DarkModeProvider>
-          <App />
-          <Toaster />
-        </DarkModeProvider>
-        <ReactQueryDevtools initialIsOpen={false} />
-      </QueryClientProvider>
-    </ErrorBoundaryWrapper>
-  </StrictMode>,
+  <ErrorBoundaryWrapper>
+    <QueryClientProvider client={queryClient}>
+      <DarkModeProvider>
+        <App />
+        <Toaster />
+      </DarkModeProvider>
+      <ReactQueryDevtools initialIsOpen={false} />
+    </QueryClientProvider>
+  </ErrorBoundaryWrapper>,
 );

@@ -13,8 +13,8 @@ interface Props {
 const TempSaveModal = ({ date, tempId }: Props) => {
   const [showModal, setShowModal] = useState<boolean>(false);
   const [isBlocking, setIsBlocking] = useState<boolean>(true);
-  const { mutate: saveTemp } = useSaveTempDiary(tempId);
-  const { mutate: cancelTemp } = useCancelTempDiary(tempId);
+  const { mutate: saveTemp } = useSaveTempDiary(tempId, setIsBlocking);
+  const { mutate: cancelTemp, isError: isCancelError } = useCancelTempDiary(tempId);
 
   useEffect(() => {
     const isInitialLoad = sessionStorage.getItem("initialLoad") === null;
@@ -50,6 +50,10 @@ const TempSaveModal = ({ date, tempId }: Props) => {
     setShowModal(false);
     cancelTemp({ date, type: "write" });
   };
+
+  if (isCancelError) {
+    history.back();
+  }
 
   return (
     <>
