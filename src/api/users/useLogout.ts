@@ -36,13 +36,16 @@ export const useLogout = (setIsModalOpen: React.Dispatch<SetStateAction<boolean>
     },
     onError: async (error) => {
       if (error instanceof CustomError) {
-        if (error.statusCode === 401 && error.message.includes("kakao"))
+        if (error.statusCode === 401 && error.message.includes("kakao")) {
           try {
             await retryLogout();
           } catch (retryError) {
             console.error("Retry 로그아웃 실패:", retryError);
             toast.error("로그아웃에 실패했습니다. 다시 시도해주세요.");
           }
+        } else {
+          toast.error("요청 실패");
+        }
       }
     },
   });

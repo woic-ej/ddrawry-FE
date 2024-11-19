@@ -12,6 +12,6 @@ export const apiRoutes = {
   login: "/auth/kakao/callback",
   refresh: "/auth/refresh",
   refreshKakao: "/auth/kakao/refresh",
-  logout: "/auth/kakao/logout",
+  logout: "/auth/kakao/logou",
   auth: "/auth",
 };
