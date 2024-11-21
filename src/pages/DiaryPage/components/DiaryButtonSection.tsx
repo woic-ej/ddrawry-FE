@@ -9,7 +9,7 @@ import { useDeleteDiary } from "@api/diary/useDeleteDiary";
 import { EditDiaryResponse, HasTempDiaryResponse } from "src/types/tempTypes";
 import html2canvas from "html2canvas";
 import { postShareDiaryImage } from "@api/diary/useShareDiary";
-
+import saveAs from "file-saver";
 interface Props {
   date: string;
   diaryId: string;
@@ -40,43 +40,56 @@ const DiaryButtonSection = ({ date, diaryId, diaryRef }: Props) => {
     setEditDiaryData(data);
   };
 
-  const createSharedDiaryImage = async () => {
+  const processSharedDiary = async (type: "image" | "link") => {
     if (diaryRef.current) {
-      const canvas = await html2canvas(diaryRef.current);
-      return canvas.toDataURL("image/png");
-    }
-    return null;
-  };
-
-  const handleImageShare = async () => {
-    const imageUrl = await createSharedDiaryImage();
-    if (imageUrl) {
-      const link = document.createElement("a");
-      link.href = imageUrl;
-      link.download = `${date}-diary.png`;
-      link.click();
-    } else {
-      alert("이미지 생성에 실패했습니다.");
-    }
-  };
-
-  const handleLinkShare = async () => {
-    const imageUrl = await createSharedDiaryImage();
-    if (imageUrl) {
       try {
-        const response = await postShareDiaryImage(Number(diaryId), imageUrl);
-        console.log("response.data.image_url: ", response.image_url);
-        const shareUrl = `${window.location.origin}/shared?image=${encodeURIComponent(response.image_url)}`;
-        console.log("shareUrl:", shareUrl);
-        await navigator.clipboard.writeText(shareUrl);
-        alert("공유 링크가 클립보드에 복사되었습니다.");
+        // 캔버스 생성
+        const canvas = await html2canvas(diaryRef.current);
+
+        // Blob 생성
+        canvas.toBlob(async (blob) => {
+          if (blob !== null) {
+            const fileName = `${date}-diary.png`;
+
+            if (type === "image") {
+              // 이미지 저장 로직
+              saveAs(blob, fileName);
+              alert("이미지가 저장되었습니다.");
+            } else if (type === "link") {
+              // 이미지 URL 생성
+              const imageUrl = canvas.toDataURL("image/png");
+
+              // 서버에 이미지 업로드 및 링크 생성
+              const response = await postShareDiaryImage(Number(diaryId), imageUrl);
+              console.log(response.image_url);
+              const shareUrl = `${window.location.origin}/shared?image=${encodeURIComponent(
+                response.image_url,
+              )}`;
+              console.log("shareUrl:", shareUrl);
+
+              // 클립보드에 링크 복사
+              await navigator.clipboard.writeText(shareUrl);
+              alert("공유 링크가 클립보드에 복사되었습니다.");
+            }
+          } else {
+            throw new Error("Blob 생성에 실패했습니다.");
+          }
+        });
       } catch (error) {
         console.error(error);
         alert(`Error: ${error}`);
       }
     } else {
-      alert("이미지 생성에 실패했습니다.");
+      alert("일기 컴포넌트를 찾을 수 없습니다.");
     }
+  };
+
+  const handleLeftClick = () => {
+    processSharedDiary("image");
+  };
+
+  const handleRightClick = () => {
+    processSharedDiary("link");
   };
 
   useEffect(() => {
@@ -117,8 +130,8 @@ const DiaryButtonSection = ({ date, diaryId, diaryRef }: Props) => {
             title="짱 멋진 일기를 어떻게 자랑할까요?"
             leftText="이미지로"
             rightText="링크로"
-            leftClick={handleImageShare}
-            rightClick={handleLinkShare}
+            leftClick={handleLeftClick}
+            rightClick={handleRightClick}
           />
         </ModalLayout>
       )}
