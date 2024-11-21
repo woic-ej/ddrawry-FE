@@ -3,13 +3,12 @@ import ReactDOM from "react-dom";
 
 interface ModalLayoutProps {
   children: React.ReactNode;
-  setIsModalOpen: React.Dispatch<SetStateAction<boolean>>;
+  setIsModalOpen?: React.Dispatch<SetStateAction<boolean>>;
 }
 
 function ModalLayout({ children, setIsModalOpen }: ModalLayoutProps) {
-
   const handleBackgroundClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    if (event.target === event.currentTarget) {
+    if (event.target === event.currentTarget && setIsModalOpen) {
       setIsModalOpen(false);
     }
   };
@@ -20,7 +19,8 @@ function ModalLayout({ children, setIsModalOpen }: ModalLayoutProps) {
       onClick={handleBackgroundClick}
     >
       {children}
-    </div>,document.body,
+    </div>,
+    document.body,
   );
 }
 

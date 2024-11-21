@@ -39,6 +39,5 @@ export const useCancelTempDiary = (tempId: string) => {
         navigate(`/write/${data.data.temp_id}`);
       }
     },
-    onError: (error) => alert(error),
   });
 };
