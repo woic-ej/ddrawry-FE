@@ -64,10 +64,6 @@ const _fetch = async <T = unknown, R = unknown>({
           if (newAccessToken) {
             headers.Authorization = `Bearer ${newAccessToken}`;
             res = await fetch(`${API_BASE_URL}${endpoint}`, { ...requestOptions, headers });
-          } else {
-            const currentPath = window.location.pathname + window.location.search;
-            localStorage.setItem("redirectedFrom", currentPath);
-            window.location.href = "/login";
           }
       } else {
         throw new CustomError(detail, res.status);
