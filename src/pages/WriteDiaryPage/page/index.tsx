@@ -8,12 +8,12 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getTempDiary } from "@api/tempDiary/tempApis";
 import TempSaveModal from "@pages/WriteDiaryPage/components/TempSaveModal";
-import { useTempDataStore } from "@store/useTempDataStore";
+import { TempDiaryType } from "src/types/tempTypes";
 
 const WriteDiaryPage = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<Error | null>(null);
-  const { tempData, setTempData, clearTempData } = useTempDataStore();
+  const [tempData, setTempData] = useState<TempDiaryType | null>(null);
   const { tempId } = useParams<{ tempId: string }>();
   const methods = useForm<DiaryFormData>({
     resolver: zodResolver(DiaryFormSchema),
@@ -24,7 +24,6 @@ const WriteDiaryPage = () => {
   useEffect(() => {
     (async () => {
       try {
-        clearTempData();
         let data = await getTempDiary(tempId!);
         const storageTemp = localStorage.getItem(`temp-diary/${tempId}`);
         if (!storageTemp) {
@@ -41,7 +40,7 @@ const WriteDiaryPage = () => {
         setIsLoading(false);
       }
     })();
-  }, [methods, tempId, setTempData, clearTempData]);
+  }, [methods, tempId, setTempData]);
 
   // 폼 데이터가 변경 될 때 마다 로컬 스토리지에 저장
   useEffect(() => {

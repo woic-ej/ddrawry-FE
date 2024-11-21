@@ -79,6 +79,7 @@ const Diary: React.FC<Props> = ({ date, nickname }) => {
             <DefaultDiaryLogo />
           ) : (
             <ImageCreationPanel
+              date={date}
               isValidate={!errors.story && !!currentStory}
               story={currentStory}
               setValue={setValue}
