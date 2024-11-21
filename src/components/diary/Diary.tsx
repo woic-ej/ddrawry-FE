@@ -13,14 +13,12 @@ import { DiaryFormData } from "src/types/WriteDiaryTypes";
 interface Props {
   date: string;
   nickname: string;
-  count?: number;
-  isFull?: boolean;
 }
 
 const LIMIT_LENGTH = 150;
 const MAX_LENGTH = 240;
 
-const Diary: React.FC<Props> = ({ date, nickname, count, isFull }) => {
+const Diary: React.FC<Props> = ({ date, nickname }) => {
   const formattedDate = date ? format(parseISO(date), "yyyy년 MM월 dd일") : "";
   const location = useLocation();
   const isDiaryPage = location.pathname.includes("diary");
@@ -81,8 +79,6 @@ const Diary: React.FC<Props> = ({ date, nickname, count, isFull }) => {
             <DefaultDiaryLogo />
           ) : (
             <ImageCreationPanel
-              count={count!}
-              isFull={isFull!}
               isValidate={!errors.story && !!currentStory}
               story={currentStory}
               setValue={setValue}

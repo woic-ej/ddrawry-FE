@@ -12,6 +12,7 @@ import { useTempDataStore } from "@store/useTempDataStore";
 
 const WriteDiaryPage = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [error, setError] = useState<Error | null>(null);
   const { tempData, setTempData, clearTempData } = useTempDataStore();
   const { tempId } = useParams<{ tempId: string }>();
   const methods = useForm<DiaryFormData>({
@@ -22,19 +23,24 @@ const WriteDiaryPage = () => {
   // 임시데이터를 조회해서 그 값으로 폼 데이터 reset
   useEffect(() => {
     (async () => {
-      clearTempData();
-      let data = await getTempDiary(tempId!);
-      const storageTemp = localStorage.getItem(`temp-diary/${tempId}`);
-      if (!storageTemp) {
-        localStorage.setItem(`temp-diary/${tempId}`, JSON.stringify(data));
-      } else {
-        data = JSON.parse(storageTemp);
+      try {
+        clearTempData();
+        let data = await getTempDiary(tempId!);
+        const storageTemp = localStorage.getItem(`temp-diary/${tempId}`);
+        if (!storageTemp) {
+          localStorage.setItem(`temp-diary/${tempId}`, JSON.stringify(data));
+        } else {
+          data = JSON.parse(storageTemp);
+        }
+        setTempData(data);
+        methods.reset(data);
+        methods.trigger();
+      } catch (error) {
+        setError(error as Error);
+      } finally {
+        setIsLoading(false);
       }
-      setTempData(data);
-      methods.reset(data);
-      methods.trigger();
     })();
-    setIsLoading(false);
   }, [methods, tempId, setTempData, clearTempData]);
 
   // 폼 데이터가 변경 될 때 마다 로컬 스토리지에 저장
@@ -46,6 +52,8 @@ const WriteDiaryPage = () => {
     return () => subscription.unsubscribe();
   }, [methods, tempId]);
 
+  if (error) throw error; // 렌더링 중 에러를 발생시켜 ErrorBoundary로 전달
+
   return (
     <div className="flex flex-col items-center">
       <DefaultHeader title="일기 쓰기" />
@@ -54,12 +62,7 @@ const WriteDiaryPage = () => {
       ) : (
         <>
           <FormProvider {...methods}>
-            <Diary
-              date={tempData.date}
-              nickname={tempData.nickname}
-              count={tempData.remain_count}
-              isFull={Boolean(tempData.image_count === 3)}
-            />
+            <Diary date={tempData.date} nickname={tempData.nickname} />
             <WriteDiaryButtonSection
               date={tempData.date}
               nickname={tempData.nickname}

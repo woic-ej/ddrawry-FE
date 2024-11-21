@@ -25,7 +25,11 @@ export const useWriteDiary = () => {
     mutationFn: (diaryData: WriteDiaryPayLoad) => postDiary(diaryData),
     onSuccess: (data) => {
       localStorage.removeItem(`temp-diary/${data.temp_id}`);
-      navigate(`/diary/${data.id}`);
+      navigate(-1);
+
+      setTimeout(() => {
+        navigate(`/diary/${data.id}`, { replace: true });
+      }, 10);
     },
   });
 };

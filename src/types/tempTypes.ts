@@ -1,8 +1,6 @@
 export type TempDiaryType = {
   date: string;
   nickname: string;
-  remain_count: number;
-  image_count: number;
   title?: string;
   weather?: string;
   mood?: string;

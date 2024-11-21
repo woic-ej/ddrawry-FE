@@ -8,14 +8,14 @@ import { CreateImagePayLoad } from "src/types/imageTypes";
 import NotificationMessage from "@components/diary/image/NotificationMessage";
 
 interface Props {
-  count: number;
-  isFull: boolean;
   isValidate: boolean;
   story: string;
   setValue: (field: "image", value: string) => void;
 }
 
-const ImageCreationPanel: React.FC<Props> = ({ count, isFull, isValidate, story, setValue }) => {
+const ImageCreationPanel: React.FC<Props> = ({ isValidate, story, setValue }) => {
+  const count = 100;
+  const isFull = false;
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const { tempId } = useParams<{ tempId: string }>();
   const { mutate: createImage, isPending, isError } = useCreateImage(setValue, tempId!);
