@@ -13,7 +13,7 @@ const SharedPage = () => {
 
   return (
     <>
-      <div className="flex flex-col gap-[40px] items-center min-w[900px] pb-[140px] pt-[30px]">
+      <div className="flex flex-col gap-[40px] items-center min-w-[900px] pb-[140px] pt-[30px]">
         {sharedImageUrl ? (
           <div className="flex justify-center relative">
             <img
