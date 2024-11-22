@@ -6,7 +6,7 @@ const OAuthRedirectHandler = () => {
   const navigate = useNavigate();
   const urlParams = new URLSearchParams(window.location.search);
   const code = urlParams.get("code");
-  const { data, isPending, isSuccess, isError } = useLogin(code!);
+  const { data, isPending, isSuccess } = useLogin(code!);
 
   useEffect(() => {
     if (isSuccess && data) {
@@ -18,7 +18,6 @@ const OAuthRedirectHandler = () => {
   }, [isSuccess, navigate, data]);
 
   if (isPending) return <div>로그인 중</div>;
-  if (isError) return <div>에러발생</div>;
 };
 
 export default OAuthRedirectHandler;

@@ -5,6 +5,7 @@ import { DiaryListType } from "src/types/diaryTypes";
 import { useDateControl } from "@hooks/useDateControl";
 import { useToggleStore } from "@store/useToggleStore";
 import { format } from "date-fns";
+import toast from "react-hot-toast";
 
 type LikeStatusResponse = {
   status: number;
@@ -62,6 +63,7 @@ export const useLikeStatus = (id: number, isListPage?: boolean) => {
       if (context?.previousData) {
         queryClient.setQueryData(queryKey, context.previousData);
       }
+      toast.error("좋아요 요청에 실패했어요.");
     },
     onSuccess: () => {
       queryClient.invalidateQueries({

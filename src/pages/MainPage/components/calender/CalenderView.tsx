@@ -23,9 +23,9 @@ const CalenderView: React.FC = () => {
   const startDate = startOfWeek(monthStart); // 현재 달의 시작 날짜가 포함된 주의 시작 날짜
   const endDate = endOfWeek(monthEnd); // 현재 달의 마지막 날짜가 포함된 주의 끝 날짜
   const { isCalenderView } = useToggleStore();
-  
+
   // 해당달 캘린더 data
-  const { data: getCurrentMainCalender } = useGetMainDiaries(
+  const { data: getCurrentMainCalender, isLoading } = useGetMainDiaries(
     isCalenderView,
     format(startDate, "yyyyMMdd"),
     format(endDate, "yyyyMMdd"),
@@ -41,6 +41,10 @@ const CalenderView: React.FC = () => {
     }
     return monthArray;
   }, [startDate, endDate]);
+
+  if (isLoading) {
+    return <div>로딩중</div>;
+  }
 
   return (
     <div className="w-full min-w-[990px] flex flex-col items-center gap-[64px] flex-grow">

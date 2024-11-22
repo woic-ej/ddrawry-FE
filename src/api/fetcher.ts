@@ -1,3 +1,4 @@
+import { CustomError } from "@utils/CustomError";
 import { apiRoutes } from "./apiRoutes";
 
 interface IFetchOptions<T = unknown> {
@@ -49,28 +50,35 @@ const _fetch = async <T = unknown, R = unknown>({
     ...(body ? { body: JSON.stringify(body) } : {}),
   };
 
-  let res = await fetch(`${API_BASE_URL}${endpoint}`, requestOptions);
+  try {
+    let res = await fetch(`${API_BASE_URL}${endpoint}`, requestOptions);
 
-  if ((res.status === 401 || res.status === 403 || res.status === 419) && !noAuth) {
-    localStorage.removeItem("access_token");
-    const newAccessToken = await refreshAccessToken();
-    if (newAccessToken) {
-      headers.Authorization = `Bearer ${newAccessToken}`;
-      res = await fetch(`${API_BASE_URL}${endpoint}`, { ...requestOptions, headers });
-    } else {
-      const currentPath = window.location.pathname + window.location.search;
-      localStorage.setItem("redirectedFrom", currentPath);
-      window.location.href = "/login";
-      throw new Error("Session expired. Redirecting to login.");
+    if (!res.ok) {
+      const { detail } = await res.json();
+
+      if (res.status === 401 && !noAuth) {
+        localStorage.removeItem("access_token");
+        const newAccessToken = await refreshAccessToken(); // accessToken 재발급
+
+        if (!detail.includes("kakao"))
+          if (newAccessToken) {
+            headers.Authorization = `Bearer ${newAccessToken}`;
+            res = await fetch(`${API_BASE_URL}${endpoint}`, { ...requestOptions, headers });
+          } else {
+            const currentPath = window.location.pathname + window.location.search;
+            localStorage.setItem("redirectedFrom", currentPath);
+            window.location.href = "/login";
+          }
+      } else {
+        throw new CustomError(detail, res.status);
+      }
     }
-  }
 
-  if (!res.ok) {
-    const { detail } = await res.json();
-    throw new Error(detail);
+    return await res.json();
+  } catch (error) {
+    console.error("에러발생", error);
+    throw error;
   }
-
-  return await res.json();
 };
 
 const refreshAccessToken = async (): Promise<string | null> => {

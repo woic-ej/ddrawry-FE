@@ -19,8 +19,8 @@ const fetchConfirmProfile = async () => {
 };
 
 export const useConfirmProfile = () => {
-    return useQuery({
-        queryKey: ['PROFILE'],
-        queryFn: () => fetchConfirmProfile(),
-    })
-}
+  return useQuery({
+    queryKey: ["PROFILE"],
+    queryFn: () => fetchConfirmProfile(),
+  });
+};

@@ -5,6 +5,7 @@ import ModalLayout from "@components/modals/ModalLayout";
 import { useCreateImage } from "@api/image/useCreateImage";
 import { useParams } from "react-router-dom";
 import { CreateImagePayLoad } from "src/types/imageTypes";
+import NotificationMessage from "@components/diary/image/NotificationMessage";
 
 interface Props {
   count: number;
@@ -14,28 +15,10 @@ interface Props {
   setValue: (field: "image", value: string) => void;
 }
 
-const NotificationMessage: React.FC<Pick<Props, "count">> = ({ count }) => {
-  if (count > 0) {
-    return (
-      <div className="body-font">
-        ( 오늘 생성 가능 횟수 :{" "}
-        <span className={`${count > 1 ? "text-Primary" : "text-Red"}`}>{count}회</span> )
-      </div>
-    );
-  } else {
-    return (
-      <div className="regularCaption-font">
-        오늘 그림 생성 기회를 다 써버렸어요 ㅠㅠ <br />
-        내일 다시 오면 그릴 수 있어요!
-      </div>
-    );
-  }
-};
-
 const ImageCreationPanel: React.FC<Props> = ({ count, isFull, isValidate, story, setValue }) => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const { tempId } = useParams<{ tempId: string }>();
-  const { mutate: createImage, isPending } = useCreateImage(setValue, tempId!);
+  const { mutate: createImage, isPending, isError } = useCreateImage(setValue, tempId!);
 
   const handleDrawClick = () => {
     setIsModalOpen(true);
@@ -60,7 +43,7 @@ const ImageCreationPanel: React.FC<Props> = ({ count, isFull, isValidate, story,
 
   return (
     <div className="flex flex-col gap-[18px] items-center">
-      <NotificationMessage count={count} />
+      <NotificationMessage count={count} isError={isError} />
       {count > 0 &&
         (isFull ? (
           <div className="text-center regularCaption-font">
@@ -69,7 +52,7 @@ const ImageCreationPanel: React.FC<Props> = ({ count, isFull, isValidate, story,
           </div>
         ) : (
           <SmallButton
-            title="그림 그려줘!"
+            title={`${isError ? "다시 그려줘!" : "그림 그려줘!"}`}
             color={`${isValidate ? "green" : "gray"}`}
             onClick={handleDrawClick}
           />

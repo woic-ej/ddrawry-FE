@@ -1,5 +1,6 @@
 import { apiRoutes } from "@api/apiRoutes";
 import api from "@api/fetcher";
+import toast from "react-hot-toast";
 import { EditDiaryResponse, HasTempDiaryResponse, TempDiaryType } from "src/types/tempTypes";
 
 // 일기 수정 => 기존 임시데이터 사용 X 새로운 임시데이터 발급
@@ -11,6 +12,7 @@ export const editDiary = async (diaryId: string) => {
     return data;
   } catch (error) {
     console.error(error);
+    toast.error("에러가 발생했습니다.");
     throw error;
   }
 };
@@ -37,6 +39,7 @@ export const hasTempDiary = async (date: string) => {
     return data;
   } catch (error) {
     console.error(error);
+    toast.error("에러가 발생했습니다.");
     throw error;
   }
 };
