@@ -1,6 +1,7 @@
 import { useGetShareDiary } from "@api/diary/useGetShareDiary";
 import BigButton from "@components/buttons/BigButton";
 import Diary from "@components/diary/Diary";
+import DefaultErrorComponent from "@pages/ErrorPage/components/DefaultErrorComponent";
 import { useEffect } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -27,17 +28,20 @@ const SharedPage = () => {
 
   return (
     <div className="w-full">
-      <div className="flex flex-col items-center pb-[40px]">
-        {shareDiaryData ? (
-          <FormProvider {...methods}>
-            <Diary date={shareDiaryData?.date} nickname={shareDiaryData?.nickname} />
-          </FormProvider>
-        ) : null}
-
-        <div className="w-[1150px] flex justify-end">
-          <BigButton title="나만의 일기 작성하러 ㄱㄱ" color="blue" onClick={handleGoHome} />
-        </div>
-      </div>
+      {error ? (
+        <DefaultErrorComponent message={error.detail} />
+      ) : (
+        shareDiaryData && (
+          <div className="flex flex-col items-center pb-[40px]">
+            <FormProvider {...methods}>
+              <Diary date={shareDiaryData?.date} nickname={shareDiaryData?.nickname} />
+            </FormProvider>
+            <div className="w-[1150px] flex justify-end">
+              <BigButton title="나만의 일기 작성하러 ㄱㄱ" color="blue" onClick={handleGoHome} />
+            </div>
+          </div>
+        )
+      )}
     </div>
   );
 };
