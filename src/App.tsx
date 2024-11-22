@@ -10,10 +10,12 @@ import OAuthRedirectHandler from "@pages/LoginPage/loginHandler/oauthHandler";
 import CommonRoute from "./routes/CommonRoute";
 import NotFoundError from "@pages/ErrorPage/errors/NotFoundError";
 import ProtectedRoute from "./routes/ProtectedRoute";
+import ScrollTo from "@utils/ScrollTo";
 
 function App() {
   return (
     <Router>
+      <ScrollTo />
       <Routes>
         <Route element={<CommonRoute />}>
           <Route path="/login" element={<LoginPage />} />
