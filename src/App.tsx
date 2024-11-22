@@ -24,7 +24,7 @@ function App() {
         <Route path="/liked" element={<LikedPage />} />
         <Route path="/diary/:diaryId" element={<DiaryPage />} />
         <Route path="/search" element={<SearchPage />} />
-        <Route path="/shared" element={<SharedPage />} />
+        <Route path="/share" element={<SharedPage />} />
         <Route path="*" element={<ErrorPage />} />
       </Routes>
     </Router>
