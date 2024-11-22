@@ -1,6 +1,6 @@
 import Diary from "@components/diary/Diary";
 import HeaderWithLike from "@components/header/HeaderWithLike";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 import DiaryButtonSection from "@pages/DiaryPage/components/DiaryButtonSection";
 import { DiaryFormData } from "src/types/WriteDiaryTypes";
 import { FormProvider, useForm } from "react-hook-form";
@@ -11,7 +11,6 @@ const DiaryPage: React.FC = () => {
   const methods = useForm<DiaryFormData>();
   const { diaryId } = useParams<{ diaryId: string }>();
   const { data: diaryData, isError } = useGetDiary(diaryId!);
-  const diaryRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     sessionStorage.removeItem("initialLoad");
@@ -31,9 +30,9 @@ const DiaryPage: React.FC = () => {
         <>
           <HeaderWithLike bookmark={diaryData.bookmark} id={Number(diaryId!)} />
           <FormProvider {...methods}>
-            <Diary date={diaryData.date} nickname={diaryData.nickname} diaryRef={diaryRef} />
+            <Diary date={diaryData.date} nickname={diaryData.nickname}  />
           </FormProvider>
-          <DiaryButtonSection date={diaryData.date} diaryId={diaryId!} diaryRef={diaryRef} />
+          <DiaryButtonSection date={diaryData.date} diaryId={diaryId!} />
         </>
       )}
     </div>
