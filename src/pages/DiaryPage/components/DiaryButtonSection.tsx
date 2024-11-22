@@ -83,11 +83,11 @@ const DiaryButtonSection = ({ date, diaryId }: Props) => {
       {isShareModalOpen && (
         <ModalLayout setIsModalOpen={setIsShareModalOpen}>
           <DefaultModal
-            title="짱 멋진 일기를 어떻게 자랑할까요?"
-            leftText="이미지로"
-            rightText="링크로"
+            title="짱 멋진 일기를 링크로 자랑할까요?"
+            leftText="넹"
+            rightText="아니용"
             leftClick={handleLinkSharedDiary}
-            rightClick={handleLinkSharedDiary}
+            rightClick={() => setIsShareModalOpen(false)}
           />
         </ModalLayout>
       )}
