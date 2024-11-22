@@ -1,7 +1,7 @@
 import { apiRoutes } from "@api/apiRoutes";
 import api from "@api/fetcher";
-import { useTempDataStore } from "@store/useTempDataStore";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { GetCountResponse } from "src/types/imageTypes";
 
 type DeleteImageResponse = {
   image_count: number;
@@ -24,14 +24,18 @@ export const useDeleteImage = (
   setIsDeleteImageModal: React.Dispatch<React.SetStateAction<boolean>>,
 ) => {
   const queryClient = useQueryClient();
-  const { addTempData } = useTempDataStore();
 
   return useMutation<DeleteImageResponse, Error, number>({
     mutationFn: (imageId) => deleteImage(imageId),
     onSuccess: (data) => {
       setIsDeleteImageModal(false);
       queryClient.invalidateQueries({ queryKey: ["images", tempId] });
-      addTempData("image_count", data.image_count);
+      queryClient.setQueryData(["countValue"], (oldData: GetCountResponse) => {
+        return {
+          ...oldData,
+          image_count: data.image_count,
+        };
+      });
     },
   });
 };

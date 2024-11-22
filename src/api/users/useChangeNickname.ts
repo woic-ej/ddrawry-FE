@@ -21,6 +21,9 @@ export const useChangeNickname = (
     mutationFn: () => putNickname(nickname),
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: ["USER_PROFILE"] });
+      queryClient.invalidateQueries({
+        predicate: (query) => query.queryKey.some((key) => String(key).includes("diary")),
+      });
       toast.success("닉네임 변경에 성공하셨습니다.");
       setIsModalOpen(false);
     },
