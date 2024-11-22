@@ -24,6 +24,7 @@ interface IDeleteOptions {
 
 const API_BASE_URL =
   import.meta.env.NODE_ENV === "production" ? import.meta.env.VITE_API_URL : "/api/v1";
+
 const _fetch = async <T = unknown, R = unknown>({
   method,
   endpoint,
@@ -52,39 +53,28 @@ const _fetch = async <T = unknown, R = unknown>({
   try {
     let res = await fetch(`${API_BASE_URL}${endpoint}`, requestOptions);
 
-    // 상태 코드 확인
     if (!res.ok) {
-      let errorDetail;
-      try {
-        errorDetail = await res.json();
-      } catch {
-        errorDetail = { detail: "Failed to parse response body" };
-      }
+      const { detail } = await res.json();
 
       if (res.status === 401 && !noAuth) {
         localStorage.removeItem("access_token");
-        const newAccessToken = await refreshAccessToken();
+        const newAccessToken = await refreshAccessToken(); // accessToken 재발급
 
-        if (newAccessToken) {
-          headers.Authorization = `Bearer ${newAccessToken}`;
-          res = await fetch(`${API_BASE_URL}${endpoint}`, { ...requestOptions, headers });
-        } else {
-          const currentPath = window.location.pathname + window.location.search;
-          localStorage.setItem("redirectedFrom", currentPath);
-          window.location.href = "/login";
-          return Promise.reject(new CustomError("Unauthorized: Redirecting to login", 401));
-        }
+        if (!detail.includes("kakao"))
+          if (newAccessToken) {
+            headers.Authorization = `Bearer ${newAccessToken}`;
+            res = await fetch(`${API_BASE_URL}${endpoint}`, { ...requestOptions, headers });
+          } else {
+            const currentPath = window.location.pathname + window.location.search;
+            localStorage.setItem("redirectedFrom", currentPath);
+            window.location.href = "/login";
+          }
       } else {
-        throw new CustomError(errorDetail?.detail || "Unknown error occurred", res.status);
+        throw new CustomError(detail, res.status);
       }
     }
 
-    // 정상 응답 처리
-    try {
-      return await res.json();
-    } catch {
-      throw new Error("Failed to parse response as JSON");
-    }
+    return await res.json();
   } catch (error) {
     console.error("에러발생", error);
     throw error;
