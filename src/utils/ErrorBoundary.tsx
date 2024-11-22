@@ -9,6 +9,8 @@ import NetworkError from "@pages/ErrorPage/errors/NetworkError";
 const ErrorFallback = ({ error }: FallbackProps) => {
   if (error instanceof CustomError) {
     switch (error.statusCode) {
+      case 401:
+        return;
       case 404:
         return <NotFoundError message={error.message} />;
       case 500:
