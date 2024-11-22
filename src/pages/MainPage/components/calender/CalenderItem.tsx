@@ -36,15 +36,22 @@ const CalenderItem: React.FC<Props> = ({
   const [getIsExistTemp, setGetIsExistTemp] = useState<HasTempDiaryResponse>();
   const { mutate: cancelTemp } = useCancelTempDiary(String(getIsExistTemp?.temp_id));
   const postDate = format(currentDate, "yyyy-MM-dd");
-  
+
   const renderImage = () => {
     if (!hasContent) return null;
+
+    const imageClassNames = classNames(
+      { "calender-item object-cover": imageUrl },
+      {
+        "opacity-40": !isValidate,
+      },
+    );
 
     return (
       <>
         <img
           src={imageUrl || DefaultLogo}
-          className={`${imageUrl && "calender-item object-cover"} `}
+          className={imageClassNames}
           alt={imageUrl ? "그림일기 이미지" : "기본 로고 이미지"}
         />
         {bookmark && (
@@ -66,22 +73,21 @@ const CalenderItem: React.FC<Props> = ({
     },
   );
 
-  const handleCalenderItemClick = async() => {
+  const handleCalenderItemClick = async () => {
     // 오늘 이후 날짜는 클릭 X
     if (!isFutureDate && hasContent) {
       navigate(`/diary/${id}`);
     } else if (!isFutureDate) {
       try {
         const data = await hasTempDiary(postDate);
-        setGetIsExistTemp(data)
+        setGetIsExistTemp(data);
         if (data.is_temp_exist) {
           setIsTempModalOpen(true);
         } else {
           navigate(`/write/${data?.temp_id}`);
         }
-      }
-      catch (error) {
-        console.error(error)
+      } catch (error) {
+        console.error(error);
       }
     }
   };

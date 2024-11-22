@@ -4,7 +4,7 @@ export const DiaryFormSchema = z.object({
   mood: z.string(),
   weather: z.string(),
   title: z.string().min(1).max(15),
-  image: z.union([z.string(), z.null()]).optional(),
+  image: z.string().optional(),
   story: z.string().min(150).max(240),
 });
 
