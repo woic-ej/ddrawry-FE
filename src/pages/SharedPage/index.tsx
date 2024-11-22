@@ -1,35 +1,44 @@
+import { useGetShareDiary } from "@api/diary/useGetShareDiary";
 import BigButton from "@components/buttons/BigButton";
+import Diary from "@components/diary/Diary";
+import { useEffect } from "react";
+import { FormProvider, useForm } from "react-hook-form";
 import { useLocation, useNavigate } from "react-router-dom";
+import { DiaryFormData } from "src/types/WriteDiaryTypes";
 
 const SharedPage = () => {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
-  const sharedImageUrl = queryParams.get("image");
   const navigate = useNavigate();
+  const methods = useForm<DiaryFormData>();
+  const token = queryParams.get("token");
+  const diaryId = Number(queryParams.get("id"));
+  const { data: shareDiaryData, error } = useGetShareDiary(diaryId, token);
+
+  useEffect(() => {
+    if (shareDiaryData) {
+      methods.reset(shareDiaryData);
+    }
+  }, [methods, shareDiaryData]);
 
   const handleGoHome = () => {
     navigate("/");
   };
 
   return (
-    <>
-      <div className="flex flex-col gap-[40px] items-center min-w-[900px] pb-[140px] pt-[30px]">
-        {sharedImageUrl ? (
-          <div className="flex justify-center relative">
-            <img
-              src={decodeURIComponent(sharedImageUrl)}
-              alt="Shared Diary"
-              className="min-w-[900px] h-[1200px]"
-            />
-          </div>
-        ) : (
-          <p>이미지를 로드할 수 없습니다.</p>
-        )}
-        <div className="absolute translate-y-[1230px] translate-x-[238px]">
+    <div className="w-full">
+      <div className="flex flex-col items-center pb-[40px]">
+        {shareDiaryData ? (
+          <FormProvider {...methods}>
+            <Diary date={shareDiaryData?.date} nickname={shareDiaryData?.nickname} />
+          </FormProvider>
+        ) : null}
+
+        <div className="w-[1150px] flex justify-end">
           <BigButton title="나만의 일기 작성하러 ㄱㄱ" color="blue" onClick={handleGoHome} />
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
