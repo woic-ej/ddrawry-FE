@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { apiRoutes } from "@api/apiRoutes";
 import api from "@api/fetcher";
 
-type GetDiaryResponse = {
+export type GetDiaryResponse = {
   date: string;
   nickname: string;
   title: string;
