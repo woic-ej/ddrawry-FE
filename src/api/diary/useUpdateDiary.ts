@@ -28,6 +28,7 @@ export const useUpdateDiary = () => {
     onSuccess: (data) => {
       navigate(-2);
       localStorage.removeItem(`temp-diary/${data.temp_id}`);
+      queryClient.invalidateQueries({ queryKey: [`diary${data.id}`] });
       queryClient.invalidateQueries({
         predicate: (query) => query.queryKey[0] === "likedDiaries",
       });
