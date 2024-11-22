@@ -53,12 +53,13 @@ const _fetch = async <T = unknown, R = unknown>({
   try {
     let res = await fetch(`${API_BASE_URL}${endpoint}`, requestOptions);
 
+    // 상태 코드 확인
     if (!res.ok) {
       const { detail } = await res.json();
 
       if (res.status === 401 && !noAuth) {
         localStorage.removeItem("access_token");
-        const newAccessToken = await refreshAccessToken(); // accessToken 재발급
+        const newAccessToken = await refreshAccessToken();
 
         if (!detail.includes("kakao"))
           if (newAccessToken) {
@@ -68,6 +69,7 @@ const _fetch = async <T = unknown, R = unknown>({
             const currentPath = window.location.pathname + window.location.search;
             localStorage.setItem("redirectedFrom", currentPath);
             window.location.href = "/login";
+            throw new CustomError("Unauthorized: Redirecting to login", 401);
           }
       } else {
         throw new CustomError(detail, res.status);
