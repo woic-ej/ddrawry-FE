@@ -1,17 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import { apiRoutes } from "@api/apiRoutes";
 import api from "@api/fetcher";
+import { GetDiaryResponse } from "src/types/diaryTypes";
 
-type GetDiaryResponse = {
-  date: string;
-  nickname: string;
-  title: string;
-  weather: string;
-  mood: string;
-  story: string;
-  bookmark: boolean;
-  image?: string;
-};
+
 
 // 일기 조회
 const getDiary = async (diaryId: string) => {

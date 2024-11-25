@@ -28,7 +28,7 @@ const DiaryPage: React.FC = () => {
         <>
           <HeaderWithLike bookmark={diaryData.bookmark} id={Number(diaryId!)} />
           <FormProvider {...methods}>
-            <Diary date={diaryData.date} nickname={diaryData.nickname} />
+            <Diary date={diaryData.date} nickname={diaryData.nickname}  />
           </FormProvider>
           <DiaryButtonSection date={diaryData.date} diaryId={diaryId!} />
         </>

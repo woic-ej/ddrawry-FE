@@ -8,6 +8,7 @@ import DiaryPage from "@pages/DiaryPage/page";
 import SearchPage from "@pages/SearchPage/page";
 import OAuthRedirectHandler from "@pages/LoginPage/loginHandler/oauthHandler";
 import CommonRoute from "./routes/CommonRoute";
+import SharedPage from "@pages/SharedPage";
 import NotFoundError from "@pages/ErrorPage/errors/NotFoundError";
 import ProtectedRoute from "./routes/ProtectedRoute";
 
@@ -26,6 +27,7 @@ function App() {
           <Route path="/diary/:diaryId" element={<DiaryPage />} />
           <Route path="/search" element={<SearchPage />} />
         </Route>
+        <Route path="/share" element={<SharedPage />} />
         <Route path="*" element={<NotFoundError />} />
       </Routes>
     </Router>
