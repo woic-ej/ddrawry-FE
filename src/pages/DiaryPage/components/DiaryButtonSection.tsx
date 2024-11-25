@@ -8,6 +8,7 @@ import { editDiary, hasTempDiary } from "@api/tempDiary/tempApis";
 import { useDeleteDiary } from "@api/diary/useDeleteDiary";
 import { EditDiaryResponse, HasTempDiaryResponse } from "src/types/tempTypes";
 import { postShareDiary } from "@api/diary/useGetShareDiary";
+import toast from "react-hot-toast";
 interface Props {
   date: string;
   diaryId: string;
@@ -38,15 +39,20 @@ const DiaryButtonSection = ({ date, diaryId }: Props) => {
   };
 
   const handleLinkSharedDiary = async () => {
-    const response = await postShareDiary(Number(diaryId));
-    console.log(response.token)
+    try {
+      const response = await postShareDiary(Number(diaryId));
+    console.log(response.token);
     const shareUrl = `${window.location.origin}/share/?id=${diaryId}&token=${response.token}`;
     console.log("shareUrl:", shareUrl);
 
     // 클립보드에 링크 복사
     await navigator.clipboard.writeText(shareUrl);
-    alert("공유 링크가 클립보드에 복사되었습니다.");
-  }
+    toast.success("공유 링크가 클립보드에 복사되었습니다.");
+    }
+    catch (error) {
+      console.error(error)
+    }
+  };
 
   useEffect(() => {
     if (hasTempRes) {

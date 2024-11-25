@@ -21,3 +21,14 @@ export type WriteDiaryResponse = {
   id: number;
   temp_id: number;
 };
+
+export type GetDiaryResponse = {
+  date: string;
+  nickname: string;
+  title: string;
+  weather: string;
+  mood: string;
+  story: string;
+  bookmark: boolean;
+  image?: string;
+};

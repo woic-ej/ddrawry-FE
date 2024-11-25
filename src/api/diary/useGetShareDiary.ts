@@ -1,7 +1,7 @@
 import { apiRoutes } from "@api/apiRoutes";
 import api from "@api/fetcher";
-import { GetDiaryResponse } from "./useGetDiary";
 import { useQuery } from "@tanstack/react-query";
+import { GetDiaryResponse } from "src/types/diaryTypes";
 
 type IPostShareDiaryType = {
   token: string;

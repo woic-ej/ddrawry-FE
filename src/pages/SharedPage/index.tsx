@@ -28,19 +28,15 @@ const SharedPage = () => {
 
   return (
     <div className="w-full">
-      {error ? (
-        <DefaultErrorComponent message={error.detail} />
-      ) : (
-        shareDiaryData && (
-          <div className="flex flex-col items-center pb-[40px]">
-            <FormProvider {...methods}>
-              <Diary date={shareDiaryData?.date} nickname={shareDiaryData?.nickname} />
-            </FormProvider>
-            <div className="w-[1150px] flex justify-end">
-              <BigButton title="나만의 일기 작성하러 ㄱㄱ" color="blue" onClick={handleGoHome} />
-            </div>
+      {shareDiaryData && (
+        <div className="flex flex-col items-center pb-[40px]">
+          <FormProvider {...methods}>
+            <Diary date={shareDiaryData?.date} nickname={shareDiaryData?.nickname} />
+          </FormProvider>
+          <div className="w-[1150px] flex justify-end">
+            <BigButton title="나만의 일기를 작성하러 고고!" color="blue" onClick={handleGoHome} />
           </div>
-        )
+        </div>
       )}
     </div>
   );
