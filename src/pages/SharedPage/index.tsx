@@ -1,7 +1,6 @@
 import { useGetShareDiary } from "@api/diary/useGetShareDiary";
 import BigButton from "@components/buttons/BigButton";
 import Diary from "@components/diary/Diary";
-import DefaultErrorComponent from "@pages/ErrorPage/components/DefaultErrorComponent";
 import { useEffect } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -14,7 +13,7 @@ const SharedPage = () => {
   const methods = useForm<DiaryFormData>();
   const token = queryParams.get("token");
   const diaryId = Number(queryParams.get("id"));
-  const { data: shareDiaryData, error } = useGetShareDiary(diaryId, token);
+  const { data: shareDiaryData } = useGetShareDiary(diaryId, token);
 
   useEffect(() => {
     if (shareDiaryData) {
