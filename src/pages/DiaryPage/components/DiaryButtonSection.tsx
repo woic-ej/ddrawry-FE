@@ -41,16 +41,16 @@ const DiaryButtonSection = ({ date, diaryId }: Props) => {
   const handleLinkSharedDiary = async () => {
     try {
       const response = await postShareDiary(Number(diaryId));
-    console.log(response.token);
-    const shareUrl = `${window.location.origin}/share/?id=${diaryId}&token=${response.token}`;
-    console.log("shareUrl:", shareUrl);
+      const shareUrl = `${window.location.origin}/share/?id=${diaryId}&token=${response.token}`;
 
-    // 클립보드에 링크 복사
-    await navigator.clipboard.writeText(shareUrl);
-    toast.success("공유 링크가 클립보드에 복사되었습니다.");
-    }
-    catch (error) {
-      console.error(error)
+      // 클립보드에 링크 복사
+      await navigator.clipboard.writeText(shareUrl);
+      toast.success("공유 링크가 클립보드에 복사되었습니다.");
+    } catch (error) {
+      toast.error("링크복사에 실패했습니다.");
+      console.error(error);
+    } finally {
+      setIsShareModalOpen(false);
     }
   };
 
