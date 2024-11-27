@@ -7,7 +7,8 @@ import { useNavigate } from "react-router-dom";
 import { editDiary, hasTempDiary } from "@api/tempDiary/tempApis";
 import { useDeleteDiary } from "@api/diary/useDeleteDiary";
 import { EditDiaryResponse, HasTempDiaryResponse } from "src/types/tempTypes";
-
+import { postShareDiary } from "@api/diary/useGetShareDiary";
+import toast from "react-hot-toast";
 interface Props {
   date: string;
   diaryId: string;
@@ -35,6 +36,22 @@ const DiaryButtonSection = ({ date, diaryId }: Props) => {
   const cancelTempClick = async () => {
     const data = await editDiary(diaryId);
     setEditDiaryData(data);
+  };
+
+  const handleLinkSharedDiary = async () => {
+    try {
+      const response = await postShareDiary(Number(diaryId));
+    console.log(response.token);
+    const shareUrl = `${window.location.origin}/share/?id=${diaryId}&token=${response.token}`;
+    console.log("shareUrl:", shareUrl);
+
+    // 클립보드에 링크 복사
+    await navigator.clipboard.writeText(shareUrl);
+    toast.success("공유 링크가 클립보드에 복사되었습니다.");
+    }
+    catch (error) {
+      console.error(error)
+    }
   };
 
   useEffect(() => {
@@ -72,11 +89,11 @@ const DiaryButtonSection = ({ date, diaryId }: Props) => {
       {isShareModalOpen && (
         <ModalLayout setIsModalOpen={setIsShareModalOpen}>
           <DefaultModal
-            title="짱 멋진 일기를 어떻게 자랑할까요?"
-            leftText="이미지로"
-            rightText="링크로"
-            leftClick={() => console.log("이미지로 공유")}
-            rightClick={() => console.log("링크로 공유")}
+            title="짱 멋진 일기를 링크로 자랑할까요?"
+            leftText="넹"
+            rightText="아니용"
+            leftClick={handleLinkSharedDiary}
+            rightClick={() => setIsShareModalOpen(false)}
           />
         </ModalLayout>
       )}
