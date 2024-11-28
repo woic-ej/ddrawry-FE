@@ -40,6 +40,10 @@ const ProfileModal = () => {
   const deleteAccount = useDeleteAccount(setActiveModal);
   const { data: userProfileData, isError, error, refetch } = useConfirmProfile();
 
+  const handleModalClose = () => {
+    setActiveModal(null);
+  };
+
   const handleClick = (item: ProfileItemsType) => {
     if (item.action === "navigate" && item.path) {
       clearCurrentDate();
@@ -90,40 +94,40 @@ const ProfileModal = () => {
         </div>
       ))}
       {activeModal === "changeName" && userProfileData && (
-        <ModalLayout modalClose={() => setActiveModal(null)}>
+        <ModalLayout modalClose={handleModalClose}>
           <Suspense fallback={<LoadingSpinner />}>
             <ChangeNameModal
               currentName={userProfileData.data.nickname}
-              changeModalClose={() => setActiveModal(null)}
+              changeModalClose={handleModalClose}
             />
           </Suspense>
         </ModalLayout>
       )}
       {activeModal === "logout" && (
-        <ModalLayout modalClose={() => setActiveModal(null)}>
+        <ModalLayout modalClose={handleModalClose}>
           <DefaultModal
             title="로그아웃을 하시겠습니까?"
             leftText="네"
             rightText="아니요"
             leftClick={logoutMutation.mutate}
-            rightClick={() => setActiveModal(null)}
+            rightClick={handleModalClose}
           />
         </ModalLayout>
       )}
       {activeModal === "deleteAccount" && (
-        <ModalLayout modalClose={() => setActiveModal(null)}>
+        <ModalLayout modalClose={handleModalClose}>
           <DefaultModal
             title="회원탈퇴를 하시겠습니까?"
             leftText="네"
             rightText="아니요"
             leftClick={deleteAccount.mutate}
-            rightClick={() => setActiveModal(null)}
+            rightClick={handleModalClose}
           />
         </ModalLayout>
       )}
       {activeModal === "information" && (
-        <ModalLayout modalClose={() => setActiveModal(null)}>
-          <InformationModal InformationModalClose={() => setActiveModal(null)} />
+        <ModalLayout modalClose={handleModalClose}>
+          <InformationModal InformationModalClose={handleModalClose} />
         </ModalLayout>
       )}
     </div>

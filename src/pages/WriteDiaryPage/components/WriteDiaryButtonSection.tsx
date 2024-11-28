@@ -41,7 +41,7 @@ const WriteDiaryButtonSection = ({ date, nickname, tempId }: Props) => {
 
   const handleImageDeleteClick = () => {
     unregister("image");
-    setActiveModal("remove");
+    setActiveModal(null);
   };
 
   const handleSaveClick = (data: DiaryFormData) => {
@@ -51,6 +51,10 @@ const WriteDiaryButtonSection = ({ date, nickname, tempId }: Props) => {
     } else {
       writeMutate(diaryData);
     }
+    setActiveModal(null);
+  };
+
+  const handleModalClose = () => {
     setActiveModal(null);
   };
 
@@ -75,33 +79,33 @@ const WriteDiaryButtonSection = ({ date, nickname, tempId }: Props) => {
         />
       </div>
       {activeModal === "imageHistory" && (
-        <ModalLayout modalClose={() => setActiveModal(null)}>
+        <ModalLayout modalClose={handleModalClose}>
           <ImageEditModal
             tempId={tempId}
-            imageEditModalClose={() => setActiveModal(null)}
+            imageEditModalClose={handleModalClose}
             setValue={setValue}
           />
         </ModalLayout>
       )}
       {activeModal === "remove" && (
-        <ModalLayout modalClose={() => setActiveModal(null)}>
+        <ModalLayout modalClose={handleModalClose}>
           <DefaultModal
             title="이 그림을 삭제할까요?"
             leftText="넹"
             rightText="아니용"
             leftClick={handleImageDeleteClick}
-            rightClick={() => setActiveModal(null)}
+            rightClick={handleModalClose}
           />
         </ModalLayout>
       )}
       {activeModal === "save" && (
-        <ModalLayout modalClose={() => setActiveModal(null)}>
+        <ModalLayout modalClose={handleModalClose}>
           <DefaultModal
             title="이대로 일기를 저장할까요?"
             leftText="넹"
             rightText="아니용"
             leftClick={handleSubmit(handleSaveClick)}
-            rightClick={() => setActiveModal(null)}
+            rightClick={handleModalClose}
           />
         </ModalLayout>
       )}

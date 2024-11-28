@@ -35,8 +35,12 @@ const Diary: React.FC<Props> = ({ date, nickname }) => {
   const currentStory = watch("story");
   const currentImage = watch("image");
 
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+  };
+
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
       <div className="w-[1150px] h-[1600px] border-[3px] border-Charcoal flex flex-col mt-[85px] mb-[50px]">
         <div className="w-full flex justify-center items-center py-[12px] title-font border-b-[3px] border-Charcoal">
           {formattedDate} {nickname}의 일기
