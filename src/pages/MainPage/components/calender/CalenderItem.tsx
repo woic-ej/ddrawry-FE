@@ -99,7 +99,7 @@ const CalenderItem: React.FC<Props> = ({
         <span className="absolute">{day}</span>
       </div>
       {isTempModalOpen && getIsExistTemp && (
-        <ModalLayout setIsModalOpen={setIsTempModalOpen}>
+        <ModalLayout modalClose={() => setIsTempModalOpen(false)}>
           <DefaultModal
             title="임시 저장된 일기를 불러올까요?"
             leftText="네"
