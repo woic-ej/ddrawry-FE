@@ -13,6 +13,7 @@ import EmptyState from "../empty/EmptyState";
 import CircleXIcon from "@components/iconComponents/CircleXIcon";
 import { useDeleteImage } from "@api/image/useDeleteImage";
 import { useGetImage } from "@api/image/useGetImage";
+import LoadingSpinner from "@components/loading/LoadingSpinner";
 
 interface ImageEditModalProps {
   tempId: string;
@@ -24,7 +25,7 @@ const ImageEditModal = ({ tempId, imageEditModalClose, setValue }: ImageEditModa
   const [isEdit, setIsEdit] = useState<boolean>(false);
   const [isDeleteImageModal, setIsDeleteImageModal] = useState<boolean>(false);
   const [deleteImageId, setDeleteImageId] = useState<number | null>();
-  const { data: imageHistory, isPending } = useGetImage(tempId);
+  const { data: imageHistory, isLoading } = useGetImage(tempId);
   const { mutate: DeleteImageMutate } = useDeleteImage(tempId, setIsDeleteImageModal);
 
   const handleCloseModal = () => {
@@ -57,8 +58,8 @@ const ImageEditModal = ({ tempId, imageEditModalClose, setValue }: ImageEditModa
 
   return (
     <div className="flex flex-col w-[1028px] h-[646px] rounded-[30px] border p-[25px] gap-[20px] bg-white">
-      {isPending || !imageHistory ? (
-        <div>...Loading</div>
+      {isLoading || !imageHistory ? (
+        <LoadingSpinner />
       ) : (
         <>
           <div className="flex relative">
