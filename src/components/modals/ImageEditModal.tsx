@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useState } from "react";
+import { useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/zoom";
@@ -16,11 +16,11 @@ import { useGetImage } from "@api/image/useGetImage";
 
 interface ImageEditModalProps {
   tempId: string;
-  setIsImageEditModalOpen: Dispatch<SetStateAction<boolean>>;
+  imageEditModalClose: () => void;
   setValue: (field: "image", value: string) => void;
 }
 
-const ImageEditModal = ({ tempId, setIsImageEditModalOpen, setValue }: ImageEditModalProps) => {
+const ImageEditModal = ({ tempId, imageEditModalClose, setValue }: ImageEditModalProps) => {
   const [isEdit, setIsEdit] = useState<boolean>(false);
   const [isDeleteImageModal, setIsDeleteImageModal] = useState<boolean>(false);
   const [deleteImageId, setDeleteImageId] = useState<number | null>();
@@ -28,13 +28,13 @@ const ImageEditModal = ({ tempId, setIsImageEditModalOpen, setValue }: ImageEdit
   const { mutate: DeleteImageMutate } = useDeleteImage(tempId, setIsDeleteImageModal);
 
   const handleCloseModal = () => {
-    setIsImageEditModalOpen(false);
+    imageEditModalClose();
   };
 
   const handleImageClick = (imageUrl: string) => {
     if (!isEdit) {
       setValue("image", imageUrl);
-      setIsImageEditModalOpen(false);
+      imageEditModalClose();
     }
   };
 
@@ -114,7 +114,7 @@ const ImageEditModal = ({ tempId, setIsImageEditModalOpen, setValue }: ImageEdit
       )}
 
       {isDeleteImageModal && (
-        <ModalLayout setIsModalOpen={setIsDeleteImageModal}>
+        <ModalLayout modalClose={() => setIsDeleteImageModal(false)}>
           <DefaultModal
             title="이 그림을 삭제할까요?"
             leftText="넹"

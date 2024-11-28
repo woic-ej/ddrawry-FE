@@ -5,7 +5,7 @@ import { CustomError } from "@utils/CustomError";
 import { SetStateAction } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import { ActiveModal } from "src/types/modalType";
+import { ProfileModalType } from "src/types/modalType";
 
 type IGetResponseLogoutType = {
   message: string;
@@ -25,7 +25,7 @@ const retryLogout = async (): Promise<void> => {
   await postLogout();
 };
 
-export const useLogout = (setIsModalOpen: React.Dispatch<SetStateAction<ActiveModal>>) => {
+export const useLogout = (setIsModalOpen: React.Dispatch<SetStateAction<ProfileModalType>>) => {
   const navigate = useNavigate();
   return useMutation({
     mutationFn: () => postLogout(),

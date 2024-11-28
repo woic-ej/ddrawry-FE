@@ -4,7 +4,7 @@ import { useMutation } from "@tanstack/react-query";
 import { SetStateAction } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import { ActiveModal } from "src/types/modalType";
+import { ProfileModalType } from "src/types/modalType";
 
 type IDeleteAccountType = {
   data: {
@@ -19,7 +19,9 @@ const deleteAccount = async () => {
   return data;
 };
 
-export const useDeleteAccount = (setIsModalOpen: React.Dispatch<SetStateAction<ActiveModal>>) => {
+export const useDeleteAccount = (
+  setIsModalOpen: React.Dispatch<SetStateAction<ProfileModalType>>,
+) => {
   const navigate = useNavigate();
   return useMutation({
     mutationFn: () => deleteAccount(),

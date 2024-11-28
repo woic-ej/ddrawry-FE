@@ -9,7 +9,7 @@ import { useDeleteAccount } from "@api/users/useDeleteAccount";
 import { useConfirmProfile } from "@api/users/useConfirmProfile";
 import { useDateStore } from "@store/useDateStore";
 import DefaultModal from "@components/modals/DefaultModal";
-import { ActiveModal } from "src/types/modalType";
+import { ProfileModalType } from "src/types/modalType";
 import toast from "react-hot-toast";
 import InformationModal from "@components/modals/InformationModal";
 
@@ -26,13 +26,13 @@ const profileItems: ProfileItemsType[] = [
 
 type ProfileItemsType = {
   label: string;
-  modal?: ActiveModal;
+  modal?: ProfileModalType;
   path?: string;
   action?: string;
 };
 
 const ProfileModal = () => {
-  const [activeModal, setActiveModal] = useState<ActiveModal>(null);
+  const [activeModal, setActiveModal] = useState<ProfileModalType>(null);
   const navigate = useNavigate();
   const { isDarkMode, toggleDarkMode } = useDarkMode();
   const { clearCurrentDate } = useDateStore();
@@ -90,17 +90,17 @@ const ProfileModal = () => {
         </div>
       ))}
       {activeModal === "changeName" && userProfileData && (
-        <ModalLayout setIsModalOpen={() => setActiveModal(null)}>
+        <ModalLayout modalClose={() => setActiveModal(null)}>
           <Suspense fallback={<LoadingSpinner />}>
             <ChangeNameModal
               currentName={userProfileData.data.nickname}
-              setIsModalOpen={() => setActiveModal(null)}
+              changeModalClose={() => setActiveModal(null)}
             />
           </Suspense>
         </ModalLayout>
       )}
       {activeModal === "logout" && (
-        <ModalLayout setIsModalOpen={() => setActiveModal(null)}>
+        <ModalLayout modalClose={() => setActiveModal(null)}>
           <DefaultModal
             title="로그아웃을 하시겠습니까?"
             leftText="네"
@@ -111,7 +111,7 @@ const ProfileModal = () => {
         </ModalLayout>
       )}
       {activeModal === "deleteAccount" && (
-        <ModalLayout setIsModalOpen={() => setActiveModal(null)}>
+        <ModalLayout modalClose={() => setActiveModal(null)}>
           <DefaultModal
             title="회원탈퇴를 하시겠습니까?"
             leftText="네"
@@ -122,8 +122,8 @@ const ProfileModal = () => {
         </ModalLayout>
       )}
       {activeModal === "information" && (
-        <ModalLayout setIsModalOpen={() => setActiveModal(null)}>
-          <InformationModal setIsModalOpen={() => setActiveModal(null)} />
+        <ModalLayout modalClose={() => setActiveModal(null)}>
+          <InformationModal InformationModalClose={() => setActiveModal(null)} />
         </ModalLayout>
       )}
     </div>

@@ -1,11 +1,11 @@
-import React, { SetStateAction } from "react";
+import React from "react";
 import XIcon from "@assets/images/XIcon.png";
 
 interface Props {
-  setIsModalOpen: React.Dispatch<SetStateAction<boolean>>;
+  InformationModalClose: () => void;
 }
 
-const InformationModal: React.FC<Props> = ({ setIsModalOpen }) => {
+const InformationModal: React.FC<Props> = ({ InformationModalClose }) => {
   return (
     <div
       className="flex flex-col relative bg-white w-[683px] h-[453px] rounded-[30px] pt-[60px] gap-[40px] border body-font leading-[38.08px]"
@@ -17,7 +17,7 @@ const InformationModal: React.FC<Props> = ({ setIsModalOpen }) => {
         width={36}
         height={36}
         className="absolute right-[20px] top-[20px] cursor-pointer"
-        onClick={() => setIsModalOpen(false)}
+        onClick={InformationModalClose}
       />
       <div className="flex justify-center">띠로리 사용방법!</div>
       <div className="pl-[80px] flex flex-col gap-[4px] font-[400] text-[28px]">

@@ -74,7 +74,7 @@ const DiaryButtonSection = ({ date, diaryId }: Props) => {
         <BigButton title="일기 자랑하기" color="blue" onClick={() => setActiveModal("share")} />
       </div>
       {ActiveModal === "delete" && (
-        <ModalLayout setIsModalOpen={() => setActiveModal(null)}>
+        <ModalLayout modalClose={() => setActiveModal(null)}>
           <DefaultModal
             title="앗 이 일기를 지울까요??"
             leftText="넹"
@@ -85,7 +85,7 @@ const DiaryButtonSection = ({ date, diaryId }: Props) => {
         </ModalLayout>
       )}
       {ActiveModal === "share" && (
-        <ModalLayout setIsModalOpen={() => setActiveModal(null)}>
+        <ModalLayout modalClose={() => setActiveModal(null)}>
           <DefaultModal
             title="짱 멋진 일기를 링크로 자랑할까요?"
             leftText="넹"
@@ -96,7 +96,7 @@ const DiaryButtonSection = ({ date, diaryId }: Props) => {
         </ModalLayout>
       )}
       {ActiveModal === "temp" && (
-        <ModalLayout setIsModalOpen={() => setActiveModal(null)}>
+        <ModalLayout modalClose={() => setActiveModal(null)}>
           <DefaultModal
             title="임시저장된 일기가 있는데 불러올까요?"
             leftText="넹"

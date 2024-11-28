@@ -16,10 +16,10 @@ interface Props {
   tempId: string;
 }
 
+type WriteDiaryModalType = "save" | "remove" | "imageHistory" | null;
+
 const WriteDiaryButtonSection = ({ date, nickname, tempId }: Props) => {
-  const [isHistoryModalOpen, setIsHistoryModalOpen] = useState<boolean>(false);
-  const [isImageModalOpen, setIsImageModalOpen] = useState<boolean>(false);
-  const [isSaveModalOpen, setIsSaveModalOpen] = useState<boolean>(false);
+  const [activeModal, setActiveModal] = useState<WriteDiaryModalType>(null);
   const [searchParams] = useSearchParams();
   const [isEditPage, diaryId] = [Boolean(searchParams.get("edit")), searchParams.get("diaryId")];
   const { mutate: writeMutate } = useWriteDiary();
@@ -36,12 +36,12 @@ const WriteDiaryButtonSection = ({ date, nickname, tempId }: Props) => {
   const currentImage = watch("image");
 
   const handleImageHistory = () => {
-    setIsHistoryModalOpen(true);
+    setActiveModal("imageHistory");
   };
 
   const handleImageDeleteClick = () => {
     unregister("image");
-    setIsImageModalOpen(false);
+    setActiveModal("remove");
   };
 
   const handleSaveClick = (data: DiaryFormData) => {
@@ -51,7 +51,7 @@ const WriteDiaryButtonSection = ({ date, nickname, tempId }: Props) => {
     } else {
       writeMutate(diaryData);
     }
-    setIsSaveModalOpen(false);
+    setActiveModal(null);
   };
 
   return (
@@ -63,7 +63,7 @@ const WriteDiaryButtonSection = ({ date, nickname, tempId }: Props) => {
             <SmallButton
               title="그림 지우기"
               color="green"
-              onClick={() => setIsImageModalOpen(true)}
+              onClick={() => setActiveModal("remove")}
             />
           )}
         </div>
@@ -71,37 +71,37 @@ const WriteDiaryButtonSection = ({ date, nickname, tempId }: Props) => {
           title="일기 저장하기"
           color={`${isValid ? "yellow" : "gray"}`}
           disabled={!isValid}
-          onClick={() => setIsSaveModalOpen(true)}
+          onClick={() => setActiveModal("save")}
         />
       </div>
-      {isHistoryModalOpen && (
-        <ModalLayout setIsModalOpen={setIsHistoryModalOpen}>
+      {activeModal === "imageHistory" && (
+        <ModalLayout modalClose={() => setActiveModal(null)}>
           <ImageEditModal
             tempId={tempId}
-            setIsImageEditModalOpen={setIsHistoryModalOpen}
+            imageEditModalClose={() => setActiveModal(null)}
             setValue={setValue}
           />
         </ModalLayout>
       )}
-      {isImageModalOpen && (
-        <ModalLayout setIsModalOpen={setIsImageModalOpen}>
+      {activeModal === "remove" && (
+        <ModalLayout modalClose={() => setActiveModal(null)}>
           <DefaultModal
             title="이 그림을 삭제할까요?"
             leftText="넹"
             rightText="아니용"
             leftClick={handleImageDeleteClick}
-            rightClick={() => setIsImageModalOpen(false)}
+            rightClick={() => setActiveModal(null)}
           />
         </ModalLayout>
       )}
-      {isSaveModalOpen && (
-        <ModalLayout setIsModalOpen={setIsSaveModalOpen}>
+      {activeModal === "save" && (
+        <ModalLayout modalClose={() => setActiveModal(null)}>
           <DefaultModal
             title="이대로 일기를 저장할까요?"
             leftText="넹"
             rightText="아니용"
             leftClick={handleSubmit(handleSaveClick)}
-            rightClick={() => setIsSaveModalOpen(false)}
+            rightClick={() => setActiveModal(null)}
           />
         </ModalLayout>
       )}

@@ -1,15 +1,15 @@
-import React, { SetStateAction } from "react";
+import React from "react";
 import ReactDOM from "react-dom";
 
 interface ModalLayoutProps {
   children: React.ReactNode;
-  setIsModalOpen?: React.Dispatch<SetStateAction<boolean>>;
+  modalClose?: () => void;
 }
 
-function ModalLayout({ children, setIsModalOpen }: ModalLayoutProps) {
+function ModalLayout({ children, modalClose }: ModalLayoutProps) {
   const handleBackgroundClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    if (event.target === event.currentTarget && setIsModalOpen) {
-      setIsModalOpen(false);
+    if (event.target === event.currentTarget && modalClose) {
+      modalClose();
     }
   };
 
