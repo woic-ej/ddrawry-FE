@@ -4,6 +4,7 @@ import SearchBar from "@components/search/SearchBar";
 import React, { useState } from "react";
 import SearchDiaryView from "@pages/SearchPage/components/SearchDiaryView";
 import { useQueryClient } from "@tanstack/react-query";
+import LoadingSpinner from "@components/loading/LoadingSpinner";
 
 const SearchPage = () => {
   const [value, setValue] = useState<string>("");
@@ -31,7 +32,7 @@ const SearchPage = () => {
           handleClick={handleSearchClick}
         />
       </div>
-      {isLoading ? <div>...Loading</div> : <SearchDiaryView value={value} data={data} />}
+      {isLoading ? <LoadingSpinner /> : <SearchDiaryView value={value} data={data} />}
     </div>
   );
 };
