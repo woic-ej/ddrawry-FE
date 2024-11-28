@@ -4,6 +4,7 @@ import { useMutation } from "@tanstack/react-query";
 import { SetStateAction } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import { ActiveModal } from "src/types/modalType";
 
 type IDeleteAccountType = {
   data: {
@@ -18,13 +19,13 @@ const deleteAccount = async () => {
   return data;
 };
 
-export const useDeleteAccount = (setIsModalOpen: React.Dispatch<SetStateAction<boolean>>) => {
+export const useDeleteAccount = (setIsModalOpen: React.Dispatch<SetStateAction<ActiveModal>>) => {
   const navigate = useNavigate();
   return useMutation({
     mutationFn: () => deleteAccount(),
     onSuccess: () => {
       toast.success("회원탈퇴 되었습니다.");
-      setIsModalOpen(false);
+      setIsModalOpen(null);
       localStorage.clear();
       navigate("/login");
     },
