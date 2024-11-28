@@ -9,23 +9,22 @@ import { useDeleteDiary } from "@api/diary/useDeleteDiary";
 import { EditDiaryResponse, HasTempDiaryResponse } from "src/types/tempTypes";
 import { postShareDiary } from "@api/diary/useGetShareDiary";
 import toast from "react-hot-toast";
+import { DiaryPageModalType } from "src/types/modalType";
+
 interface Props {
   date: string;
   diaryId: string;
 }
 
 const DiaryButtonSection = ({ date, diaryId }: Props) => {
-  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
-  const [isShareModalOpen, setIsShareModalOpen] = useState<boolean>(false);
-  const [isTempModalOpen, setIsTempDiaryModalOpen] = useState<boolean>(false);
+  const [ActiveModal, setActiveModal] = useState<DiaryPageModalType>(null);
   const [hasTempRes, setHasTempRes] = useState<HasTempDiaryResponse | null>(null);
   const [editDiaryData, setEditDiaryData] = useState<EditDiaryResponse | null>(null);
-  const { mutate: deleteDiary } = useDeleteDiary(diaryId);
+  const { mutate: deleteDiary } = useDeleteDiary(diaryId, setActiveModal);
   const navigate = useNavigate();
 
   const handleDeleteClick = () => {
     deleteDiary();
-    setIsDeleteModalOpen(false);
   };
 
   const handleEditClick = async () => {
@@ -43,20 +42,19 @@ const DiaryButtonSection = ({ date, diaryId }: Props) => {
       const response = await postShareDiary(Number(diaryId));
       const shareUrl = `${window.location.origin}/share/?id=${diaryId}&token=${response.token}`;
 
-      // 클립보드에 링크 복사
       await navigator.clipboard.writeText(shareUrl);
       toast.success("공유 링크가 클립보드에 복사되었습니다.");
     } catch (error) {
       toast.error("링크복사에 실패했습니다.");
       console.error(error);
     } finally {
-      setIsShareModalOpen(false);
+      setActiveModal(null);
     }
   };
 
   useEffect(() => {
     if (hasTempRes) {
-      if (hasTempRes.is_temp_exist) setIsTempDiaryModalOpen(true);
+      if (hasTempRes.is_temp_exist) setActiveModal("temp");
       else navigate(`/write/${hasTempRes.temp_id}?edit=true&diaryId=${diaryId}`);
     }
 
@@ -71,34 +69,34 @@ const DiaryButtonSection = ({ date, diaryId }: Props) => {
       <div className="flex w-[1150px] justify-between mb-[80px]">
         <div className="flex gap-[38px]">
           <SmallButton title="수정하기" color="green" onClick={handleEditClick} />
-          <SmallButton title="지우기" color="green" onClick={() => setIsDeleteModalOpen(true)} />
+          <SmallButton title="지우기" color="green" onClick={() => setActiveModal("delete")} />
         </div>
-        <BigButton title="일기 자랑하기" color="blue" onClick={() => setIsShareModalOpen(true)} />
+        <BigButton title="일기 자랑하기" color="blue" onClick={() => setActiveModal("share")} />
       </div>
-      {isDeleteModalOpen && (
-        <ModalLayout setIsModalOpen={setIsDeleteModalOpen}>
+      {ActiveModal === "delete" && (
+        <ModalLayout setIsModalOpen={() => setActiveModal(null)}>
           <DefaultModal
             title="앗 이 일기를 지울까요??"
             leftText="넹"
             rightText="아니용"
             leftClick={handleDeleteClick}
-            rightClick={() => setIsDeleteModalOpen(false)}
+            rightClick={() => setActiveModal(null)}
           />
         </ModalLayout>
       )}
-      {isShareModalOpen && (
-        <ModalLayout setIsModalOpen={setIsShareModalOpen}>
+      {ActiveModal === "share" && (
+        <ModalLayout setIsModalOpen={() => setActiveModal(null)}>
           <DefaultModal
             title="짱 멋진 일기를 링크로 자랑할까요?"
             leftText="넹"
             rightText="아니용"
             leftClick={handleLinkSharedDiary}
-            rightClick={() => setIsShareModalOpen(false)}
+            rightClick={() => setActiveModal(null)}
           />
         </ModalLayout>
       )}
-      {isTempModalOpen && (
-        <ModalLayout setIsModalOpen={setIsTempDiaryModalOpen}>
+      {ActiveModal === "temp" && (
+        <ModalLayout setIsModalOpen={() => setActiveModal(null)}>
           <DefaultModal
             title="임시저장된 일기가 있는데 불러올까요?"
             leftText="넹"
