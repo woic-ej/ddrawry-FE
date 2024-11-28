@@ -7,6 +7,7 @@ import { useLikedDiaries } from "@api/liked/useLikedDiaries";
 import { format } from "date-fns";
 import EmptyState from "@components/empty/EmptyState";
 import DiaryList from "@components/diary/list/DiaryList";
+import LoadingSpinner from "@components/loading/LoadingSpinner";
 
 const LikedPage = () => {
   const { currentDate, prevMonthHandler, nextMonthHandler } = useDateControl();
@@ -23,27 +24,27 @@ const LikedPage = () => {
         <div className="flex justify-start w-full min-w-[990px]">
           <ToggleButton leftTitle="전체보기" rightTitle="날짜별" />
         </div>
-        {isLoading ? (
-          <div>Loading...</div>
-        ) : (
-          <div className="w-full flex-grow flex flex-col items-center gap-[64px]">
-            {!isTotalView && (
-              <DateManipulationBar
-                date={currentDate}
-                prevMonthHandler={prevMonthHandler}
-                nextMonthHandler={nextMonthHandler}
-              />
-            )}
-            {likedDiaries &&
-              (likedDiaries.length === 0 ? (
-                <div className="w-full h-full flex justify-center items-center">
-                  <EmptyState message="좋아요한 일기가 없어요! 소중한 일기들을 하나씩 모아봐요" />
-                </div>
-              ) : (
-                <DiaryList diaries={likedDiaries!} />
-              ))}
-          </div>
-        )}
+        <div className="w-full flex-grow flex flex-col items-center gap-[64px]">
+          {!isTotalView && (
+            <DateManipulationBar
+              date={currentDate}
+              prevMonthHandler={prevMonthHandler}
+              nextMonthHandler={nextMonthHandler}
+            />
+          )}
+          {isLoading ? (
+            <LoadingSpinner />
+          ) : (
+            likedDiaries &&
+            (likedDiaries.length === 0 ? (
+              <div className="w-full h-full flex justify-center items-center">
+                <EmptyState message="좋아요한 일기가 없어요! 소중한 일기들을 하나씩 모아봐요" />
+              </div>
+            ) : (
+              <DiaryList diaries={likedDiaries!} />
+            ))
+          )}
+        </div>
       </div>
     </div>
   );

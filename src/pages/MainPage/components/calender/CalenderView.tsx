@@ -14,9 +14,9 @@ import { format } from "date-fns";
 import EmptyState from "@components/empty/EmptyState";
 import { useGetMainDiaries } from "@api/calender/useCalender";
 import LoadingSpinner from "@components/loading/LoadingSpinner";
+import DiaryList from "@components/diary/list/DiaryList";
 
 const Calender = React.lazy(() => import("@pages/MainPage/components/calender/Calender"));
-const DiaryList = React.lazy(() => import("@components/diary/list/DiaryList"));
 
 const CalenderView: React.FC = () => {
   const { currentDate, prevMonthHandler, nextMonthHandler } = useDateControl();
@@ -68,9 +68,7 @@ const CalenderView: React.FC = () => {
             <EmptyState message="작성된 일기가 없어요!" />
           </div>
         ) : (
-          <Suspense fallback={<LoadingSpinner />}>
-            <DiaryList diaries={getCurrentMainCalender.data} />
-          </Suspense>
+          <DiaryList diaries={getCurrentMainCalender.data} />
         ))
       )}
     </div>
