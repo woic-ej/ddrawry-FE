@@ -5,6 +5,7 @@ import { CustomError } from "@utils/CustomError";
 import { SetStateAction } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import { ProfileModalType } from "src/types/modalType";
 
 type IGetResponseLogoutType = {
   message: string;
@@ -24,14 +25,14 @@ const retryLogout = async (): Promise<void> => {
   await postLogout();
 };
 
-export const useLogout = (setIsModalOpen: React.Dispatch<SetStateAction<boolean>>) => {
+export const useLogout = (setIsModalOpen: React.Dispatch<SetStateAction<ProfileModalType>>) => {
   const navigate = useNavigate();
   return useMutation({
     mutationFn: () => postLogout(),
     onSuccess: () => {
       toast.success("로그아웃 되었습니다.");
       localStorage.removeItem("access_token");
-      setIsModalOpen(false);
+      setIsModalOpen(null);
       navigate("/login");
     },
     onError: async (error) => {

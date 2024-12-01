@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import { getTempDiary } from "@api/tempDiary/tempApis";
 import TempSaveModal from "@pages/WriteDiaryPage/components/TempSaveModal";
 import { TempDiaryType } from "src/types/tempTypes";
+import LoadingSpinner from "@components/loading/LoadingSpinner";
 
 const WriteDiaryPage = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -54,10 +55,10 @@ const WriteDiaryPage = () => {
   if (error) throw error; // 렌더링 중 에러를 발생시켜 ErrorBoundary로 전달
 
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center min-h-screen">
       <DefaultHeader title="일기 쓰기" />
       {isLoading || !tempData ? (
-        <div>loading...</div>
+        <LoadingSpinner />
       ) : (
         <>
           <FormProvider {...methods}>

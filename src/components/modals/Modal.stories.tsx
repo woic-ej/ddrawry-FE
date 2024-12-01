@@ -104,7 +104,7 @@ function Modal() {
       </div>
       <div className="flex flex-col gap-8">
         <h1 className="text-16 bg-white w-fit p-4">ChangeNameModal</h1>
-        <ChangeNameModal currentName="재로" setIsModalOpen={setIsModalOpen} />
+        <ChangeNameModal currentName="재로" changeModalClose={() => setIsModalOpen(false)} />
       </div>
       <div className="flex flex-col gap-8">
         <h1 className="text-16 bg-white w-fit p-4">ProfileModal</h1>

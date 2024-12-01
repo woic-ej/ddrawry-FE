@@ -22,7 +22,7 @@ const ImageCreationPanel: React.FC<Props> = ({ date, isValidate, story, setValue
   const { data: countValue } = useGetCount(date);
 
   const handleDrawClick = () => {
-    setIsModalOpen(true);
+    if (isValidate) setIsModalOpen(true);
   };
 
   const handleYesClick = () => {
@@ -64,7 +64,7 @@ const ImageCreationPanel: React.FC<Props> = ({ date, isValidate, story, setValue
       )}
 
       {isModalOpen && (
-        <ModalLayout setIsModalOpen={setIsModalOpen}>
+        <ModalLayout modalClose={() => setIsModalOpen(false)}>
           <DefaultModal
             title="그림을 그리면 오늘 생성 가능 횟수가 소진돼요! 띠로리에게 그림을 그려달라고 할까요?"
             leftText="넹"

@@ -1,6 +1,5 @@
-import React, { useMemo } from "react";
+import React, { Suspense, useMemo } from "react";
 import DateManipulationBar from "@pages/MainPage/components/DateManipulationBar";
-import Calender from "@pages/MainPage/components/calender/Calender";
 import {
   addDays,
   differenceInCalendarDays,
@@ -10,11 +9,14 @@ import {
   startOfWeek,
 } from "date-fns";
 import { useDateControl } from "@hooks/useDateControl";
-import DiaryList from "@components/diary/list/DiaryList";
 import { useToggleStore } from "@store/useToggleStore";
 import { format } from "date-fns";
 import EmptyState from "@components/empty/EmptyState";
 import { useGetMainDiaries } from "@api/calender/useCalender";
+import LoadingSpinner from "@components/loading/LoadingSpinner";
+import DiaryList from "@components/diary/list/DiaryList";
+
+const Calender = React.lazy(() => import("@pages/MainPage/components/calender/Calender"));
 
 const CalenderView: React.FC = () => {
   const { currentDate, prevMonthHandler, nextMonthHandler } = useDateControl();
@@ -42,10 +44,6 @@ const CalenderView: React.FC = () => {
     return monthArray;
   }, [startDate, endDate]);
 
-  if (isLoading) {
-    return <div>로딩중</div>;
-  }
-
   return (
     <div className="w-full min-w-[990px] flex flex-col items-center gap-[64px] flex-grow">
       <DateManipulationBar
@@ -53,20 +51,26 @@ const CalenderView: React.FC = () => {
         prevMonthHandler={prevMonthHandler}
         nextMonthHandler={nextMonthHandler}
       />
-      {getCurrentMainCalender &&
-        (isCalenderView === true ? (
-          <Calender
-            currentMonthData={currentMonthData}
-            currentDate={currentDate}
-            calenderData={getCurrentMainCalender.data}
-          />
+      {isLoading ? (
+        <LoadingSpinner />
+      ) : (
+        getCurrentMainCalender &&
+        (isCalenderView ? (
+          <Suspense fallback={<LoadingSpinner />}>
+            <Calender
+              currentMonthData={currentMonthData}
+              currentDate={currentDate}
+              calenderData={getCurrentMainCalender.data}
+            />
+          </Suspense>
         ) : getCurrentMainCalender.data.length === 0 ? (
           <div className={"h-full w-full flex flex-grow justify-center items-center"}>
             <EmptyState message="작성된 일기가 없어요!" />
           </div>
         ) : (
           <DiaryList diaries={getCurrentMainCalender.data} />
-        ))}
+        ))
+      )}
     </div>
   );
 };

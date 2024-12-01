@@ -1,17 +1,17 @@
 import { useChangeNickname } from "@api/users/useChangeNickname";
 import ModalButton from "@components/buttons/ModalButton";
-import React, { Dispatch, SetStateAction, useState } from "react";
+import React, { useState } from "react";
 
 interface ChangeNameModalProps {
   currentName: string;
-  setIsModalOpen: Dispatch<SetStateAction<boolean>>;
+  changeModalClose: () => void;
 }
 
-const ChangeNameModal: React.FC<ChangeNameModalProps> = ({ currentName, setIsModalOpen }) => {
+const ChangeNameModal: React.FC<ChangeNameModalProps> = ({ currentName, changeModalClose }) => {
   const [isNameValid, setIsNameValid] = useState<boolean>(false);
   const [newName, setNewName] = useState<string>("");
   const [errorMessage, setErrorMessage] = useState<string>("");
-  const changeName = useChangeNickname(newName, setIsModalOpen);
+  const changeName = useChangeNickname(newName, changeModalClose);
 
   const handleChangeNickname = (event: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = event.target.value;
@@ -27,7 +27,7 @@ const ChangeNameModal: React.FC<ChangeNameModalProps> = ({ currentName, setIsMod
 
   const handleChangeNameClick = () => {
     if (newName === "") {
-      setIsModalOpen(false);
+      changeModalClose();
       return;
     }
     if (!isNameValid) {
