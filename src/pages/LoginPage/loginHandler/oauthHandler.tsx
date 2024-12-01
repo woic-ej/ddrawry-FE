@@ -18,7 +18,7 @@ const OAuthRedirectHandler = () => {
     }
   }, [isSuccess, navigate, data]);
 
-  if (!isLoading)
+  if (isLoading)
     return (
       <div className="h-screen">
         <LoadingSpinner />
