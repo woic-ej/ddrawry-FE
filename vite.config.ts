@@ -19,6 +19,11 @@ export default defineConfig(({ mode }) => {
             brotliSize: true,
           }),
         ],
+        output: {
+          manualChunks: {
+            vendor: ["react", "react-dom"],
+          },
+        },
       },
     },
     resolve: {
