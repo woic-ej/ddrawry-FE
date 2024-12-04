@@ -10,7 +10,7 @@ interface SearchBarProps {
 
 const SearchBar: React.FC<SearchBarProps> = ({ content, handleInputChange, handleClick }) => {
   return (
-    <div className="flex items-center gap-[18px]">
+    <div className="flex mt-[50px] justify-center items-center gap-[18px] w-full">
       <SearchInput
         content={content}
         handleInputChange={handleInputChange}

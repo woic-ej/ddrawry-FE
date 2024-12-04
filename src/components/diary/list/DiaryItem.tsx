@@ -15,11 +15,15 @@ const DiaryItem = ({ id, image, title, date, bookmark }: BaseDiaryType) => {
   return (
     <button
       onClick={handleClick}
-      className="min-w-[1012.53px] h-[275px] bg-white flex items-center justify-between border-b-[3px] border-buttonDisabled"
+      className="w-11/12 h-[220px] bg-white flex items-center justify-between border-b-[3px] border-buttonDisabled"
     >
-      <div className="flex items-center gap-[46px]">
+      <div className="flex items-center gap-[30px]">
         {image ? (
-          <img src={image} className="w-[256px] h-[230px] rounded-[10px]" alt="그림일기 이미지" />
+          <img
+            src={image}
+            className="w-[180px] aspect-square rounded-[10px]"
+            alt="그림일기 이미지"
+          />
         ) : (
           <DefaultDiaryLogo />
         )}
