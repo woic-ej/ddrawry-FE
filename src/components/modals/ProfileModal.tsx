@@ -3,7 +3,6 @@ import React, { Suspense, useState } from "react";
 import ModalLayout from "@components/modals/ModalLayout";
 import informationIcon from "@assets/images/information.png";
 import { useNavigate } from "react-router-dom";
-import { useDarkMode } from "@hooks/useDarkMode";
 import { useLogout } from "@api/users/useLogout";
 import { useDeleteAccount } from "@api/users/useDeleteAccount";
 import { useConfirmProfile } from "@api/users/useConfirmProfile";
@@ -20,7 +19,6 @@ const profileItems: ProfileItemsType[] = [
   { label: "좋아요한 일기들", action: "navigate", path: "/liked" },
   { label: "로그아웃", modal: "logout" },
   { label: "회원탈퇴", modal: "deleteAccount" },
-  { label: "다크 모드", action: "toggleDarkMode" },
   { label: "도움말", modal: "information" },
 ];
 
@@ -34,7 +32,6 @@ type ProfileItemsType = {
 const ProfileModal = () => {
   const [activeModal, setActiveModal] = useState<ProfileModalType>(null);
   const navigate = useNavigate();
-  const { isDarkMode, toggleDarkMode } = useDarkMode();
   const { clearCurrentDate } = useDateStore();
   const logoutMutation = useLogout(setActiveModal);
   const deleteAccount = useDeleteAccount(setActiveModal);
@@ -48,8 +45,6 @@ const ProfileModal = () => {
     if (item.action === "navigate" && item.path) {
       clearCurrentDate();
       navigate(item.path);
-    } else if (item.action === "toggleDarkMode") {
-      toggleDarkMode();
     } else if (item.modal) {
       if (item.modal === "changeName" && isError) {
         toast.error(error.message);
@@ -78,19 +73,6 @@ const ProfileModal = () => {
               item.label
             )}
           </span>
-          {item.label === "다크 모드" && (
-            <div
-              className={`relative w-[85.91px] h-[38px] rounded-[35px] cursor-pointer transition-colors ${
-                isDarkMode ? "bg-Lime" : "bg-gray-300"
-              }`}
-            >
-              <div
-                className={`absolute w-[30px] h-[30px] bg-white rounded-full translate-y-1 transition-transform ${
-                  isDarkMode ? "translate-x-[50px]" : "translate-x-[5px]"
-                }`}
-              />
-            </div>
-          )}
         </div>
       ))}
       {activeModal === "changeName" && userProfileData && (

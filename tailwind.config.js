@@ -22,9 +22,9 @@ export default {
         ButtonDisabledStroke: "#E1E1E1",
       },
       fontSize: {
-        huge: "36px",
-        regular: "28px",
-        small: "18px",
+        huge: "24px",
+        regular: "18px",
+        small: "14px",
       },
       boxShadow: {
         custom: "8px 8px 16px 0 rgba(0, 0, 0, 0.04)",
