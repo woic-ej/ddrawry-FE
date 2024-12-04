@@ -7,6 +7,7 @@ import { useParams } from "react-router-dom";
 import { CreateImagePayLoad } from "src/types/imageTypes";
 import NotificationMessage from "@components/diary/image/NotificationMessage";
 import { useGetCount } from "@api/image/useGetCount";
+import LoadingAnimation from "@components/loading/LoadingAnimation";
 
 interface Props {
   date: string;
@@ -39,7 +40,7 @@ const ImageCreationPanel: React.FC<Props> = ({ date, isValidate, story, setValue
   };
 
   if (isPending) {
-    return <div>그림 그리는중</div>;
+    return <LoadingAnimation />;
   }
 
   return (
