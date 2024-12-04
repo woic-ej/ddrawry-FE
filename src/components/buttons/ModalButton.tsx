@@ -10,7 +10,7 @@ interface ModalButtonProps {
 const ModalButton: React.FC<ModalButtonProps> = ({ title, onClick }) => {
   return (
     <button
-      className="flex justify-center items-center w-[130px] h-[45px] rounded-[15px] gap-[10px] border text-regular bg-Lemon border-LemonStroke text-Charcoal"
+      className="flex justify-center items-center w-[130px] h-[50px] rounded-[15px] gap-[10px] border text-regular bg-Lemon border-LemonStroke text-Charcoal"
       onClick={onClick}
     >
       {title === "이미지로" ? (
