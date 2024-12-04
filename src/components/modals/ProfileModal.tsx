@@ -6,7 +6,6 @@ import { useNavigate } from "react-router-dom";
 import { useLogout } from "@api/users/useLogout";
 import { useDeleteAccount } from "@api/users/useDeleteAccount";
 import { useConfirmProfile } from "@api/users/useConfirmProfile";
-import { useDateStore } from "@store/useDateStore";
 import DefaultModal from "@components/modals/DefaultModal";
 import { ProfileModalType } from "src/types/modalType";
 import toast from "react-hot-toast";
@@ -32,7 +31,6 @@ type ProfileItemsType = {
 const ProfileModal = () => {
   const [activeModal, setActiveModal] = useState<ProfileModalType>(null);
   const navigate = useNavigate();
-  const { clearCurrentDate } = useDateStore();
   const logoutMutation = useLogout(setActiveModal);
   const deleteAccount = useDeleteAccount(setActiveModal);
   const { data: userProfileData, isError, error, refetch } = useConfirmProfile();
@@ -43,7 +41,6 @@ const ProfileModal = () => {
 
   const handleClick = (item: ProfileItemsType) => {
     if (item.action === "navigate" && item.path) {
-      clearCurrentDate();
       navigate(item.path);
     } else if (item.modal) {
       if (item.modal === "changeName" && isError) {

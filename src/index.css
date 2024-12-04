@@ -37,7 +37,7 @@ body {
     @apply w-11/12 aspect-square rounded-[10px];
   }
   .option-box {
-    @apply flex justify-center gap-[30px] grow py-[12px];
+    @apply flex justify-center gap-[15px] grow py-[12px];
   }
   .profile-modal-layout {
     @apply flex flex-col w-[300px]  body-font text-center p-[20px] gap-[27px] border border-ButtonDisabledStroke shadow-custom z-10 bg-white;

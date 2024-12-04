@@ -41,7 +41,7 @@ const Diary: React.FC<Props> = ({ date, nickname }) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <div className="w-[1150px] h-[1600px] border-[3px] border-Charcoal flex flex-col mt-[85px] mb-[50px]">
+      <div className="w-[800px] h-[1250px] border-[3px] border-Charcoal flex flex-col mt-[50px] mb-[50px]">
         <div className="w-full flex justify-center items-center py-[12px] title-font border-b-[3px] border-Charcoal">
           {formattedDate} {nickname}의 일기
         </div>
@@ -65,10 +65,10 @@ const Diary: React.FC<Props> = ({ date, nickname }) => {
             />
           </div>
         </div>
-        <div className="w-full h-[75px] border-b-[3px] border-Charcoal pl-[70px] flex items-center">
+        <div className="w-full h-[75px] border-b-[3px] border-Charcoal pl-[25px] flex items-center">
           <div className="title-font">제목 : </div>
           <input
-            className="ml-[18px] w-[700px] h-[45px] focus:outline-none title-font placeholder-Gray"
+            className="ml-[18px] w-4/5 h-[45px] focus:outline-none title-font placeholder-Gray"
             type="text"
             placeholder="제목을 입력해주세요."
             readOnly={isDiaryPage}
@@ -76,11 +76,13 @@ const Diary: React.FC<Props> = ({ date, nickname }) => {
             {...register("title")}
           />
         </div>
-        <div className="flex items-center justify-center w-full h-[648px] border-b-[3px] border-Charcoal">
+        <div className="flex items-center justify-center w-full h-auto border-b-[3px] border-Charcoal">
           {currentImage ? (
-            <img src={currentImage} className="w-full h-full" />
+            <img src={currentImage} className="w-2/3 aspect-square" />
           ) : isDiaryPage ? (
-            <DefaultDiaryLogo />
+            <div className="w-2/3 aspect-square flex items-center justify-center">
+              <DefaultDiaryLogo />
+            </div>
           ) : (
             <ImageCreationPanel
               date={date}

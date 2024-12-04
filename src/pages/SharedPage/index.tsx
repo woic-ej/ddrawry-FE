@@ -41,8 +41,12 @@ const SharedPage = () => {
           <FormProvider {...methods}>
             <Diary date={shareDiaryData?.date} nickname={shareDiaryData?.nickname} />
           </FormProvider>
-          <div className="w-[1150px] flex justify-end">
-            <BigButton title="나만의 일기를 작성하러 고고!" color="blue" onClick={handleGoHome} />
+          <div className="w-[800px] flex justify-end">
+            <BigButton
+              title="띠로리와 나만의 일기를 작성하러 고고!"
+              color="blue"
+              onClick={handleGoHome}
+            />
           </div>
         </div>
       )}

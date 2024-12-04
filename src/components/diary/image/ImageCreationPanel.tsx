@@ -44,7 +44,7 @@ const ImageCreationPanel: React.FC<Props> = ({ date, isValidate, story, setValue
   }
 
   return (
-    <div className="flex flex-col gap-[18px] items-center">
+    <div className="flex flex-col gap-[18px] items-center justify-center w-2/3 aspect-square">
       {countValue && (
         <>
           <NotificationMessage count={countValue.remain_count} isError={isError} />
