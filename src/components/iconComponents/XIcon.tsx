@@ -1,23 +1,16 @@
-import React from 'react'
+import React from "react";
 import XIconImage from "@assets/svgs/XIcon.svg";
 
 interface XIconProps {
-    handleXIconClick: () => void;
+  handleXIconClick: () => void;
 }
 
 const XIcon: React.FC<XIconProps> = ({ handleXIconClick }) => {
-    return (
-      <button>
-        <img
-          src={XIconImage}
-          width={32}
-          height={32}
-          alt="XIcon"
-          onClick={handleXIconClick}
-          className="cursor-pointer absolute top-0 right-0"
-        />
-      </button>
-    );
+  return (
+    <button onClick={handleXIconClick} className="absolute top-0 right-0">
+      <img src={XIconImage} width={32} height={32} alt="XIcon" />
+    </button>
+  );
 };
 
-export default XIcon
+export default XIcon;

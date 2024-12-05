@@ -16,7 +16,7 @@ const MainPage: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col h-screen w-full">
+    <div className="flex flex-col min-h-screen w-full">
       <HeaderWithProfile title="띠로리" />
       <div className="flex flex-grow items-center flex-col gap-[40px] px-[130px] py-[30px]">
         <div className="flex justify-between w-full min-w-[990px]">

@@ -12,6 +12,7 @@
 
 .swiper {
   position: relative;
+  padding-top: 30px;
 }
 
 .swiper-button-prev::after,

@@ -57,12 +57,12 @@ const ImageEditModal = ({ tempId, imageEditModalClose, setValue }: ImageEditModa
   };
 
   return (
-    <div className="flex flex-col w-[480px] h-[450px] rounded-[30px] border p-[20px] pb-[0px] gap-[18px] bg-white">
+    <div className="flex flex-col w-[480px] h-[450px] rounded-[30px] border p-[20px] pb-[0px] bg-white">
       {isLoading || !imageHistory ? (
         <LoadingSpinner />
       ) : (
         <>
-          <div className="flex relative">
+          <div className="flex relative h-[40px]">
             {imageHistory.length !== 0 && (
               <button
                 className={`flex justify-center items-center rounded-[15px] border border-PrimaryStroke ${isEdit ? "bg-PrimaryStroke" : "bg-Primary"} text-[16px] text-Charcoal w-[90px] h-[40px]`}
@@ -87,7 +87,7 @@ const ImageEditModal = ({ tempId, imageEditModalClose, setValue }: ImageEditModa
                 >
                   {imageHistory.map((image) => (
                     <SwiperSlide key={image.id} className="flex justify-center">
-                      <div className="flex items-center w-3/4 h-auto relative">
+                      <div className="flex items-center w-[70%] h-auto relative">
                         <button
                           onClick={() => handleImageClick(image.image)}
                           className={`relative group ${isEdit && "cursor-default"}`}

@@ -23,7 +23,7 @@ const SearchPage = () => {
   };
 
   return (
-    <div className="flex flex-col items-center h-screen w-full">
+    <div className="flex flex-col items-center min-h-screen w-full">
       <HeaderWithProfile title="일기 검색하기" />
       <SearchBar
         content={value}
