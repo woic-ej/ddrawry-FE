@@ -57,7 +57,7 @@ const ImageEditModal = ({ tempId, imageEditModalClose, setValue }: ImageEditModa
   };
 
   return (
-    <div className="flex flex-col w-[1028px] h-[646px] rounded-[30px] border p-[25px] gap-[20px] bg-white">
+    <div className="flex flex-col w-[480px] h-[450px] rounded-[30px] border p-[20px] pb-[0px] gap-[18px] bg-white">
       {isLoading || !imageHistory ? (
         <LoadingSpinner />
       ) : (
@@ -65,7 +65,7 @@ const ImageEditModal = ({ tempId, imageEditModalClose, setValue }: ImageEditModa
           <div className="flex relative">
             {imageHistory.length !== 0 && (
               <button
-                className={`flex justify-center items-center rounded-[15px] border border-PrimaryStroke ${isEdit ? "bg-PrimaryStroke" : "bg-Primary"} text-[18px] text-Charcoal leading-[24.48px] w-[113px] h-[50px]`}
+                className={`flex justify-center items-center rounded-[15px] border border-PrimaryStroke ${isEdit ? "bg-PrimaryStroke" : "bg-Primary"} text-[16px] text-Charcoal w-[90px] h-[40px]`}
                 onClick={handleEditClick}
               >
                 {isEdit ? "취소" : "편집"}
@@ -77,7 +77,7 @@ const ImageEditModal = ({ tempId, imageEditModalClose, setValue }: ImageEditModa
             <EmptyState message="생성된 그림이 없어요!" />
           ) : (
             <>
-              <div className="relative">
+              <div className="w-full relative">
                 <Swiper
                   slidesPerView={1}
                   spaceBetween={0}
@@ -87,7 +87,7 @@ const ImageEditModal = ({ tempId, imageEditModalClose, setValue }: ImageEditModa
                 >
                   {imageHistory.map((image) => (
                     <SwiperSlide key={image.id} className="flex justify-center">
-                      <div className="w-[800px] h-[505px] pb-[50px] pt-[30px] relative">
+                      <div className="flex items-center w-3/4 h-auto relative">
                         <button
                           onClick={() => handleImageClick(image.image)}
                           className={`relative group ${isEdit && "cursor-default"}`}
@@ -95,9 +95,7 @@ const ImageEditModal = ({ tempId, imageEditModalClose, setValue }: ImageEditModa
                           <img
                             src={image.image}
                             alt="일기 그림"
-                            height={450}
-                            width={800}
-                            className="object-cover w-[800px] h-[450px]"
+                            className="object-cover w-full h-full"
                           />
                           {!isEdit && (
                             <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-10 group-active:opacity-10" />

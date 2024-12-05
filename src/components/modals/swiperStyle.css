@@ -1,17 +1,23 @@
 :root {
   --swiper-navigation-color: #000;
-  --swiper-pagination-color: #E7C7E7;
+  --swiper-pagination-color: #e7c7e7;
 }
 
-.swiper-slide{
+.swiper-slide {
   display: flex;
   justify-content: center;
   position: relative;
+  margin-bottom: 24px;
 }
 
-.swiper{
+.swiper {
   position: relative;
-  
+}
+
+.swiper-button-prev::after,
+.swiper-button-next::after {
+  font-size: 1.5rem;
+  font-weight: 700;
 }
 
 .swiper .swiper-pagination {
@@ -19,7 +25,7 @@
   bottom: 0px;
 }
 
-.swiper-pagination-bullet{
+.swiper-pagination-bullet {
   width: 9px;
   height: 9px;
   margin-top: 10px;
