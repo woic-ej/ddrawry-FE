@@ -72,7 +72,7 @@ const Diary: React.FC<Props> = ({ date, nickname }) => {
             type="text"
             placeholder="제목을 입력해주세요."
             readOnly={isDiaryPage}
-            maxLength={14}
+            maxLength={15}
             {...register("title")}
           />
         </div>

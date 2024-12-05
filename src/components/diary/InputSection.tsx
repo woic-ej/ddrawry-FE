@@ -33,7 +33,7 @@ const InputSection: React.FC<Props> = ({ wordLimit, maxLength, register, current
           <textarea
             id="textarea"
             className="resize-none outline-none title-font w-full flex-grow p-10 pb-0"
-            maxLength={maxLength - 1}
+            maxLength={maxLength}
             {...register("story")}
           />
           <div className="w-full flex justify-end items-center h-[50px] pr-[18px] text-Gray text-[22px]">
