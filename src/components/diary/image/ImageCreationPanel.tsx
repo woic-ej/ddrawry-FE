@@ -35,6 +35,10 @@ const ImageCreationPanel: React.FC<Props> = ({ date, isValidate, story, setValue
     setIsModalOpen(false);
   };
 
+  const handleNoClick = () => {
+    setIsModalOpen(false);
+  };
+
   return (
     <div className="flex flex-col gap-[18px] items-center justify-center w-2/3 aspect-square">
       {isPending ? (
