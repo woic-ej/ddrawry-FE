@@ -21,7 +21,7 @@ const SearchDiaryView = ({ value, data }: Props) => {
         <EmptyState message={`${value}(으)로 검색된 결과가 없어요!`} />
       </div>
     ) : (
-      <div className="w-full flex justify-center items-center mt-[60px]">
+      <div className="w-2/3 flex justify-center items-center mt-[60px]">
         <DiaryList diaries={data} />
       </div>
     );

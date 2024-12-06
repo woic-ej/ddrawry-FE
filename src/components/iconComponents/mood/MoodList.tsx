@@ -20,7 +20,7 @@ const MoodList: React.FC<MoodListProps> = ({ disabled, setValue, trigger, curren
   };
 
   return (
-    <div className="flex gap-[20px]">
+    <div className="flex gap-[15px]">
       <button type="button" onClick={() => handleMoodClick("smile")} disabled={disabled}>
         <SmileIcon isClick={currentMood === "smile"} />
       </button>

@@ -60,8 +60,8 @@ const WriteDiaryButtonSection = ({ date, nickname, tempId }: Props) => {
 
   return (
     <>
-      <div className="flex w-[1150px] justify-between mb-[80px]">
-        <div className="flex gap-[38px]">
+      <div className="flex w-[800px] justify-between mb-[80px]">
+        <div className="flex gap-[25px]">
           <SmallButton title="띠로리 앨범" color="green" onClick={handleImageHistory} />
           {currentImage && (
             <SmallButton

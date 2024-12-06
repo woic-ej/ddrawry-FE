@@ -70,8 +70,8 @@ const DiaryButtonSection = ({ date, diaryId }: Props) => {
 
   return (
     <>
-      <div className="flex w-[1150px] justify-between mb-[80px]">
-        <div className="flex gap-[38px]">
+      <div className="flex w-[800px] justify-between mb-[80px]">
+        <div className="flex gap-[25px]">
           <SmallButton title="수정하기" color="green" onClick={handleEditClick} />
           <SmallButton title="지우기" color="green" onClick={() => setActiveModal("delete")} />
         </div>

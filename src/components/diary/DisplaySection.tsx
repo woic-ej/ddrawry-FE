@@ -4,8 +4,8 @@ interface Props {
   content: string;
 }
 
-const COLS = 24;
-const ROWS = 15;
+const COLS = 20;
+const ROWS = 12;
 
 const DisplaySection: React.FC<Props> = ({ content }) => {
   const initializeGrid = () => Array(COLS * ROWS).fill("");

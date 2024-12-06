@@ -44,14 +44,14 @@ const ToggleButton: React.FC<ToggleButtonProps> = ({ leftTitle, rightTitle }) =>
   };
 
   return (
-    <div className="flex rounded-[10px] border border-ButtonDisabledStroke w-[270px] h-[60px] text-regular leading-[38.08px]">
+    <div className="flex rounded-[10px] border border-ButtonDisabledStroke w-[190px] h-[45px] text-regular leading-[38.08px]">
       <button
         onClick={() => {
           if (!isLeftActive) {
             handleToggle();
           }
         }}
-        className={`w-[134px] h-[58px] rounded-[10px] ${
+        className={`w-1/2 h-full rounded-[10px] ${
           isLeftActive ? "bg-PrimaryStroke text-white" : "bg-white text-Charcoal"
         }`}
       >
@@ -63,7 +63,7 @@ const ToggleButton: React.FC<ToggleButtonProps> = ({ leftTitle, rightTitle }) =>
             handleToggle();
           }
         }}
-        className={`w-[136px] h-[58px] rounded-[10px] ${
+        className={`w-1/2 h-full rounded-[10px] ${
           isLeftActive ? "bg-white text-Charcoal" : "bg-PrimaryStroke text-white"
         }`}
       >

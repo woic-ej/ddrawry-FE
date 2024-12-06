@@ -39,7 +39,7 @@ const ChangeNameModal: React.FC<ChangeNameModalProps> = ({ currentName, changeMo
 
   return (
     <div
-      className="flex flex-col relative bg-white w-[683px] h-[453px] rounded-[30px] gap-[78px] p-[30px] border body-font leading-[38.08px] text-center"
+      className="flex flex-col relative bg-white w-[450px] h-[300px] rounded-[30px] gap-[30px] p-[30px] border body-font leading-[38.08px] text-center"
       onClick={(e) => e.stopPropagation()}
     >
       <div>닉네임 수정하기</div>
@@ -49,7 +49,7 @@ const ChangeNameModal: React.FC<ChangeNameModalProps> = ({ currentName, changeMo
           <span>바꿀 닉네임 : </span>
           <input
             type="text"
-            className={`w-[190px] h-[56px] border ${errorMessage === "" ? "border-ButtonDisabledStroke} " : "border-[#F46666]"} rounded-[10px] p-[10px]`}
+            className={`w-[150px] h-[40px] border ${errorMessage === "" ? "border-ButtonDisabledStroke} " : "border-[#F46666]"} rounded-[10px] p-[10px]`}
             onChange={handleChangeNickname}
             value={newName}
           />

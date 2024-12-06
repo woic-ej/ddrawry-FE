@@ -8,7 +8,7 @@ interface Props {
 const InformationModal: React.FC<Props> = ({ InformationModalClose }) => {
   return (
     <div
-      className="flex flex-col relative bg-white w-[683px] h-[453px] rounded-[30px] pt-[60px] gap-[40px] border body-font leading-[38.08px]"
+      className="flex flex-col relative bg-white w-[550px] h-[430px] rounded-[30px] pt-[60px] gap-[40px] border body-font leading-[38.08px]"
       onClick={(e) => e.stopPropagation()}
     >
       <img
@@ -19,8 +19,8 @@ const InformationModal: React.FC<Props> = ({ InformationModalClose }) => {
         className="absolute right-[20px] top-[20px] cursor-pointer"
         onClick={InformationModalClose}
       />
-      <div className="flex justify-center">띠로리 사용방법!</div>
-      <div className="pl-[80px] flex flex-col gap-[4px] font-[400] text-[28px]">
+      <div className="flex justify-center ">띠로리 사용방법!</div>
+      <div className="pl-[80px] flex flex-col gap-[4px] font-[600] text-regular">
         <p>step 1 {")"} 달력에서 작성하고 싶은 날짜를 클릭</p>
         <p className="pl-[105px]">
           {"("}단, <span className="text-[#F46666]">오늘 날짜</span> 이후로는 작성 X{")"}
