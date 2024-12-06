@@ -1,11 +1,9 @@
 import ModalLayout from "@components/modals/ModalLayout";
 import DefaultModal from "@components/modals/DefaultModal";
 import React, { useEffect, useState } from "react";
-import {
-  SaveTempDiaryPayload,
-  useCancelTempDiary,
-  useSaveTempDiary,
-} from "@api/diary/useTempDiary";
+import { useSaveTempDiary } from "@api/tempDiary/useSaveTempDiary";
+import { useCancelTempDiary } from "@api/tempDiary/useCancelTempDiary";
+import { TempDiaryType } from "src/types/tempTypes";
 
 interface Props {
   date: string;
@@ -15,8 +13,8 @@ interface Props {
 const TempSaveModal = ({ date, tempId }: Props) => {
   const [showModal, setShowModal] = useState<boolean>(false);
   const [isBlocking, setIsBlocking] = useState<boolean>(true);
-  const { mutate: saveTemp } = useSaveTempDiary(tempId);
-  const { mutate: cancelTemp } = useCancelTempDiary(tempId);
+  const { mutate: saveTemp } = useSaveTempDiary(tempId, setIsBlocking);
+  const { mutate: cancelTemp, isError: isCancelError } = useCancelTempDiary(tempId);
 
   useEffect(() => {
     const isInitialLoad = sessionStorage.getItem("initialLoad") === null;
@@ -42,9 +40,7 @@ const TempSaveModal = ({ date, tempId }: Props) => {
   }, [isBlocking]);
 
   const handleSave = () => {
-    const tempData: SaveTempDiaryPayload = JSON.parse(
-      localStorage.getItem(`temp-diary/${tempId}`)!,
-    );
+    const tempData: TempDiaryType = JSON.parse(localStorage.getItem(`temp-diary/${tempId}`)!);
     setShowModal(false);
     setIsBlocking(false);
     saveTemp(tempData);
@@ -55,10 +51,14 @@ const TempSaveModal = ({ date, tempId }: Props) => {
     cancelTemp({ date, type: "write" });
   };
 
+  if (isCancelError) {
+    history.back();
+  }
+
   return (
     <>
       {showModal && (
-        <ModalLayout setIsModalOpen={setShowModal}>
+        <ModalLayout>
           <DefaultModal
             title="현재 작성중인 일기를 임시저장 할까요??"
             leftText="넹"

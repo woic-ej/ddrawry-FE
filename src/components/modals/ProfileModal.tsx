@@ -1,106 +1,112 @@
-import { useDarkMode } from "@hooks/useDarkMode";
-import React, { useState } from "react";
+import LoadingSpinner from "@components/loading/LoadingSpinner";
+import React, { Suspense, useState } from "react";
+import ModalLayout from "@components/modals/ModalLayout";
+import informationIcon from "@assets/images/information.png";
 import { useNavigate } from "react-router-dom";
-import ModalLayout from "./ModalLayout";
-import ChangeNameModal from "./ChangeNameModal";
-import DefaultModal from "./DefaultModal";
 import { useLogout } from "@api/users/useLogout";
 import { useDeleteAccount } from "@api/users/useDeleteAccount";
+import { useConfirmProfile } from "@api/users/useConfirmProfile";
+import DefaultModal from "@components/modals/DefaultModal";
+import { ProfileModalType } from "src/types/modalType";
+import toast from "react-hot-toast";
+import InformationModal from "@components/modals/InformationModal";
 
-interface ProfileModalProps {
-  nickName: string;
-}
+const ChangeNameModal = React.lazy(() => import("@components/modals/ChangeNameModal"));
 
-const profileItems = ["닉네임 수정하기", "좋아요한 일기들", "로그아웃", "회원탈퇴", "다크 모드"];
+const profileItems: ProfileItemsType[] = [
+  { label: "닉네임 수정하기", modal: "changeName" },
+  { label: "좋아요한 일기들", action: "navigate", path: "/liked" },
+  { label: "로그아웃", modal: "logout" },
+  { label: "회원탈퇴", modal: "deleteAccount" },
+  { label: "도움말", modal: "information" },
+];
 
-const ProfileModal: React.FC<ProfileModalProps> = ({ nickName }) => {
-  const [isChangeNameModalOpen, setIsChangeNameModalOpen] = useState<boolean>(false);
-  const [isLogoutModalOpen, setIsLogoutModalOpen] = useState<boolean>(false);
-  const [isDeleteAccountModalOpen, setIsDeleteAccountModalOpen] = useState<boolean>(false);
+type ProfileItemsType = {
+  label: string;
+  modal?: ProfileModalType;
+  path?: string;
+  action?: string;
+};
+
+const ProfileModal = () => {
+  const [activeModal, setActiveModal] = useState<ProfileModalType>(null);
   const navigate = useNavigate();
-  const { isDarkMode, toggleDarkMode } = useDarkMode();
-  const logoutMutation = useLogout(setIsLogoutModalOpen);
-  const deleteAccount = useDeleteAccount(setIsDeleteAccountModalOpen);
+  const logoutMutation = useLogout(setActiveModal);
+  const deleteAccount = useDeleteAccount(setActiveModal);
+  const { data: userProfileData, isError, error, refetch } = useConfirmProfile();
 
-  const handleLogout = () => {
-    logoutMutation.mutate();
+  const handleModalClose = () => {
+    setActiveModal(null);
   };
 
-  const handleDeleteAccount = () => {
-    deleteAccount.mutate();
-  };
-
-  const handleClick = (item: string) => {
-    switch (item) {
-      case "닉네임 수정하기":
-        setIsChangeNameModalOpen(true);
-        break;
-      case "좋아요한 일기들":
-        navigate("/liked");
-        break;
-      case "로그아웃":
-        setIsLogoutModalOpen(true);
-        break;
-      case "회원탈퇴":
-        setIsDeleteAccountModalOpen(true);
-        break;
-      case "다크 모드":
-        break;
-      default:
-        break;
+  const handleClick = (item: ProfileItemsType) => {
+    if (item.action === "navigate" && item.path) {
+      navigate(item.path);
+    } else if (item.modal) {
+      if (item.modal === "changeName" && isError) {
+        toast.error(error.message);
+      } else {
+        if (item.modal === "changeName") refetch();
+        setActiveModal(item.modal);
+      }
     }
   };
 
   return (
-    <div className="flex flex-col w-[400px] h-[340px] body-font text-center leading-[38.08px] p-[20px] gap-[27px] border border-ButtonDisabledStroke shadow-custom z-10 bg-white">
+    <div className="profile-modal-layout">
       {profileItems.map((item) => (
         <div
-          key={item}
+          key={item.label}
           onClick={() => handleClick(item)}
           className="flex justify-between items-center cursor-pointer"
         >
-          <span>{item}</span>
-          {item === "다크 모드" && (
-            <div
-              onClick={toggleDarkMode}
-              className={`relative w-[85.91px] h-[38px] rounded-[35px] cursor-pointer  transition-colors ${
-                isDarkMode ? "bg-Lime" : "bg-gray-300"
-              }`}
-            >
-              <div
-                className={`absolute w-[30px] h-[30px] bg-white rounded-full translate-y-1 transition-transform ${
-                  isDarkMode ? "translate-x-[50px]" : "translate-x-[5px]"
-                }`}
-              />
-            </div>
-          )}
+          <span>
+            {item.label === "도움말" ? (
+              <div className="flex items-center gap-[3px]">
+                {item.label}
+                <img src={informationIcon} className="w-[25px] h-[25px]" alt="도움말 아이콘" />
+              </div>
+            ) : (
+              item.label
+            )}
+          </span>
         </div>
       ))}
-      {isChangeNameModalOpen && (
-        <ModalLayout setIsModalOpen={setIsChangeNameModalOpen}>
-          <ChangeNameModal currentName={nickName} setIsModalOpen={setIsChangeNameModalOpen} />
+      {activeModal === "changeName" && userProfileData && (
+        <ModalLayout modalClose={handleModalClose}>
+          <Suspense fallback={<LoadingSpinner />}>
+            <ChangeNameModal
+              currentName={userProfileData.data.nickname}
+              changeModalClose={handleModalClose}
+            />
+          </Suspense>
         </ModalLayout>
       )}
-      {isLogoutModalOpen && (
-        <ModalLayout setIsModalOpen={setIsLogoutModalOpen}>
+      {activeModal === "logout" && (
+        <ModalLayout modalClose={handleModalClose}>
           <DefaultModal
             title="로그아웃을 하시겠습니까?"
             leftText="네"
             rightText="아니요"
-            leftClick={handleLogout}
-            rightClick={() => setIsLogoutModalOpen(false)}
+            leftClick={logoutMutation.mutate}
+            rightClick={handleModalClose}
           />
         </ModalLayout>
       )}
-      {isDeleteAccountModalOpen && (
-        <ModalLayout setIsModalOpen={setIsDeleteAccountModalOpen}>
+      {activeModal === "deleteAccount" && (
+        <ModalLayout modalClose={handleModalClose}>
           <DefaultModal
             title="회원탈퇴를 하시겠습니까?"
             leftText="네"
             rightText="아니요"
-            leftClick={handleDeleteAccount}
-            rightClick={() => setIsDeleteAccountModalOpen(false)}
+            leftClick={deleteAccount.mutate}
+            rightClick={handleModalClose}
           />
+        </ModalLayout>
+      )}
+      {activeModal === "information" && (
+        <ModalLayout modalClose={handleModalClose}>
+          <InformationModal InformationModalClose={handleModalClose} />
         </ModalLayout>
       )}
     </div>

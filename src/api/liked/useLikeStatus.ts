@@ -5,10 +5,7 @@ import { DiaryListType } from "src/types/diaryTypes";
 import { useDateControl } from "@hooks/useDateControl";
 import { useToggleStore } from "@store/useToggleStore";
 import { format } from "date-fns";
-
-type LikeStatusPayload = {
-  bookmark: boolean;
-};
+import toast from "react-hot-toast";
 
 type LikeStatusResponse = {
   status: number;
@@ -17,14 +14,10 @@ type LikeStatusResponse = {
 };
 
 // 좋아요 등록, 취소 API 호출부
-const updateLikeStatus = async (
-  id: number,
-  newStatus: LikeStatusPayload,
-): Promise<LikeStatusResponse> => {
+const updateLikeStatus = async (id: number): Promise<LikeStatusResponse> => {
   try {
     const { data }: { data: LikeStatusResponse } = await api.put({
       endpoint: `${apiRoutes.likeDiary}/${id}`,
-      body: newStatus,
     });
     return data;
   } catch (error) {
@@ -33,20 +26,23 @@ const updateLikeStatus = async (
   }
 };
 
-export const useLikeStatus = (id: number) => {
+export const useLikeStatus = (id: number, isListPage?: boolean) => {
   const queryClient = useQueryClient();
   const { currentDate } = useDateControl();
   const { isTotalView } = useToggleStore();
-  const queryKey = ["likedDiaries", isTotalView, format(currentDate, "yyyyMM")];
+  const queryKey = isTotalView
+    ? ["likedDiaries", isTotalView]
+    : ["likedDiaries", isTotalView, format(currentDate, "yyyyMM")];
 
   return useMutation<
     LikeStatusResponse,
     Error,
-    LikeStatusPayload,
+    void,
     { previousData: DiaryListType[] | undefined }
   >({
-    mutationFn: (newStatus: LikeStatusPayload) => updateLikeStatus(id, newStatus),
+    mutationFn: () => updateLikeStatus(id),
     onMutate: async () => {
+      if (!isListPage) return;
       // 쿼리를 취소 : 비동기 요청 중에 사용자가 다른 액션을 취하더라도 UI가 혼란스러워지지 않도록 하기위해
       await queryClient.cancelQueries({ queryKey });
 
@@ -67,9 +63,15 @@ export const useLikeStatus = (id: number) => {
       if (context?.previousData) {
         queryClient.setQueryData(queryKey, context.previousData);
       }
+      toast.error("좋아요 요청에 실패했어요.");
     },
-    onSettled: () => {
-      queryClient.invalidateQueries({ queryKey });
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        predicate: (query) => query.queryKey[0] === "likedDiaries",
+      });
+      queryClient.invalidateQueries({
+        queryKey: [`diary${id}`],
+      });
     },
   });
 };

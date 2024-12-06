@@ -1,25 +1,29 @@
 import LikeIcon from "@components/iconComponents/LikeIcon";
 import DefaultDiaryLogo from "@components/default/DefaultDiaryLogo";
 import { format } from "date-fns";
-import { DiaryListType } from "src/types/diaryTypes";
-import { useLikeStatus } from "@api/liked/useLikeStatus";
-import { Link } from "react-router-dom";
+import { BaseDiaryType } from "src/types/diaryTypes";
+import { useLocation, useNavigate } from "react-router-dom";
 
-const DiaryItem = ({ id, image, title, date, bookmark }: DiaryListType) => {
-  const { data: likeStatus = { bookmark }, mutate: toggleLike } = useLikeStatus(id);
-
+const DiaryItem = ({ id, image, title, date, bookmark }: BaseDiaryType) => {
+  const location = useLocation();
+  const isLikedPage = location.pathname === "/liked";
+  const navigate = useNavigate();
   const handleClick = () => {
-    toggleLike({ bookmark: !bookmark });
+    navigate(`/diary/${id}`);
   };
 
   return (
-    <Link
-      to={`/diary/${id}`}
-      className="min-w-[1012.53px] h-[275px] bg-white flex items-center justify-between border-b-[3px] border-buttonDisabled"
+    <button
+      onClick={handleClick}
+      className="w-11/12 h-[220px] bg-white flex items-center justify-between border-b-[3px] border-buttonDisabled"
     >
-      <div className="flex items-center gap-[46px]">
+      <div className="flex items-center gap-[30px]">
         {image ? (
-          <img src={image} className="w-[256px] h-[230px] rounded-[10px]" alt="그림일기 이미지" />
+          <img
+            src={image}
+            className="w-[180px] aspect-square rounded-[10px]"
+            alt="그림일기 이미지"
+          />
         ) : (
           <DefaultDiaryLogo />
         )}
@@ -28,8 +32,8 @@ const DiaryItem = ({ id, image, title, date, bookmark }: DiaryListType) => {
           <div className="smallCaption-font">{format(date, "yyyy년 M월 d일")}</div>
         </div>
       </div>
-      <LikeIcon status={likeStatus.bookmark} onClick={handleClick} />
-    </Link>
+      <LikeIcon bookmark={bookmark} id={id} isLikedPage={isLikedPage} />
+    </button>
   );
 };
 

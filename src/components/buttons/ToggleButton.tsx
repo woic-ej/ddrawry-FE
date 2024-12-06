@@ -13,8 +13,10 @@ const ToggleButton: React.FC<ToggleButtonProps> = ({ leftTitle, rightTitle }) =>
 
   useEffect(() => {
     if (leftTitle === "캘린더형") {
+      setActiveButtonTitle(isCalenderView ? "캘린더형" : "목록형");
       setIsLeftActive(isCalenderView);
     } else {
+      setActiveButtonTitle(isTotalView ? "전체보기" : "날짜별");
       setIsLeftActive(isTotalView);
     }
   }, [leftTitle, isTotalView, isCalenderView]);
@@ -22,34 +24,34 @@ const ToggleButton: React.FC<ToggleButtonProps> = ({ leftTitle, rightTitle }) =>
   const handleToggle = () => {
     if (activeButtonTitle === leftTitle) {
       if (leftTitle === "캘린더형") {
-        setActiveButtonTitle("목록형");
         setIsCalenderView(false);
+        setActiveButtonTitle("목록형");
       } else {
-        setActiveButtonTitle("날짜별");
         setIsTotalView(false);
+        setActiveButtonTitle("날짜별");
       }
       setIsLeftActive(false);
     } else {
       if (rightTitle === "날짜별") {
-        setActiveButtonTitle("전체보기");
         setIsTotalView(true);
+        setActiveButtonTitle("전체보기");
       } else {
-        setActiveButtonTitle("캘린더형");
         setIsCalenderView(true);
+        setActiveButtonTitle("캘린더형");
       }
       setIsLeftActive(true);
     }
   };
 
   return (
-    <div className="flex rounded-[10px] border border-ButtonDisabledStroke w-[270px] h-[60px] text-regular leading-[38.08px]">
+    <div className="flex rounded-[10px] border border-ButtonDisabledStroke w-[190px] h-[45px] text-regular leading-[38.08px]">
       <button
         onClick={() => {
           if (!isLeftActive) {
             handleToggle();
           }
         }}
-        className={`w-[134px] h-[58px] rounded-[10px] ${
+        className={`w-1/2 h-full rounded-[10px] ${
           isLeftActive ? "bg-PrimaryStroke text-white" : "bg-white text-Charcoal"
         }`}
       >
@@ -61,7 +63,7 @@ const ToggleButton: React.FC<ToggleButtonProps> = ({ leftTitle, rightTitle }) =>
             handleToggle();
           }
         }}
-        className={`w-[136px] h-[58px] rounded-[10px] ${
+        className={`w-1/2 h-full rounded-[10px] ${
           isLeftActive ? "bg-white text-Charcoal" : "bg-PrimaryStroke text-white"
         }`}
       >

@@ -1,18 +1,12 @@
 import KakaoButton from "@components/buttons/KakaoButton";
 import DefaultDiaryLogo from "@components/default/DefaultDiaryLogo";
 import DefaultHeader from "@components/header/DefaultHeader";
+import { kakaoURL } from "@constants/login";
 import React from "react";
-import { apiRoutes } from "@api/apiRoutes";
-import { DOMAIN } from "@constants/domain";
 
 const LoginPage: React.FC = () => {
   const handleLogin = () => {
-    const domain = window.location.hostname;
-    if (domain === "localhost") {
-      window.location.href = `${DOMAIN}/api/v1${apiRoutes.login}?dev=1`;
-    } else if (domain === "www.ddrawry.site") {
-      window.location.href = `${DOMAIN}/api/v1${apiRoutes.login}?dev=0`;
-    }
+    window.location.href = kakaoURL;
   };
 
   return (

@@ -1,17 +1,17 @@
 import { useChangeNickname } from "@api/users/useChangeNickname";
 import ModalButton from "@components/buttons/ModalButton";
-import React, { Dispatch, SetStateAction, useState } from "react";
+import React, { useState } from "react";
 
 interface ChangeNameModalProps {
   currentName: string;
-  setIsModalOpen: Dispatch<SetStateAction<boolean>>;
+  changeModalClose: () => void;
 }
 
-const ChangeNameModal: React.FC<ChangeNameModalProps> = ({ currentName, setIsModalOpen }) => {
+const ChangeNameModal: React.FC<ChangeNameModalProps> = ({ currentName, changeModalClose }) => {
   const [isNameValid, setIsNameValid] = useState<boolean>(false);
   const [newName, setNewName] = useState<string>("");
   const [errorMessage, setErrorMessage] = useState<string>("");
-  const changeName = useChangeNickname(newName, setIsModalOpen);
+  const changeName = useChangeNickname(newName, changeModalClose);
 
   const handleChangeNickname = (event: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = event.target.value;
@@ -27,7 +27,7 @@ const ChangeNameModal: React.FC<ChangeNameModalProps> = ({ currentName, setIsMod
 
   const handleChangeNameClick = () => {
     if (newName === "") {
-      setIsModalOpen(false);
+      changeModalClose();
       return;
     }
     if (!isNameValid) {
@@ -39,7 +39,7 @@ const ChangeNameModal: React.FC<ChangeNameModalProps> = ({ currentName, setIsMod
 
   return (
     <div
-      className="flex flex-col relative bg-white w-[683px] h-[453px] rounded-[30px] gap-[78px] p-[30px] border body-font leading-[38.08px] text-center"
+      className="flex flex-col relative bg-white w-[450px] h-[300px] rounded-[30px] gap-[30px] p-[30px] border body-font leading-[38.08px] text-center"
       onClick={(e) => e.stopPropagation()}
     >
       <div>닉네임 수정하기</div>
@@ -49,7 +49,7 @@ const ChangeNameModal: React.FC<ChangeNameModalProps> = ({ currentName, setIsMod
           <span>바꿀 닉네임 : </span>
           <input
             type="text"
-            className={`w-[190px] h-[56px] border ${errorMessage === "" ? "border-ButtonDisabledStroke} " : "border-[#F46666]"} rounded-[10px] p-[10px]`}
+            className={`w-[150px] h-[40px] border ${errorMessage === "" ? "border-ButtonDisabledStroke} " : "border-[#F46666]"} rounded-[10px] p-[10px]`}
             onChange={handleChangeNickname}
             value={newName}
           />

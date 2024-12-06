@@ -1,22 +1,16 @@
-import React from 'react'
-import CircleXIconImage from "@assets/svgs/CircleXIcon.svg"
+import React from "react";
+import CircleXIconImage from "@assets/svgs/CircleXIcon.svg";
 
-interface CircleXIconProps{
-    onClick: () => void;
+interface CircleXIconProps {
+  onClick: () => void;
 }
 
 const CircleXIcon: React.FC<CircleXIconProps> = ({ onClick }) => {
-    return (
-      <button onClick={onClick}>
-        <img
-          src={CircleXIconImage}
-          alt="CircleXIcon"
-          width={42}
-          height={42}
-          className="absolute cursor-pointer right-[68px] top-[10px] z-10 "
-        />
-      </button>
-    );
+  return (
+    <button onClick={onClick} className="absolute cursor-pointer right-[-15px] top-[-15px] z-10 ">
+      <img src={CircleXIconImage} alt="CircleXIcon" />
+    </button>
+  );
 };
 
-export default CircleXIcon
+export default CircleXIcon;

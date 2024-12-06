@@ -2,17 +2,9 @@ import { apiRoutes } from "@api/apiRoutes";
 import api from "@api/fetcher";
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
-import { DiaryFormData } from "src/types/WriteDiaryTypes";
+import { WriteDiaryPayLoad, WriteDiaryResponse } from "src/types/diaryTypes";
 
-type WriteDiaryPayLoad = {
-  date: string;
-  nickname: string;
-} & DiaryFormData;
-
-type WriteDiaryResponse = {
-  id: number;
-};
-
+// 일기 작성
 const postDiary = async (diaryData: WriteDiaryPayLoad) => {
   try {
     const { data }: { data: WriteDiaryResponse } = await api.post({
@@ -28,13 +20,16 @@ const postDiary = async (diaryData: WriteDiaryPayLoad) => {
 
 export const useWriteDiary = () => {
   const navigate = useNavigate();
+
   return useMutation({
     mutationFn: (diaryData: WriteDiaryPayLoad) => postDiary(diaryData),
     onSuccess: (data) => {
-      navigate(`/diary/${data.id}`);
-    },
-    onError: (error) => {
-      console.log(error); // 에러메세지와 함께 에러페이지로 이동
+      localStorage.removeItem(`temp-diary/${data.temp_id}`);
+      navigate(-1);
+
+      setTimeout(() => {
+        navigate(`/diary/${data.id}`, { replace: true });
+      }, 10);
     },
   });
 };

@@ -5,12 +5,8 @@ import ChangeNameModal from "./ChangeNameModal";
 import ProfileModal from "./ProfileModal";
 import { DarkModeProvider } from "@store/DarkModeContext";
 import { BrowserRouter as Router } from "react-router-dom";
-import ImageEditModal from "./ImageEditModal";
-import LogoImage from "@assets/images/diaryItem-logo.png";
 
 function Modal() {
-  const images: string[] = [LogoImage, LogoImage, LogoImage];
-  const emptyImages: string[] = [];
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   console.log(isModalOpen);
   return (
@@ -108,17 +104,11 @@ function Modal() {
       </div>
       <div className="flex flex-col gap-8">
         <h1 className="text-16 bg-white w-fit p-4">ChangeNameModal</h1>
-        <ChangeNameModal currentName="재로" setIsModalOpen={setIsModalOpen} />
+        <ChangeNameModal currentName="재로" changeModalClose={() => setIsModalOpen(false)} />
       </div>
       <div className="flex flex-col gap-8">
         <h1 className="text-16 bg-white w-fit p-4">ProfileModal</h1>
-        <ProfileModal nickName="재로" />
-      </div>
-
-      <div className="flex flex-col gap-8">
-        <h1 className="text-16 bg-white w-fit p-4">ImageEditModal</h1>
-        <ImageEditModal images={images} setIsImageEditModalOpen={setIsModalOpen} />
-        <ImageEditModal images={emptyImages} setIsImageEditModalOpen={setIsModalOpen} />
+        <ProfileModal />
       </div>
     </div>
   );
