@@ -8,6 +8,8 @@ export default defineConfig(({ mode }) => {
   // 환경 변수 로드
   const env = loadEnv(mode, process.cwd(), "");
 
+  const isLocal = mode === "development";
+
   return {
     plugins: [react()],
     build: {
@@ -45,10 +47,12 @@ export default defineConfig(({ mode }) => {
           changeOrigin: true,
         },
       },
-      https: {
-        key: fs.readFileSync(path.resolve(__dirname, "localhost-key.pem")),
-        cert: fs.readFileSync(path.resolve(__dirname, "localhost.pem")),
-      },
+      ...(isLocal && {
+        https: {
+          key: fs.readFileSync(path.resolve(__dirname, "localhost-key.pem")),
+          cert: fs.readFileSync(path.resolve(__dirname, "localhost.pem")),
+        },
+      }),
     },
   };
 });
