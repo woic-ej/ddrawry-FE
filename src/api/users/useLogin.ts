@@ -7,10 +7,12 @@ type FetchLoginResponse = {
   refresh_token?: string;
 };
 
+const IS_PRODUCT = import.meta.env.NODE_ENV === "production";
+
 const fetchLogin = async (code: string) => {
   try {
     const { data }: { data: FetchLoginResponse } = await api.get({
-      endpoint: `${apiRoutes.login}?dev=1&code=${code}`,
+      endpoint: `${apiRoutes.login}?${!IS_PRODUCT && "dev=1&"}code=${code}`,
     });
     return data;
   } catch (error) {
