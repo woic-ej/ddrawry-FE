@@ -23,7 +23,7 @@ interface IDeleteOptions {
 }
 
 const API_BASE_URL =
-  window.location.hostname === "localhost" ? "/api/v1" : import.meta.env.VITE_API_URL;
+  window.location.hostname === "localhost" ? "/api/v1" : `${import.meta.env.VITE_API_URL}/api/v1`;
 
 const _fetch = async <T = unknown, R = unknown>({
   method,
@@ -61,7 +61,7 @@ const _fetch = async <T = unknown, R = unknown>({
         localStorage.removeItem("access_token");
         const newAccessToken = await refreshAccessToken();
 
-        if (!detail.includes("kakao"))
+        if (!detail.includes("Kakao"))
           if (newAccessToken) {
             headers.Authorization = `Bearer ${newAccessToken}`;
             res = await fetch(`${API_BASE_URL}${endpoint}`, { ...requestOptions, headers });
