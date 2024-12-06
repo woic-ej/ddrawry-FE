@@ -23,7 +23,7 @@ interface IDeleteOptions {
 }
 
 const API_BASE_URL =
-  import.meta.env.NODE_ENV === "production" ? import.meta.env.VITE_API_URL : "/api/v1";
+  window.location.hostname === "localhost" ? "/api/v1" : import.meta.env.VITE_API_URL;
 
 const _fetch = async <T = unknown, R = unknown>({
   method,
