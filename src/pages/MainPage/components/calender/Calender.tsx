@@ -24,18 +24,17 @@ const renderCalenderItem = (day: Date, currentDate: Date, events: BaseDiaryType[
   const isFutureDate = isAfter(day, new Date()); // 오늘 이후 날짜인지 확인
   const calendarEvent = findEventForDate(day, events);
   return (
-    <div key={format(day, "MMdd")}>
-      <CalenderItem
-        currentDate={day}
-        day={format(day, "d")}
-        isValidate={isCurrentMonth}
-        isFutureDate={isFutureDate}
-        hasContent={!!calendarEvent}
-        imageUrl={calendarEvent?.image}
-        bookmark={calendarEvent?.bookmark}
-        id={calendarEvent?.id}
-      />
-    </div>
+    <CalenderItem
+      currentDate={day}
+      day={format(day, "d")}
+      isValidate={isCurrentMonth}
+      isFutureDate={isFutureDate}
+      hasContent={!!calendarEvent}
+      imageUrl={calendarEvent?.image}
+      bookmark={calendarEvent?.bookmark}
+      id={calendarEvent?.id}
+      key={format(day, "MMdd")}
+    />
   );
 };
 
@@ -54,7 +53,7 @@ const Calender: React.FC<Props> = ({ currentMonthData, currentDate, calenderData
           </div>
         ))}
       </div>
-      <div className="grid grid-cols-7 w-full gap-x-[12px] gap-y-[11px]">
+      <div className="grid grid-cols-7 w-full gap-x-[11px] gap-y-[11px] p-[11px]">
         {currentMonthData.map((day) => renderCalenderItem(day, currentDate, calenderData))}
       </div>
     </div>
