@@ -19,10 +19,9 @@ const TempSaveModal = ({ date, tempId }: Props) => {
   useEffect(() => {
     const isInitialLoad = sessionStorage.getItem("initialLoad") === null;
 
-    const handlePopState = (event: PopStateEvent) => {
+    const handlePopState = () => {
       if (isBlocking) {
-        event.preventDefault(); // 기본 뒤로 가기 동작 방지
-        setShowModal(true); // 모달을 띄움
+        setShowModal(true);
       }
     };
 
@@ -37,7 +36,7 @@ const TempSaveModal = ({ date, tempId }: Props) => {
     return () => {
       window.removeEventListener("popstate", handlePopState); // 이벤트 해제
     };
-  }, [isBlocking]);
+  }, [isBlocking, cancelTemp]);
 
   const handleSave = () => {
     const tempData: TempDiaryType = JSON.parse(localStorage.getItem(`temp-diary/${tempId}`)!);

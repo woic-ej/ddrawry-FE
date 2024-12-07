@@ -15,24 +15,19 @@ interface Props {
   nickname: string;
   tempId: string;
   isValid: boolean;
+  isDirty: boolean;
 }
 
 type WriteDiaryModalType = "save" | "remove" | "imageHistory" | null;
 
-const WriteDiaryButtonSection = ({ date, nickname, tempId, isValid }: Props) => {
+const WriteDiaryButtonSection = ({ date, nickname, tempId, isValid, isDirty }: Props) => {
   const [isUpdate, setIsUpdate] = useState<boolean>(false);
   const [activeModal, setActiveModal] = useState<WriteDiaryModalType>(null);
   const [searchParams] = useSearchParams();
   const [isEditPage, diaryId] = [Boolean(searchParams.get("edit")), searchParams.get("diaryId")];
   const { mutate: writeMutate } = useWriteDiary();
   const { mutate: updateMutate } = useUpdateDiary();
-  const {
-    handleSubmit,
-    watch,
-    unregister,
-    setValue,
-    formState: { isDirty },
-  } = useFormContext<DiaryFormData>();
+  const { handleSubmit, watch, unregister, setValue } = useFormContext<DiaryFormData>();
   const navigate = useNavigate();
 
   const currentImage = watch("image");

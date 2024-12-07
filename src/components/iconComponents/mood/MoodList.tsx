@@ -5,9 +5,11 @@ import MediocreIcon from "@components/iconComponents/mood/moodItem/MediocreIcon"
 import AngryIcon from "@components/iconComponents/mood/moodItem/AngryIcon";
 import ExcitedIcon from "@components/iconComponents/mood/moodItem/ExcitedIcon";
 import HappyIcon from "@components/iconComponents/mood/moodItem/HappyIcon";
+import { UseFormSetValue } from "react-hook-form";
+import { DiaryFormData } from "src/types/WriteDiaryTypes";
 
 interface MoodListProps {
-  setValue: (field: "mood", value: string) => void;
+  setValue: UseFormSetValue<DiaryFormData>;
   trigger: (field: "mood") => void;
   currentMood: string;
   disabled?: boolean;
@@ -15,7 +17,7 @@ interface MoodListProps {
 
 const MoodList: React.FC<MoodListProps> = ({ disabled, setValue, trigger, currentMood }) => {
   const handleMoodClick = (mood: string) => {
-    setValue("mood", mood);
+    setValue("mood", mood, { shouldDirty: true });
     trigger("mood");
   };
 

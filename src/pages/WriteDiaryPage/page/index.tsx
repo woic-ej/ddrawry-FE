@@ -24,7 +24,7 @@ const WriteDiaryPage = () => {
   const {
     reset,
     trigger,
-    formState: { isValid },
+    formState: { isValid, isDirty },
   } = methods;
 
   // 임시데이터를 조회해서 그 값으로 폼 데이터 reset
@@ -74,6 +74,7 @@ const WriteDiaryPage = () => {
               nickname={tempData.nickname}
               tempId={tempId!}
               isValid={isValid}
+              isDirty={isDirty}
             />
           </FormProvider>
           <TempSaveModal date={tempData.date} tempId={tempId!} />
