@@ -6,7 +6,7 @@ import SmallButton from "@components/buttons/SmallButton";
 import ImageEditModal from "@components/modals/ImageEditModal";
 import { useFormContext } from "react-hook-form";
 import { DiaryFormData } from "src/types/WriteDiaryTypes";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { useUpdateDiary } from "@api/diary/useUpdateDiary";
 import { useWriteDiary } from "@api/diary/useWriteDiary";
 
@@ -14,26 +14,26 @@ interface Props {
   date: string;
   nickname: string;
   tempId: string;
+  isValid: boolean;
 }
 
 type WriteDiaryModalType = "save" | "remove" | "imageHistory" | null;
 
-const WriteDiaryButtonSection = ({ date, nickname, tempId }: Props) => {
+const WriteDiaryButtonSection = ({ date, nickname, tempId, isValid }: Props) => {
+  const [isUpdate, setIsUpdate] = useState<boolean>(false);
   const [activeModal, setActiveModal] = useState<WriteDiaryModalType>(null);
   const [searchParams] = useSearchParams();
   const [isEditPage, diaryId] = [Boolean(searchParams.get("edit")), searchParams.get("diaryId")];
   const { mutate: writeMutate } = useWriteDiary();
   const { mutate: updateMutate } = useUpdateDiary();
-
   const {
     handleSubmit,
     watch,
     unregister,
     setValue,
-    formState: { isValid },
+    formState: { isDirty },
   } = useFormContext<DiaryFormData>();
-
-  console.log(isValid);
+  const navigate = useNavigate();
 
   const currentImage = watch("image");
 
@@ -43,13 +43,19 @@ const WriteDiaryButtonSection = ({ date, nickname, tempId }: Props) => {
 
   const handleImageDeleteClick = () => {
     unregister("image");
+    setIsUpdate(true);
     setActiveModal(null);
   };
 
   const handleSaveClick = (data: DiaryFormData) => {
     const diaryData = { ...data, nickname, date };
     if (isEditPage) {
-      if (diaryId) updateMutate({ diaryId, diaryData });
+      if (isDirty || isUpdate) {
+        if (diaryId) updateMutate({ diaryId, diaryData });
+      } else {
+        navigate(-2);
+        localStorage.removeItem(`temp-diary/${tempId}`);
+      }
     } else {
       writeMutate(diaryData);
     }
@@ -86,13 +92,15 @@ const WriteDiaryButtonSection = ({ date, nickname, tempId }: Props) => {
             tempId={tempId}
             imageEditModalClose={handleModalClose}
             setValue={setValue}
+            setIsUpdate={setIsUpdate}
           />
         </ModalLayout>
       )}
       {activeModal === "remove" && (
         <ModalLayout modalClose={handleModalClose}>
           <DefaultModal
-            title="이 그림을 삭제할까요?"
+            title="이 그림을 현재 일기장에서 지울까요?
+            ( 그림이 앨범에서 삭제되지는 않아요! )"
             leftText="넹"
             rightText="아니용"
             leftClick={handleImageDeleteClick}
