@@ -11,16 +11,16 @@ import LoadingAnimation from "@components/loading/LoadingAnimation";
 
 interface Props {
   date: string;
-  isValidate: boolean;
   story: string;
   setValue: (field: "image", value: string) => void;
 }
 
-const ImageCreationPanel: React.FC<Props> = ({ date, isValidate, story, setValue }) => {
+const ImageCreationPanel: React.FC<Props> = ({ date, story, setValue }) => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const { tempId } = useParams<{ tempId: string }>();
   const { mutate: createImage, isPending, isError } = useCreateImage(setValue, tempId!);
   const { data: countValue } = useGetCount(date);
+  const isValidate = Boolean(story && story.length >= 100);
 
   const handleDrawClick = () => {
     if (isValidate) setIsModalOpen(true);
