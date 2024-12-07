@@ -33,6 +33,8 @@ const WriteDiaryButtonSection = ({ date, nickname, tempId }: Props) => {
     formState: { isValid },
   } = useFormContext<DiaryFormData>();
 
+  console.log(isValid);
+
   const currentImage = watch("image");
 
   const handleImageHistory = () => {
