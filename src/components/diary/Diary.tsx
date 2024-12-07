@@ -15,20 +15,14 @@ interface Props {
   nickname: string;
 }
 
-const LIMIT_LENGTH = 150;
+const LIMIT_LENGTH = 100;
 const MAX_LENGTH = 240;
 
 const Diary: React.FC<Props> = ({ date, nickname }) => {
   const formattedDate = date ? format(parseISO(date), "yyyy년 MM월 dd일") : "";
   const location = useLocation();
   const isDiaryPage = location.pathname.includes("diary") || location.pathname.includes("share");
-  const {
-    register,
-    setValue,
-    trigger,
-    watch,
-    formState: { errors },
-  } = useFormContext<DiaryFormData>();
+  const { register, setValue, trigger, watch } = useFormContext<DiaryFormData>();
 
   const currentMood = watch("mood");
   const currentWeather = watch("weather");
@@ -84,12 +78,7 @@ const Diary: React.FC<Props> = ({ date, nickname }) => {
               <DefaultDiaryLogo />
             </div>
           ) : (
-            <ImageCreationPanel
-              date={date}
-              isValidate={!errors.story && !!currentStory}
-              story={currentStory}
-              setValue={setValue}
-            />
+            <ImageCreationPanel date={date} story={currentStory} setValue={setValue} />
           )}
         </div>
         {isDiaryPage ? (
