@@ -29,6 +29,9 @@ const useKakaoShare = () => {
     }
     try {
       const shareUrl = `${window.location.origin}/share/?id=${diaryId}&token=${token}`;
+      const imageUrl =
+        "https://ddrawry-bucket-test-1.s3.ap-northeast-2.amazonaws.com/logo/ddrawry.png";
+
       if (!shareUrl) {
         toast.error("링크 생성에 실패하였습니다.");
       }
@@ -37,8 +40,7 @@ const useKakaoShare = () => {
         content: {
           title: "내 그림일기를 공유해요",
           description: "DDrawry(띠로리) - 그림 생성 AI를 활용한 그림 일기 작성 서비스",
-          imageUrl:
-            "/Users/jeongjaeho/Documents/GitHub/ddrawry-FE/src/assets/images/diaryItem-logo.png",
+          imageUrl: imageUrl,
           link: {
             mobileWebUrl: shareUrl,
             webUrl: shareUrl,
