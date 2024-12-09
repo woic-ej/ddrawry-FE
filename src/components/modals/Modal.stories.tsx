@@ -3,7 +3,6 @@ import DefaultModal from "./DefaultModal";
 import { useState } from "react";
 import ChangeNameModal from "./ChangeNameModal";
 import ProfileModal from "./ProfileModal";
-import { DarkModeProvider } from "@store/DarkModeContext";
 import { BrowserRouter as Router } from "react-router-dom";
 
 function Modal() {
@@ -119,11 +118,9 @@ const meta: Meta<typeof Modal> = {
   component: Modal,
   decorators: [
     (Story) => (
-      <DarkModeProvider>
-        <Router>
-          <Story />
-        </Router>
-      </DarkModeProvider>
+      <Router>
+        <Story />
+      </Router>
     ),
   ],
 };
