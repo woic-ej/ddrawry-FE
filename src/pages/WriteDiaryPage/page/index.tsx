@@ -21,6 +21,12 @@ const WriteDiaryPage = () => {
     mode: "onChange",
   });
 
+  const {
+    reset,
+    trigger,
+    formState: { isValid, isDirty },
+  } = methods;
+
   // 임시데이터를 조회해서 그 값으로 폼 데이터 reset
   useEffect(() => {
     (async () => {
@@ -33,15 +39,15 @@ const WriteDiaryPage = () => {
           data = JSON.parse(storageTemp);
         }
         setTempData(data);
-        methods.reset(data);
-        methods.trigger();
+        reset(data);
+        await trigger();
       } catch (error) {
         setError(error as Error);
       } finally {
         setIsLoading(false);
       }
     })();
-  }, [methods, tempId, setTempData]);
+  }, [reset, trigger, tempId, setTempData]);
 
   // 폼 데이터가 변경 될 때 마다 로컬 스토리지에 저장
   useEffect(() => {
@@ -67,6 +73,8 @@ const WriteDiaryPage = () => {
               date={tempData.date}
               nickname={tempData.nickname}
               tempId={tempId!}
+              isValid={isValid}
+              isDirty={isDirty}
             />
           </FormProvider>
           <TempSaveModal date={tempData.date} tempId={tempId!} />

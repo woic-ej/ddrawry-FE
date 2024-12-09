@@ -10,6 +10,7 @@ import { EditDiaryResponse, HasTempDiaryResponse } from "src/types/tempTypes";
 import { postShareDiary } from "@api/diary/useGetShareDiary";
 import toast from "react-hot-toast";
 import { DiaryPageModalType } from "src/types/modalType";
+import useKakaoShare from "@store/useKakaoShare";
 
 interface Props {
   date: string;
@@ -22,6 +23,7 @@ const DiaryButtonSection = ({ date, diaryId }: Props) => {
   const [editDiaryData, setEditDiaryData] = useState<EditDiaryResponse | null>(null);
   const { mutate: deleteDiary } = useDeleteDiary(diaryId, setActiveModal);
   const navigate = useNavigate();
+  const { shareToKakao } = useKakaoShare();
 
   const handleDeleteClick = () => {
     deleteDiary();
@@ -40,13 +42,10 @@ const DiaryButtonSection = ({ date, diaryId }: Props) => {
   const handleLinkSharedDiary = async () => {
     try {
       const response = await postShareDiary(Number(diaryId));
-      const shareUrl = `${window.location.origin}/share/?id=${diaryId}&token=${response.token}`;
-
-      await navigator.clipboard.writeText(shareUrl);
+      shareToKakao(Number(diaryId), response.token);
       toast.success("공유 링크가 클립보드에 복사되었습니다.");
     } catch (error) {
-      toast.error("링크복사에 실패했습니다.");
-      console.error(error);
+      toast.error(`공유 토큰 생성 실패 : ${error}`);
     } finally {
       setActiveModal(null);
     }
@@ -91,7 +90,7 @@ const DiaryButtonSection = ({ date, diaryId }: Props) => {
       {ActiveModal === "share" && (
         <ModalLayout modalClose={handleModalClose}>
           <DefaultModal
-            title="짱 멋진 일기를 링크로 자랑할까요?"
+            title="짱 멋진 일기를 카카오톡으로 자랑할까요?"
             leftText="넹"
             rightText="아니용"
             leftClick={handleLinkSharedDiary}

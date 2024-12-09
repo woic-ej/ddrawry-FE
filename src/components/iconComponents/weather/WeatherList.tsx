@@ -5,9 +5,11 @@ import SnowyIcon from "@components/iconComponents/weather/weatherItem/SnowyIcon"
 import ThunderStormIcon from "@components/iconComponents/weather/weatherItem/ThunderStormIcon";
 import CloudyIcon from "@components/iconComponents/weather/weatherItem/CloudyIcon";
 import WindyIcon from "@components/iconComponents/weather/weatherItem/WindyIcon";
+import { DiaryFormData } from "src/types/WriteDiaryTypes";
+import { UseFormSetValue } from "react-hook-form";
 
 interface WeatherListProps {
-  setValue: (field: "weather", value: string) => void;
+  setValue: UseFormSetValue<DiaryFormData>;
   trigger: (field: "weather") => void;
   currentWeather: string;
   disabled?: boolean;
@@ -20,7 +22,7 @@ const WeatherList: React.FC<WeatherListProps> = ({
   currentWeather,
 }) => {
   const handleWeatherClick = (weather: string) => {
-    setValue("weather", weather);
+    setValue("weather", weather, { shouldDirty: true });
     trigger("weather");
   };
 

@@ -19,9 +19,15 @@ interface ImageEditModalProps {
   tempId: string;
   imageEditModalClose: () => void;
   setValue: (field: "image", value: string) => void;
+  setIsUpdate: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const ImageEditModal = ({ tempId, imageEditModalClose, setValue }: ImageEditModalProps) => {
+const ImageEditModal = ({
+  tempId,
+  imageEditModalClose,
+  setValue,
+  setIsUpdate,
+}: ImageEditModalProps) => {
   const [isEdit, setIsEdit] = useState<boolean>(false);
   const [isDeleteImageModal, setIsDeleteImageModal] = useState<boolean>(false);
   const [deleteImageId, setDeleteImageId] = useState<number | null>();
@@ -35,6 +41,7 @@ const ImageEditModal = ({ tempId, imageEditModalClose, setValue }: ImageEditModa
   const handleImageClick = (imageUrl: string) => {
     if (!isEdit) {
       setValue("image", imageUrl);
+      setIsUpdate(true);
       imageEditModalClose();
     }
   };

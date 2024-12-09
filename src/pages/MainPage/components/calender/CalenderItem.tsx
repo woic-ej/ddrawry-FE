@@ -64,7 +64,7 @@ const CalenderItem: React.FC<Props> = ({
   };
 
   const containerClassNames = classNames(
-    "calender-item relative flex justify-center items-center",
+    "calender-item relative flex justify-center items-center w-full",
     {
       "cursor-pointer": !isFutureDate,
       "text-ButtonDisabledStroke text-regular": !isValidate,
