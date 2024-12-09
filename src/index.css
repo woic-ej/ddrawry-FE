@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 @font-face {
-  font-family: "cookieRun";
+  font-family: "SDSamliphopangche";
   src:
     url("/fonts/SDSamliphopangcheTTFBasic.woff2") format("woff2"),
     url("/fonts/SDSamliphopangcheTTFBasic.woff") format("woff"),
@@ -14,7 +14,7 @@
 }
 
 body {
-  font-family: "cookieRun";
+  font-family: "SDSamliphopangche";
 }
 
 @layer components {
