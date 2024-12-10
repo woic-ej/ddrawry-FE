@@ -21,6 +21,8 @@ const DiaryItem = ({ id, image, title, date, bookmark }: BaseDiaryType) => {
         {image ? (
           <img
             src={image}
+            width={180}
+            height={180}
             className="w-[180px] aspect-square rounded-[10px]"
             alt="그림일기 이미지"
           />

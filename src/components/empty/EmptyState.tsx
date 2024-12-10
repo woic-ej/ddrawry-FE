@@ -1,5 +1,5 @@
 import React from "react";
-import LogoTextOnly from "@assets/images/logoTextOnly.png";
+import LogoTextOnly from "@assets/images/logoTextOnly.webp";
 
 interface EmptyStateProps {
   message: string;

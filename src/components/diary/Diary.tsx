@@ -72,7 +72,13 @@ const Diary: React.FC<Props> = ({ date, nickname }) => {
         </div>
         <div className="flex items-center justify-center w-full h-auto border-b-[3px] border-Charcoal">
           {currentImage ? (
-            <img src={currentImage} alt="그림일기 이미지" className="w-2/3 aspect-square" />
+            <img
+              src={currentImage}
+              width={530}
+              height={530}
+              alt="그림일기 이미지"
+              className="w-2/3 aspect-square"
+            />
           ) : isDiaryPage ? (
             <div className="w-2/3 aspect-square flex items-center justify-center">
               <DefaultDiaryLogo />

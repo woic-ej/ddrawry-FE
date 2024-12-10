@@ -6,7 +6,7 @@ interface SearchIconProps {
 
 const SearchIcon: React.FC<SearchIconProps> = ({ handleClick }) => {
   return (
-    <button onClick={handleClick}>
+    <button aria-label="search" onClick={handleClick}>
       <svg
         width="24"
         height="24"

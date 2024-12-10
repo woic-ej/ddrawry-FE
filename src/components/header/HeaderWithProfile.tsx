@@ -24,7 +24,7 @@ const HeaderWithProfile: React.FC<HeaderWithProfileProps> = ({ title }) => {
       >
         <p className="text-center title-font leading-[48.96px]">{title}</p>
         <div className="flex items-center absolute right-4 ">
-          <button onClick={handleProfileIconClick}>
+          <button aria-label="profile" onClick={handleProfileIconClick}>
             <ProfileIcon />
           </button>
         </div>
