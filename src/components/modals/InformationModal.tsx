@@ -1,5 +1,5 @@
 import React from "react";
-import XIcon from "@assets/images/XIcon.png";
+import XIcon from "@assets/images/XIcon.webp";
 
 interface Props {
   InformationModalClose: () => void;
