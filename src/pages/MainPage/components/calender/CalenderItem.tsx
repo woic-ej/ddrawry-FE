@@ -70,7 +70,7 @@ const CalenderItem: React.FC<Props> = ({
     "calender-item relative flex justify-center items-center w-full",
     {
       "cursor-pointer": !isFutureDate,
-      "text-ButtonDisabledStroke text-regular": !isValidate,
+      "text-ButtonDisabledStroke font-body": !isValidate,
       "bg-white body-font": isValidate,
       "bg-[#F0F0F0]": isTempModalOpen,
     },

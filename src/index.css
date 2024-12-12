@@ -19,10 +19,10 @@ body {
 
 @layer components {
   .title-font {
-    @apply text-black text-huge;
+    @apply text-black text-base md:text-regular lg:text-huge;
   }
   .body-font {
-    @apply text-Charcoal text-regular;
+    @apply text-Charcoal md:text-base lg:text-regular;
   }
   .smallCaption-font {
     @apply text-Gray text-small;
