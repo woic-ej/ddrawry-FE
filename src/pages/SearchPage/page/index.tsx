@@ -25,13 +25,13 @@ const SearchPage = () => {
   return (
     <div className="flex flex-col items-center min-h-screen w-full">
       <HeaderWithProfile title="일기 검색하기" />
-      <div className="flex flex-col w-11/12 flex-grow md:w-4/5 pt-[2.5rem]">
+      <div className="flex flex-col w-11/12 flex-grow md:w-4/5 pt-[2.3rem]">
         <SearchBar
           content={value}
           handleInputChange={handleInputChange}
           handleClick={handleSearchClick}
         />
-        {isLoading ? <LoadingSpinner /> : <SearchDiaryView value={value} data={data} />}{" "}
+        {isLoading ? <LoadingSpinner /> : <SearchDiaryView value={value} data={data} />}
       </div>
     </div>
   );

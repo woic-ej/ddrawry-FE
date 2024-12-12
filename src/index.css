@@ -22,7 +22,7 @@ body {
     @apply text-black text-base md:text-regular lg:text-huge;
   }
   .body-font {
-    @apply text-Charcoal md:text-base lg:text-regular;
+    @apply text-Charcoal text-small md:text-base lg:text-regular;
   }
   .smallCaption-font {
     @apply text-Gray text-small;
