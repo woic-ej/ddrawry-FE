@@ -18,7 +18,7 @@ const MainPage: React.FC = () => {
   return (
     <div className="flex flex-col min-h-screen w-full items-center">
       <HeaderWithProfile title="띠로리" />
-      <div className="flex flex-grow items-center justify-center flex-col py-[2.5rem] gap-[40px] w-11/12 lg:w-4/5">
+      <div className="flex flex-grow items-center justify-center flex-col py-[2.5rem] gap-[30px] md:gap-[40px] w-11/12 md:w-4/5">
         <div className="flex justify-between w-full">
           <ToggleButton leftTitle="캘린더형" rightTitle="목록형" />
           <SearchIcon handleClick={handleSearchIconClick} />

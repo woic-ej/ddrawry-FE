@@ -44,7 +44,7 @@ const ToggleButton: React.FC<ToggleButtonProps> = ({ leftTitle, rightTitle }) =>
   };
 
   return (
-    <div className="flex rounded-[10px] border border-ButtonDisabledStroke w-[120px] h-[35px] sm:w-[190px] sm:h-[45px] text-small sm:text-base lg:text-regular ">
+    <div className="flex rounded-[10px] border border-ButtonDisabledStroke w-[125px] h-[35px] md:w-[150px] md:h-[40px] lg:w-[190px] lg:h-[45px] text-small md:text-base lg:text-regular ">
       <button
         aria-label={`${leftTitle}`}
         onClick={() => {

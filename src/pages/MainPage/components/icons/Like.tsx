@@ -1,7 +1,7 @@
 const Like = () => {
   return (
     <svg
-      className="h-auto w-[20px] md:w-[40px] lg:w-[60px]"
+      className="h-auto w-[25px] md:w-[40px] lg:w-[60px]"
       viewBox="0 0 60 60"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"

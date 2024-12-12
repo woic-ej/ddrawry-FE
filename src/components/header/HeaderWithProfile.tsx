@@ -18,11 +18,11 @@ const HeaderWithProfile: React.FC<HeaderWithProfileProps> = ({ title }) => {
   return (
     <>
       <div
-        className={`z-[50] sticky top-0 flex w-full p-0 min-h-[50px] justify-center items-center ${
+        className={`z-[50] sticky top-0 flex w-full p-0 h-[35px] md:h-[50px] justify-center items-center ${
           title === "띠로리" ? "bg-Primary" : "bg-Lime"
         }`}
       >
-        <p className="text-center title-font leading-[48.96px]">{title}</p>
+        <p className="text-center title-font">{title}</p>
         <div className="flex items-center absolute right-4 ">
           <button aria-label="profile" onClick={handleProfileIconClick}>
             <ProfileIcon />
@@ -30,7 +30,7 @@ const HeaderWithProfile: React.FC<HeaderWithProfileProps> = ({ title }) => {
         </div>
       </div>
       {isProfileModalOpen && (
-        <div className="z-[10] fixed right-6 top-0 translate-y-[80px]">
+        <div className="z-[10] fixed right-4 top-0 translate-y-[50px] md:translate-y-[70px]">
           <Suspense
             fallback={
               <div className="profile-modal-layout h-[300px]">

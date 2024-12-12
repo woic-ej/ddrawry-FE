@@ -41,7 +41,7 @@ const renderCalenderItem = (day: Date, currentDate: Date, events: BaseDiaryType[
 const Calender: React.FC<Props> = ({ currentMonthData, currentDate, calenderData }) => {
   return (
     <div className="w-full h-auto border-[3px] border-ButtonDisabled rounded-[10px] flex flex-col items-center gap-[20px] md:gap-[30px] lg:gap-[50px]">
-      <div className="flex w-full justify-around mt-[20px] sm:mt-[30px] lg:mt-[48px]">
+      <div className="flex w-full justify-around mt-[20px] md:mt-[35px] lg:mt-[45px]">
         {DAY_LIST.map((day) => (
           <div
             key={`${day}key`}
