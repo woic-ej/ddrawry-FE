@@ -31,7 +31,7 @@ body {
     @apply text-Gray text-regular;
   }
   .hugeCaption-font {
-    @apply text-Gray text-huge;
+    @apply text-Gray text-regular md:text-huge;
   }
   .calender-item {
     @apply w-11/12 aspect-square rounded-[10px];
