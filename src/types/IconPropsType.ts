@@ -1,3 +1,3 @@
 export interface IconPropsType {
-  isClick: boolean;
+  isClick?: boolean;
 }

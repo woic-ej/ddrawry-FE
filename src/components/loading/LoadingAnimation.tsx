@@ -15,7 +15,7 @@ const LoadingAnimation = () => {
   }, []);
 
   return (
-    <div className="flex gap-6">
+    <div className="flex gap-4 sm:gap-6">
       <span className={`transition-transform duration-500 ${activeWord === 1 && "animate-bounce"}`}>
         <LoadingWord1 />
       </span>

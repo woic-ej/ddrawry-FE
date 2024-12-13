@@ -31,3 +31,22 @@
   height: 9px;
   margin-top: 10px;
 }
+
+@media (max-width: 640px) {
+  .swiper {
+    padding-top: 20px;
+  }
+  .swiper-pagination-bullet {
+    width: 6px;
+    height: 6px;
+  }
+}
+
+@media (max-width: 480px) {
+  .swiper-button-prev {
+    left: 0;
+  }
+  .swiper-button-next {
+    right: 0;
+  }
+}

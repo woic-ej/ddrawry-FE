@@ -17,11 +17,7 @@ const HeaderWithProfile: React.FC<HeaderWithProfileProps> = ({ title }) => {
   };
   return (
     <>
-      <div
-        className={`z-[50] sticky top-0 flex w-full p-0 h-[35px] md:h-[50px] justify-center items-center ${
-          title === "띠로리" ? "bg-Primary" : "bg-Lime"
-        }`}
-      >
+      <div className={`header-layout ${title === "띠로리" ? "bg-Primary" : "bg-Lime"}`}>
         <p className="text-center title-font">{title}</p>
         <div className="flex items-center absolute right-4 ">
           <button aria-label="profile" onClick={handleProfileIconClick}>

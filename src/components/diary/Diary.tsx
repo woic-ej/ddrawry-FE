@@ -1,6 +1,6 @@
-import MoodList from "@components/iconComponents/mood/MoodList";
-import WeatherList from "@components/iconComponents/weather/WeatherList";
-import React from "react";
+import MoodList from "@components/diary/mood/MoodList";
+import WeatherList from "@components/diary/weather/WeatherList";
+import React, { useEffect, useState } from "react";
 import ImageCreationPanel from "@components/diary/image/ImageCreationPanel";
 import InputSection from "@components/diary/InputSection";
 import { useLocation } from "react-router-dom";
@@ -23,6 +23,7 @@ const Diary: React.FC<Props> = ({ date, nickname }) => {
   const location = useLocation();
   const isDiaryPage = location.pathname.includes("diary") || location.pathname.includes("share");
   const { register, setValue, trigger, watch } = useFormContext<DiaryFormData>();
+  const [isSelectOption, setIsSelectOption] = useState<boolean>(false);
 
   const currentMood = watch("mood");
   const currentWeather = watch("weather");
@@ -33,20 +34,33 @@ const Diary: React.FC<Props> = ({ date, nickname }) => {
     e.preventDefault();
   };
 
+  useEffect(() => {
+    const ChangeSelectOption = () => {
+      const width = window.innerWidth;
+      setIsSelectOption(width <= 530);
+    };
+
+    ChangeSelectOption();
+    window.addEventListener("resize", ChangeSelectOption);
+
+    return () => window.removeEventListener("resize", ChangeSelectOption);
+  }, []);
+
   return (
-    <form onSubmit={handleSubmit}>
-      <div className="w-[800px] h-[1250px] border-[3px] border-Charcoal flex flex-col mt-[50px] mb-[50px]">
-        <div className="w-full flex justify-center items-center py-[12px] title-font border-b-[3px] border-Charcoal">
+    <form onSubmit={handleSubmit} className="flex justify-center w-full">
+      <div className="w-11/12 h-auto md:w-[600px] lg:w-[800px] border-[3px] border-Charcoal flex flex-col my-[2.5rem] md:my-[50px]">
+        <div className="w-full flex justify-center items-center py-[8px] md:py-[12px] title-font border-b-[3px] border-Charcoal">
           {formattedDate} {nickname}의 일기
         </div>
         <div className="flex w-full border-b-[3px] border-Charcoal">
           <div className="option-box border-r-[3px] border-Charcoal">
-            <div className="title-font">기분 : </div>
+            <div className="title-font ">기분 : </div>
             <MoodList
               setValue={setValue}
               trigger={trigger}
               currentMood={currentMood}
-              disabled={isDiaryPage}
+              isDiaryPage={isDiaryPage}
+              isSelectOption={isSelectOption}
             />
           </div>
           <div className="option-box">
@@ -55,14 +69,15 @@ const Diary: React.FC<Props> = ({ date, nickname }) => {
               setValue={setValue}
               trigger={trigger}
               currentWeather={currentWeather}
-              disabled={isDiaryPage}
+              isDiaryPage={isDiaryPage}
+              isSelectOption={isSelectOption}
             />
           </div>
         </div>
-        <div className="w-full h-[75px] border-b-[3px] border-Charcoal pl-[25px] flex items-center">
+        <div className="w-full h-[40px] md:h-[45px] lg:h-[60px] border-b-[3px] border-Charcoal pl-[10px] flex items-center">
           <div className="title-font">제목 : </div>
           <input
-            className="ml-[18px] w-4/5 h-[45px] focus:outline-none title-font placeholder-Gray"
+            className="ml-[18px] w-4/5 h-full focus:outline-none title-font placeholder-Gray"
             type="text"
             placeholder="제목을 입력해주세요."
             readOnly={isDiaryPage}

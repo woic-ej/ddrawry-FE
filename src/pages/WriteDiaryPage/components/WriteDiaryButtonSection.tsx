@@ -63,8 +63,8 @@ const WriteDiaryButtonSection = ({ date, nickname, tempId, isValid, isDirty }: P
 
   return (
     <>
-      <div className="flex w-[800px] justify-between mb-[80px]">
-        <div className="flex gap-[25px]">
+      <div className="flex w-11/12 md:w-[600px] lg:w-[800px] mb-[2.5rem] md:mb-[50px]">
+        <div className="flex w-1/2 gap-[10px] md:gap-[20px] lg:gap-[25px]">
           <SmallButton title="띠로리 앨범" color="green" onClick={handleImageHistory} />
           {currentImage && (
             <SmallButton
@@ -74,12 +74,14 @@ const WriteDiaryButtonSection = ({ date, nickname, tempId, isValid, isDirty }: P
             />
           )}
         </div>
-        <BigButton
-          title="일기 저장하기"
-          color={`${isValid ? "yellow" : "gray"}`}
-          disabled={!isValid}
-          onClick={() => setActiveModal("save")}
-        />
+        <div className="w-1/2">
+          <BigButton
+            title="일기 저장하기"
+            color={`${isValid ? "yellow" : "gray"}`}
+            disabled={!isValid}
+            onClick={() => setActiveModal("save")}
+          />
+        </div>
       </div>
       {activeModal === "imageHistory" && (
         <ModalLayout modalClose={handleModalClose}>

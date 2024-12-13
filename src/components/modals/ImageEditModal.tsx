@@ -64,15 +64,15 @@ const ImageEditModal = ({
   };
 
   return (
-    <div className="flex flex-col w-[480px] h-[450px] rounded-[30px] border p-[20px] pb-[0px] bg-white">
+    <div className="flex flex-col w-3/4 h-auto sm:w-[480px] rounded-[30px] border p-[15px] sm:p-[20px] bg-white">
       {isLoading || !imageHistory ? (
         <LoadingSpinner />
       ) : (
         <>
-          <div className="flex relative h-[40px]">
+          <div className="flex relative">
             {imageHistory.length !== 0 && (
               <button
-                className={`flex justify-center items-center rounded-[15px] border border-PrimaryStroke ${isEdit ? "bg-PrimaryStroke" : "bg-Primary"} text-[16px] text-Charcoal w-[90px] h-[40px]`}
+                className={`flex justify-center items-center rounded-[15px] w-[75px] h-[32px] sm:w-[90px] sm:h-[40px] border border-PrimaryStroke ${isEdit ? "bg-PrimaryStroke" : "bg-Primary"} body-font text-Charcoal`}
                 onClick={handleEditClick}
               >
                 {isEdit ? "취소" : "편집"}

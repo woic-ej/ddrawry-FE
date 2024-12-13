@@ -39,24 +39,22 @@ const ChangeNameModal: React.FC<ChangeNameModalProps> = ({ currentName, changeMo
 
   return (
     <div
-      className="flex flex-col relative bg-white w-[450px] h-[300px] rounded-[30px] gap-[30px] p-[30px] border body-font leading-[38.08px] text-center"
+      className="flex flex-col relative bg-white w-[300px] md:w-[400px] lg:w-[450px] lg:h-[300px] rounded-[30px] gap-[30px] p-[30px] border body-font text-center"
       onClick={(e) => e.stopPropagation()}
     >
       <div>닉네임 수정하기</div>
-      <div className="flex flex-col items-start gap-[20px] pl-[50px]">
+      <div className="flex flex-col items-start gap-[10px] lg:gap-[20px] ">
         <div>현재 닉네임 : {currentName}</div>
-        <div className="flex gap-[10px] items-center relative">
+        <div className="flex gap-[5px] items-center relative">
           <span>바꿀 닉네임 : </span>
           <input
             type="text"
-            className={`w-[150px] h-[40px] border ${errorMessage === "" ? "border-ButtonDisabledStroke} " : "border-[#F46666]"} rounded-[10px] p-[10px]`}
+            className={`w-2/5 h-[40px] border ${errorMessage === "" ? "border-ButtonDisabledStroke} " : "border-[#F46666]"} rounded-[10px] p-[10px]`}
             onChange={handleChangeNickname}
             value={newName}
           />
         </div>
-        <div className="text-[18px] text-[#F46666] absolute translate-x-[161px] translate-y-[120px]">
-          {errorMessage}
-        </div>
+        <div className="text-small text-left text-[#F46666]">{errorMessage}</div>
       </div>
       <div className="flex justify-end">
         <ModalButton title="바꾸기" onClick={handleChangeNameClick} />

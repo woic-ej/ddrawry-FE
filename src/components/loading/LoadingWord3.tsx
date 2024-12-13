@@ -1,6 +1,11 @@
 const LoadingWord3 = () => {
   return (
-    <svg width="87" height="76" viewBox="0 0 87 76" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg
+      className="w-[70px] h-[48px] sm:w-[87px] sm:h-[76px]"
+      viewBox="0 0 87 76"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
       <path
         d="M0 8.18462C0 3.66438 3.66438 0 8.18462 0H49.0178C54.5406 0 59.0178 4.47715 59.0178 10V16.3692H8.18461C3.66437 16.3692 0 12.7049 0 8.18462Z"
         fill="#A7C7E7"
