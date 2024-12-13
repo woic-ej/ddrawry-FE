@@ -3,18 +3,18 @@
 @tailwind utilities;
 
 @font-face {
-  font-family: "cookieRun";
+  font-family: "SDSamliphopangche";
   src:
-    url("./assets/fonts/CookieRun-Regular.woff2") format("woff2"),
-    url("./assets/fonts/CookieRun-Regular.woff") format("woff"),
-    url("./assets/fonts/CookieRun-Regular.ttf") format("truetype"),
-    url("./assets/fonts/CookieRun-Regular.otf") format("opentype");
+    url("/fonts/SDSamliphopangcheTTFBasic.woff2") format("woff2"),
+    url("/fonts/SDSamliphopangcheTTFBasic.woff") format("woff"),
+    url("/fonts/SDSamliphopangcheTTFBasic.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
+  font-display: swap;
 }
 
 body {
-  font-family: "cookieRun";
+  font-family: "SDSamliphopangche";
 }
 
 @layer components {

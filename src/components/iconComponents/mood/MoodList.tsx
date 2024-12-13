@@ -23,22 +23,52 @@ const MoodList: React.FC<MoodListProps> = ({ disabled, setValue, trigger, curren
 
   return (
     <div className="flex gap-[15px]">
-      <button type="button" onClick={() => handleMoodClick("smile")} disabled={disabled}>
+      <button
+        type="button"
+        aria-label="smile"
+        onClick={() => handleMoodClick("smile")}
+        disabled={disabled}
+      >
         <SmileIcon isClick={currentMood === "smile"} />
       </button>
-      <button type="button" onClick={() => handleMoodClick("sad")} disabled={disabled}>
+      <button
+        type="button"
+        aria-label="sad"
+        onClick={() => handleMoodClick("sad")}
+        disabled={disabled}
+      >
         <SadIcon isClick={currentMood === "sad"} />
       </button>
-      <button type="button" onClick={() => handleMoodClick("mediocre")} disabled={disabled}>
+      <button
+        type="button"
+        aria-label="mediocre"
+        onClick={() => handleMoodClick("mediocre")}
+        disabled={disabled}
+      >
         <MediocreIcon isClick={currentMood === "mediocre"} />
       </button>
-      <button type="button" onClick={() => handleMoodClick("angry")} disabled={disabled}>
+      <button
+        type="button"
+        aria-label="angry"
+        onClick={() => handleMoodClick("angry")}
+        disabled={disabled}
+      >
         <AngryIcon isClick={currentMood === "angry"} />
       </button>
-      <button type="button" onClick={() => handleMoodClick("excited")} disabled={disabled}>
+      <button
+        type="button"
+        aria-label="excited"
+        onClick={() => handleMoodClick("excited")}
+        disabled={disabled}
+      >
         <ExcitedIcon isClick={currentMood === "excited"} />
       </button>
-      <button type="button" onClick={() => handleMoodClick("happy")} disabled={disabled}>
+      <button
+        type="button"
+        aria-label="happy"
+        onClick={() => handleMoodClick("happy")}
+        disabled={disabled}
+      >
         <HappyIcon isClick={currentMood === "happy"} />
       </button>
     </div>

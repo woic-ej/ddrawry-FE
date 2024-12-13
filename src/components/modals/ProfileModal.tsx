@@ -1,7 +1,7 @@
 import LoadingSpinner from "@components/loading/LoadingSpinner";
 import React, { Suspense, useState } from "react";
 import ModalLayout from "@components/modals/ModalLayout";
-import informationIcon from "@assets/images/information.png";
+import informationIcon from "@assets/images/information.webp";
 import { useNavigate } from "react-router-dom";
 import { useLogout } from "@api/users/useLogout";
 import { useDeleteAccount } from "@api/users/useDeleteAccount";

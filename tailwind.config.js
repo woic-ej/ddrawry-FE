@@ -4,7 +4,7 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        cookieRun: ["cookieRun"],
+        SDSamliphopangche: ["SDSamliphopangche"],
       },
       colors: {
         Charcoal: "#36454F",

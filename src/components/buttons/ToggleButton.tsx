@@ -46,6 +46,7 @@ const ToggleButton: React.FC<ToggleButtonProps> = ({ leftTitle, rightTitle }) =>
   return (
     <div className="flex rounded-[10px] border border-ButtonDisabledStroke w-[190px] h-[45px] text-regular leading-[38.08px]">
       <button
+        aria-label={`${leftTitle}`}
         onClick={() => {
           if (!isLeftActive) {
             handleToggle();
@@ -58,6 +59,7 @@ const ToggleButton: React.FC<ToggleButtonProps> = ({ leftTitle, rightTitle }) =>
         {leftTitle}
       </button>
       <button
+        aria-label={`${rightTitle}`}
         onClick={() => {
           if (isLeftActive) {
             handleToggle();

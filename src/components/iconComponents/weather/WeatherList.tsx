@@ -28,22 +28,52 @@ const WeatherList: React.FC<WeatherListProps> = ({
 
   return (
     <div className="flex gap-[20px]">
-      <button type="button" onClick={() => handleWeatherClick("sunny")} disabled={disabled}>
+      <button
+        type="button"
+        aria-label="sunny"
+        onClick={() => handleWeatherClick("sunny")}
+        disabled={disabled}
+      >
         <SunnyIcon isClick={currentWeather === "sunny"} />
       </button>
-      <button type="button" onClick={() => handleWeatherClick("rainy")} disabled={disabled}>
+      <button
+        type="button"
+        aria-label="rainy"
+        onClick={() => handleWeatherClick("rainy")}
+        disabled={disabled}
+      >
         <RainyIcon isClick={currentWeather === "rainy"} />
       </button>
-      <button type="button" onClick={() => handleWeatherClick("snowy")} disabled={disabled}>
+      <button
+        type="button"
+        aria-label="snowy"
+        onClick={() => handleWeatherClick("snowy")}
+        disabled={disabled}
+      >
         <SnowyIcon isClick={currentWeather === "snowy"} />
       </button>
-      <button type="button" onClick={() => handleWeatherClick("thunderstorm")} disabled={disabled}>
+      <button
+        type="button"
+        aria-label="thunderstorm"
+        onClick={() => handleWeatherClick("thunderstorm")}
+        disabled={disabled}
+      >
         <ThunderStormIcon isClick={currentWeather === "thunderstorm"} />
       </button>
-      <button type="button" onClick={() => handleWeatherClick("cloudy")} disabled={disabled}>
+      <button
+        type="button"
+        aria-label="cloudy"
+        onClick={() => handleWeatherClick("cloudy")}
+        disabled={disabled}
+      >
         <CloudyIcon isClick={currentWeather === "cloudy"} />
       </button>
-      <button type="button" onClick={() => handleWeatherClick("windy")} disabled={disabled}>
+      <button
+        type="button"
+        aria-label="windy"
+        onClick={() => handleWeatherClick("windy")}
+        disabled={disabled}
+      >
         <WindyIcon isClick={currentWeather === "windy"} />
       </button>
     </div>

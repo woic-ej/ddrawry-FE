@@ -6,7 +6,7 @@ interface Props {
 
 const RightArrowIcon: React.FC<Props> = ({ onClick }) => {
   return (
-    <button onClick={onClick}>
+    <button aria-label="rightArrow" onClick={onClick}>
       <svg
         width="37"
         height="37"

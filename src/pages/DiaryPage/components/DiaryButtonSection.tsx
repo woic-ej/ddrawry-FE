@@ -43,7 +43,6 @@ const DiaryButtonSection = ({ date, diaryId }: Props) => {
     try {
       const response = await postShareDiary(Number(diaryId));
       shareToKakao(Number(diaryId), response.token);
-      toast.success("공유 링크가 클립보드에 복사되었습니다.");
     } catch (error) {
       toast.error(`공유 토큰 생성 실패 : ${error}`);
     } finally {
