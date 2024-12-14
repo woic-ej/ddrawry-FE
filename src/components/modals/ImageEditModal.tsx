@@ -19,7 +19,7 @@ interface ImageEditModalProps {
   tempId: string;
   imageEditModalClose: () => void;
   setValue: (field: "image", value: string) => void;
-  setIsUpdate: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsUpdate: (isUpdate: Boolean) => void;
 }
 
 const ImageEditModal = ({

@@ -10,12 +10,14 @@ import { getTempDiary } from "@api/tempDiary/tempApis";
 import TempSaveModal from "@pages/WriteDiaryPage/components/TempSaveModal";
 import { TempDiaryType } from "src/types/tempTypes";
 import LoadingSpinner from "@components/loading/LoadingSpinner";
+import { useUpdateStore } from "@store/useUpdateStore";
 
 const WriteDiaryPage = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<Error | null>(null);
   const [tempData, setTempData] = useState<TempDiaryType | null>(null);
   const { tempId } = useParams<{ tempId: string }>();
+  const { clearIsUpdate } = useUpdateStore();
   const methods = useForm<DiaryFormData>({
     resolver: zodResolver(DiaryFormSchema),
     mode: "onChange",
@@ -44,6 +46,7 @@ const WriteDiaryPage = () => {
       } catch (error) {
         setError(error as Error);
       } finally {
+        clearIsUpdate();
         setIsLoading(false);
       }
     })();
