@@ -21,12 +21,10 @@ const SmallButton: React.FC<SmallButtonProps> = ({ title, color, onClick }) => {
   return (
     <button
       type="button"
-      className={`flex justify-center items-center w-[150px] h-[60px] rounded-[15px] gap-[10px] border text-regular leading-[38.08px] ${buttonClasses()}`}
+      className={`flex justify-center items-center w-2/5 h-[45px] md:w-[120px] md:h-[50px] lg:w-[150px] lg:h-[60px] rounded-[15px] border body-font ${buttonClasses()}`}
       onClick={onClick}
     >
-      {title === "그림 그려줘!" && (
-        <PaintIcon size={36} color={color === "gray" ? "white" : "green"} />
-      )}
+      {title === "그림 그려줘!" && <PaintIcon color={color === "gray" ? "white" : "green"} />}
       {title}
     </button>
   );

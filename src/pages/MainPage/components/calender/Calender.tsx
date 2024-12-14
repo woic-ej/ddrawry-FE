@@ -40,20 +40,20 @@ const renderCalenderItem = (day: Date, currentDate: Date, events: BaseDiaryType[
 
 const Calender: React.FC<Props> = ({ currentMonthData, currentDate, calenderData }) => {
   return (
-    <div className="w-full h-auto border-[3px] border-ButtonDisabled rounded-[10px] flex flex-col items-center gap-[54px]">
-      <div className="flex w-full justify-around mt-[48px]">
+    <div className="w-full h-auto border-[3px] border-ButtonDisabled rounded-[10px] flex flex-col items-center gap-[20px] md:gap-[30px] lg:gap-[50px]">
+      <div className="flex w-full justify-around mt-[20px] md:mt-[35px] lg:mt-[45px]">
         {DAY_LIST.map((day) => (
           <div
             key={`${day}key`}
             className={`${
               day === "일" ? "text-Red" : day === "토" ? "text-Primary" : "text-Charcoal"
-            } text-huge font-bold`}
+            } title-font font-bold`}
           >
             {day}
           </div>
         ))}
       </div>
-      <div className="grid grid-cols-7 w-full gap-x-[11px] gap-y-[11px] p-[11px]">
+      <div className="grid grid-cols-7 w-full md:gap-x-[11px] md:gap-y-[11px] md:p-[11px]">
         {currentMonthData.map((day) => renderCalenderItem(day, currentDate, calenderData))}
       </div>
     </div>

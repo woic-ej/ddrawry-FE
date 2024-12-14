@@ -7,9 +7,9 @@ interface Props {
 
 const HeaderWithLike = ({ bookmark, id }: Props) => {
   return (
-    <div className="z-[50] sticky top-0 flex w-full p-0 min-h-[50px] justify-center items-center bg-Lemon">
+    <div className="header-layout bg-Lemon">
       <p className="text-center title-font leading-[48.96px]">일기장</p>
-      <div className="absolute right-4">
+      <div className="absolute right-2 md:right-4">
         <LikeIcon bookmark={bookmark} id={id} />
       </div>
     </div>

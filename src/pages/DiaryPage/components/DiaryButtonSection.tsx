@@ -43,7 +43,6 @@ const DiaryButtonSection = ({ date, diaryId }: Props) => {
     try {
       const response = await postShareDiary(Number(diaryId));
       shareToKakao(Number(diaryId), response.token);
-      toast.success("공유 링크가 클립보드에 복사되었습니다.");
     } catch (error) {
       toast.error(`공유 토큰 생성 실패 : ${error}`);
     } finally {
@@ -69,12 +68,14 @@ const DiaryButtonSection = ({ date, diaryId }: Props) => {
 
   return (
     <>
-      <div className="flex w-[800px] justify-between mb-[80px]">
-        <div className="flex gap-[25px]">
+      <div className="flex w-11/12 md:w-[600px] lg:w-[800px] mb-[2.5rem] md:mb-[50px]">
+        <div className="flex w-1/2 gap-[10px] md:gap-[20px] lg:gap-[25px]">
           <SmallButton title="수정하기" color="green" onClick={handleEditClick} />
           <SmallButton title="지우기" color="green" onClick={() => setActiveModal("delete")} />
         </div>
-        <BigButton title="일기 자랑하기" color="blue" onClick={() => setActiveModal("share")} />
+        <div className="w-1/2">
+          <BigButton title="일기 자랑하기" color="blue" onClick={() => setActiveModal("share")} />
+        </div>
       </div>
       {ActiveModal === "delete" && (
         <ModalLayout modalClose={handleModalClose}>

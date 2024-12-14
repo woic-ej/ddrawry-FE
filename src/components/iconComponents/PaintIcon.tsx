@@ -2,10 +2,9 @@ import React from "react";
 
 interface PaintIconProps {
   color: "green" | "white";
-  size: 36 | number;
 }
 
-const PaintIcon: React.FC<PaintIconProps> = ({ color, size }) => {
+const PaintIcon: React.FC<PaintIconProps> = ({ color }) => {
   const paintClasses = () => {
     switch (color) {
       case "green":
@@ -19,9 +18,8 @@ const PaintIcon: React.FC<PaintIconProps> = ({ color, size }) => {
 
   return (
     <svg
-      width={size}
-      height={size}
-      viewBox={`0 0 ${size} ${size}`}
+      className="w-5 h-5 md:w-[36px] md:h-[36px]"
+      viewBox={`0 0  36 36`}
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >

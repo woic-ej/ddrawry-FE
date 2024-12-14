@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import DefaultLogo from "@assets/images/calenderItem-logo.png";
+import DefaultLogo from "@assets/images/calenderItem-logo.webp";
 import Like from "@pages/MainPage/components/icons/Like";
 import classNames from "classnames";
 import { useNavigate } from "react-router-dom";
@@ -42,6 +42,7 @@ const CalenderItem: React.FC<Props> = ({
 
     const imageClassNames = classNames(
       { "calender-item object-cover": imageUrl },
+      { "w-11/12 aspect-auto": DefaultLogo },
       {
         "opacity-40": !isValidate,
       },
@@ -53,6 +54,8 @@ const CalenderItem: React.FC<Props> = ({
           src={imageUrl || DefaultLogo}
           className={imageClassNames}
           alt={imageUrl ? "그림일기 이미지" : "기본 로고 이미지"}
+          width={153}
+          height={153}
         />
         {bookmark && (
           <div className="absolute">
@@ -67,7 +70,7 @@ const CalenderItem: React.FC<Props> = ({
     "calender-item relative flex justify-center items-center w-full",
     {
       "cursor-pointer": !isFutureDate,
-      "text-ButtonDisabledStroke text-regular": !isValidate,
+      "text-ButtonDisabledStroke font-body": !isValidate,
       "bg-white body-font": isValidate,
       "bg-[#F0F0F0]": isTempModalOpen,
     },

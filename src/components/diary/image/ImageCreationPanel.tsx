@@ -40,7 +40,7 @@ const ImageCreationPanel: React.FC<Props> = ({ date, story, setValue }) => {
   };
 
   return (
-    <div className="flex flex-col gap-[18px] items-center justify-center w-2/3 aspect-square">
+    <div className="flex flex-col gap-[18px] items-center justify-center w-4/5 min-[435px]:w-2/3 aspect-square">
       {isPending ? (
         <LoadingAnimation />
       ) : (

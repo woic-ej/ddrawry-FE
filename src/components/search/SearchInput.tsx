@@ -13,10 +13,10 @@ const SearchInput: React.FC<SearchInputProps> = ({ content, handleInputChange, h
     }
   };
   return (
-    <div className="w-2/3 h-[50px] rounded-[10px] border border-Gray flex items-center">
+    <div className="w-full h-[40px] md:h-[50px] rounded-[10px] border border-Gray flex items-center">
       <input
         type="text"
-        className="w-full placeholder-Gray text-regular ml-[24px] focus:outline-none"
+        className="w-full placeholder-Gray body-font ml-[20px] focus:outline-none"
         placeholder="검색어를 입력하세요"
         value={content}
         onKeyDown={handleKeyDown}
