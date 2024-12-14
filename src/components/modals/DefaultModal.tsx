@@ -18,7 +18,7 @@ const DefaultModal: React.FC<DefaultModalProps> = ({
 }) => {
   return (
     <div
-      className="flex flex-col relative bg-white w-[450px] h-[200px] rounded-[30px] gap-[20px] border justify-center items-center"
+      className="flex flex-col relative bg-white w-[280px] h-[180px] md:w-[450px] md:h-[200px] rounded-[30px] gap-[20px] border justify-center items-center"
       onClick={(e) => e.stopPropagation()}
     >
       <div className="leading-[38.08px] text-center body-font whitespace-pre-line">{title}</div>

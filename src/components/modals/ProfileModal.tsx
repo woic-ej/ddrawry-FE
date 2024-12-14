@@ -64,7 +64,11 @@ const ProfileModal = () => {
             {item.label === "도움말" ? (
               <div className="flex items-center gap-[3px]">
                 {item.label}
-                <img src={informationIcon} className="w-[25px] h-[25px]" alt="도움말 아이콘" />
+                <img
+                  src={informationIcon}
+                  className="w-[18px] h-[18px] sm:w-[25px] sm:h-[25px]"
+                  alt="도움말 아이콘"
+                />
               </div>
             ) : (
               item.label

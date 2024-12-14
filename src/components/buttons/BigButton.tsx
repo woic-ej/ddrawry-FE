@@ -23,7 +23,7 @@ const BigButton: React.FC<BigButtonProps> = ({ title, color, onClick, disabled }
   return (
     <button
       disabled={disabled}
-      className={`w-[400px] h-[60px] flex justify-center items-center rounded-[15px] border ${buttonClasses()} text-regular leading-[38.08px]`}
+      className={`w-full h-[45px] md:h-[50px] lg:h-[60px] flex justify-center items-center rounded-[15px] border ${buttonClasses()} body-font`}
       onClick={onClick}
     >
       {title}

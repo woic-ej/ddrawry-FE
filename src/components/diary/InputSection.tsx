@@ -18,7 +18,7 @@ const InputSection: React.FC<Props> = ({ wordLimit, maxLength, register, current
 
   return (
     <div
-      className={`w-full flex flex-grow ${!isClicked && " justify-center items-center cursor-pointer"}`}
+      className={`w-full flex h-[300px] ${!isClicked && " justify-center items-center cursor-pointer"}`}
       onClick={() => {
         setIsClicked(true);
       }}
@@ -32,11 +32,11 @@ const InputSection: React.FC<Props> = ({ wordLimit, maxLength, register, current
         <div className="w-full h-full flex flex-col ">
           <textarea
             id="textarea"
-            className="resize-none outline-none title-font w-full flex-grow p-10 pb-0"
+            className="resize-none outline-none title-font w-full flex-grow p-6 pb-0 md:p-10 md:pb-0"
             maxLength={maxLength}
             {...register("story")}
           />
-          <div className="w-full flex justify-end items-center h-[50px] pr-[18px] text-Gray text-[22px]">
+          <div className="w-full flex justify-end items-center h-[50px] pr-[18px] hugeCaption-font">
             {currentStory.length} / {maxLength} 자
           </div>
         </div>

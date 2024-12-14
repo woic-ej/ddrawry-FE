@@ -1,9 +1,8 @@
 import { IconPropsType } from "src/types/IconPropsType";
-import React from "react";
 
-const SunnyIcon: React.FC<IconPropsType> = ({ isClick }) => {
+const SunnyIcon = ({ isClick }: IconPropsType) => {
   return (
-    <svg width="31" height="30" viewBox="0 0 31 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg className="icon-style" viewBox="0 0 31 30" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
         fillRule="evenodd"
         clipRule="evenodd"
