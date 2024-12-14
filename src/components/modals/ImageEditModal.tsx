@@ -64,22 +64,20 @@ const ImageEditModal = ({
   };
 
   return (
-    <div className="flex flex-col w-3/4 h-auto sm:w-[480px] rounded-[30px] border p-[15px] sm:p-[20px] bg-white">
+    <div className="flex flex-col relative justify-center w-3/4 h-auto min-h-[250px] sm:w-[480px] rounded-[30px] border p-[15px] sm:p-[20px] bg-white">
       {isLoading || !imageHistory ? (
         <LoadingSpinner />
       ) : (
         <>
-          <div className="flex relative">
-            {imageHistory.length !== 0 && (
-              <button
-                className={`flex justify-center items-center rounded-[15px] w-[75px] h-[32px] sm:w-[90px] sm:h-[40px] border border-PrimaryStroke ${isEdit ? "bg-PrimaryStroke" : "bg-Primary"} body-font text-Charcoal`}
-                onClick={handleEditClick}
-              >
-                {isEdit ? "취소" : "편집"}
-              </button>
-            )}
-            <XIcon handleXIconClick={handleCloseModal} />
-          </div>
+          {imageHistory.length !== 0 && (
+            <button
+              className={`flex justify-center items-center rounded-[15px] w-[75px] h-[32px] sm:w-[90px] sm:h-[40px] border border-PrimaryStroke ${isEdit ? "bg-PrimaryStroke" : "bg-Primary"} body-font text-Charcoal`}
+              onClick={handleEditClick}
+            >
+              {isEdit ? "취소" : "편집"}
+            </button>
+          )}
+          <XIcon handleXIconClick={handleCloseModal} />
           {imageHistory.length === 0 ? (
             <EmptyState message="생성된 그림이 없어요!" />
           ) : (
