@@ -64,7 +64,7 @@ const CalenderView: React.FC = () => {
             />
           </Suspense>
         ) : getCurrentMainCalender.data.length === 0 ? (
-          <div className={"h-full w-full flex flex-grow justify-center items-center"}>
+          <div className={"w-full flex flex-grow justify-center items-center"}>
             <EmptyState message="작성된 일기가 없어요!" />
           </div>
         ) : (

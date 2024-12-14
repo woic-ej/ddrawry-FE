@@ -25,6 +25,7 @@ const createImage = async (body: CreateImagePayLoad): Promise<CreateImageRespons
 export const useCreateImage = (
   setValue: (field: "image", value: string) => void,
   tempId: string,
+  setIsUpdate: (isUpdate: Boolean) => void,
 ) => {
   const queryClient = useQueryClient();
 
@@ -37,6 +38,7 @@ export const useCreateImage = (
       });
       setValue("image", data.image_url);
       queryClient.invalidateQueries({ queryKey: ["images", tempId] });
+      setIsUpdate(true);
     },
   });
 };
