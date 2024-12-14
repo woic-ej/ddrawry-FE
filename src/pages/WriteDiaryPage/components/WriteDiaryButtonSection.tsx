@@ -9,6 +9,7 @@ import { DiaryFormData } from "src/types/WriteDiaryTypes";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useUpdateDiary } from "@api/diary/useUpdateDiary";
 import { useWriteDiary } from "@api/diary/useWriteDiary";
+import { useUpdateStore } from "@store/useUpdateStore";
 
 interface Props {
   date: string;
@@ -21,7 +22,7 @@ interface Props {
 type WriteDiaryModalType = "save" | "remove" | "imageHistory" | null;
 
 const WriteDiaryButtonSection = ({ date, nickname, tempId, isValid, isDirty }: Props) => {
-  const [isUpdate, setIsUpdate] = useState<boolean>(false);
+  const { isUpdate, setIsUpdate } = useUpdateStore();
   const [activeModal, setActiveModal] = useState<WriteDiaryModalType>(null);
   const [searchParams] = useSearchParams();
   const [isEditPage, diaryId] = [Boolean(searchParams.get("edit")), searchParams.get("diaryId")];

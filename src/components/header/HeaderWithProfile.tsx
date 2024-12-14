@@ -29,7 +29,7 @@ const HeaderWithProfile: React.FC<HeaderWithProfileProps> = ({ title }) => {
         <div className="z-[10] fixed right-4 top-0 translate-y-[50px] md:translate-y-[70px]">
           <Suspense
             fallback={
-              <div className="profile-modal-layout h-[300px]">
+              <div className="profile-modal-layout h-[270px]">
                 <LoadingSpinner />
               </div>
             }

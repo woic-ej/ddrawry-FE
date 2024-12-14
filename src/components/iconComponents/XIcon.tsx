@@ -7,7 +7,7 @@ interface XIconProps {
 
 const XIcon: React.FC<XIconProps> = ({ handleXIconClick }) => {
   return (
-    <button onClick={handleXIconClick} className="absolute top-0 right-0">
+    <button onClick={handleXIconClick} className="absolute top-4 right-4">
       <img src={XIconImage} width={32} height={32} alt="XIcon" />
     </button>
   );

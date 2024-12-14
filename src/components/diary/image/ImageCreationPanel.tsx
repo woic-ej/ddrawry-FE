@@ -8,6 +8,7 @@ import { CreateImagePayLoad } from "src/types/imageTypes";
 import NotificationMessage from "@components/diary/image/NotificationMessage";
 import { useGetCount } from "@api/image/useGetCount";
 import LoadingAnimation from "@components/loading/LoadingAnimation";
+import { useUpdateStore } from "@store/useUpdateStore";
 
 interface Props {
   date: string;
@@ -18,7 +19,12 @@ interface Props {
 const ImageCreationPanel: React.FC<Props> = ({ date, story, setValue }) => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const { tempId } = useParams<{ tempId: string }>();
-  const { mutate: createImage, isPending, isError } = useCreateImage(setValue, tempId!);
+  const { setIsUpdate } = useUpdateStore();
+  const {
+    mutate: createImage,
+    isPending,
+    isError,
+  } = useCreateImage(setValue, tempId!, setIsUpdate);
   const { data: countValue } = useGetCount(date);
   const isValidate = Boolean(story && story.length >= 100);
 

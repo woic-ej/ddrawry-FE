@@ -13,7 +13,7 @@ const OAuthRedirectHandler = () => {
     if (isSuccess && data) {
       localStorage.setItem("access_token", data.access_token);
       const redirectedFrom = localStorage.getItem("redirectedFrom") || "/";
-      navigate(redirectedFrom, { replace: true });
+      navigate(redirectedFrom);
       localStorage.removeItem("redirectedFrom");
     }
   }, [isSuccess, navigate, data]);
