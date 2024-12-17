@@ -17,7 +17,9 @@ const DefaultErrorComponent = ({ message, buttonText, handleClick }: Props) => {
           <EmptyState message={message} />
         </div>
         {handleClick && buttonText && (
-          <BigButton title={buttonText} color="blue" onClick={handleClick} />
+          <div className="w-2/5">
+            <BigButton title={buttonText} color="blue" onClick={handleClick} />
+          </div>
         )}
       </div>
     </div>
