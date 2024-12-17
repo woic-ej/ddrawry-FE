@@ -26,7 +26,8 @@ const ErrorFallback = ({ error }: FallbackProps) => {
       case 504:
         return (
           <ServerError
-            message="서버 응답 시간이 초과되었습니다. 인터넷 연결을 확인하거나 잠시 후 다시 시도해주세요."
+            message="서버 응답 시간이 초과되었습니다. 
+            인터넷 연결을 확인하거나 잠시 후 다시 시도해주세요."
             handleClick={() => window.location.reload()}
           />
         );
