@@ -25,7 +25,6 @@ const MainPage: React.FC = () => {
     const isHideForOneDay = !cookies.hideForOneDay;
     const isHideForever = !cookies.hideForever;
     setIsModalOpen(isHideForOneDay && isHideForever);
-    console.log(isHideForOneDay, isHideForever);
   }, [cookies]);
 
   return (
