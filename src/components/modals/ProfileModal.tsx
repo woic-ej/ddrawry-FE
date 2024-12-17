@@ -19,6 +19,11 @@ const profileItems: ProfileItemsType[] = [
   { label: "로그아웃", modal: "logout" },
   { label: "회원탈퇴", modal: "deleteAccount" },
   { label: "도움말", modal: "information" },
+  {
+    label: "피드백 남기기",
+    action: "link",
+    path: "https://form.naver.com/response/tl_CsSgLR1y7Hmxe6wbB0A",
+  },
 ];
 
 type ProfileItemsType = {
@@ -42,6 +47,8 @@ const ProfileModal = () => {
   const handleClick = (item: ProfileItemsType) => {
     if (item.action === "navigate" && item.path) {
       navigate(item.path);
+    } else if (item.action === "link" && item.path) {
+      window.open(item.path, "_black");
     } else if (item.modal) {
       if (item.modal === "changeName" && isError) {
         toast.error(error.message);
