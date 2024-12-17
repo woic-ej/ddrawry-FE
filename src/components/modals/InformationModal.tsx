@@ -59,12 +59,12 @@ const InformationModal: React.FC<Props> = ({ InformationModalClose, isMainPage }
       <div className="flex justify-center ">띠로리 사용방법!</div>
       <div className=" flex flex-col w-fit h-fit gap-[4px] font-[600] body-font">
         <p>step 1 {")"} 달력에서 작성하고 싶은 날짜를 클릭</p>
-        <p className="pl-[50px] md:pl-[105px]">
+        <p className="pl-[50px] md:pl-[60px]">
           {"("}단, <span className="text-[#F46666]">오늘 날짜</span> 이후로는 작성 X{")"}
         </p>
         <p>step 2 {")"} 일기 작성 페이지로 이동!</p>
         <p>step 3 {")"} 끝내주게 일기 쓰기</p>
-        <p className="pl-[50px] md:pl-[105px]">
+        <p className="pl-[50px] md:pl-[60px]">
           {"("}일기당 그림은 <span className="text-[#F46666]">최대 3개</span>까지 보관 가능{")"}
         </p>
         <p>step 4 {")"} 멋진 그림 일기 완성</p>
