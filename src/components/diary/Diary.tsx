@@ -9,14 +9,12 @@ import DisplaySection from "@components/diary/DisplaySection";
 import { format, parseISO } from "date-fns";
 import { useFormContext } from "react-hook-form";
 import { DiaryFormData } from "src/types/WriteDiaryTypes";
+import { LIMIT_LENGTH, MAX_LENGTH } from "@constants/wordLength";
 
 interface Props {
   date: string;
   nickname: string;
 }
-
-const LIMIT_LENGTH = 100;
-const MAX_LENGTH = 240;
 
 const Diary: React.FC<Props> = ({ date, nickname }) => {
   const formattedDate = date ? format(parseISO(date), "yyyy년 MM월 dd일") : "";

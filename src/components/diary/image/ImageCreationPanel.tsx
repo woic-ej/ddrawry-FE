@@ -9,6 +9,7 @@ import NotificationMessage from "@components/diary/image/NotificationMessage";
 import { useGetCount } from "@api/image/useGetCount";
 import LoadingAnimation from "@components/loading/LoadingAnimation";
 import { useUpdateStore } from "@store/useUpdateStore";
+import { LIMIT_LENGTH } from "@constants/wordLength";
 
 interface Props {
   date: string;
@@ -26,7 +27,7 @@ const ImageCreationPanel: React.FC<Props> = ({ date, story, setValue }) => {
     isError,
   } = useCreateImage(setValue, tempId!, setIsUpdate);
   const { data: countValue } = useGetCount(date);
-  const isValidate = Boolean(story && story.length >= 100);
+  const isValidate = Boolean(story && story.length >= LIMIT_LENGTH);
 
   const handleDrawClick = () => {
     if (isValidate) setIsModalOpen(true);
