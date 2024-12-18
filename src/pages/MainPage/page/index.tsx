@@ -1,19 +1,31 @@
 import ToggleButton from "@components/buttons/ToggleButton";
 import HeaderWithProfile from "@components/header/HeaderWithProfile";
 import SearchIcon from "@components/search/SearchIcon";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import CalenderView from "../components/calender/CalenderView";
 import { useNavigate } from "react-router-dom";
+import InformationModal from "@components/modals/InformationModal";
+import ModalLayout from "@components/modals/ModalLayout";
+import { useCookies } from "react-cookie";
 
 const MainPage: React.FC = () => {
   const navigate = useNavigate();
-  useEffect(() => {
-    sessionStorage.removeItem("initialLoad");
-  }, []);
+  const [cookies] = useCookies(["hideForOneDay", "hideForever"]);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   const handleSearchIconClick = () => {
     navigate("/search");
   };
+
+  useEffect(() => {
+    sessionStorage.removeItem("initialLoad");
+  }, []);
+
+  useEffect(() => {
+    const isHideForOneDay = !cookies.hideForOneDay;
+    const isHideForever = !cookies.hideForever;
+    setIsModalOpen(isHideForOneDay && isHideForever);
+  }, [cookies]);
 
   return (
     <div className="flex flex-col min-h-screen w-full items-center">
@@ -25,6 +37,12 @@ const MainPage: React.FC = () => {
         </div>
         <CalenderView />
       </div>
+
+      {isModalOpen && (
+        <ModalLayout modalClose={() => setIsModalOpen(false)}>
+          <InformationModal InformationModalClose={() => setIsModalOpen(false)} isMainPage />
+        </ModalLayout>
+      )}
     </div>
   );
 };
